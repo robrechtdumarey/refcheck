@@ -336,33 +336,39 @@ THE TOOL IS NOW A COMPLETE BRIDGE BETWEEN CLAIM LINEAGE AND DESCRIPTION VERIFICA
                 
                 orderedRoots.forEach(root => {
                     const feat = featureRegistry[root];
-                    
-                    // 1. Search by Reference Number
-                    if (feat.ref) {
-                        const refRegex = new RegExp(`\\b${feat.ref}\\b`, 'g');
-                        let m;
-                        while ((m = refRegex.exec(p)) !== null) {
-                            const start = Math.max(0, m.index - 40);
-                            const end = Math.min(p.length, m.index + 40);
-                            const context = "..." + p.substring(start, end).replace(/\n/g, ' ').trim() + "...";
-                            mappings.push({ root, loc, context, type: 'MATCH' });
-                        }
-                    }
-
-                    // 2. Search by Name to find Mismatched References
                     const nameEscaped = feat.canonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                    const nameRegex = new RegExp(`\\b${nameEscaped}\\s*(?:\\((\\d+)\\)|(\\d+))`, 'gi');
-                    let nm;
-                    while ((nm = nameRegex.exec(p)) !== null) {
-                        const foundRef = nm[1] || nm[2];
-                        if (foundRef !== feat.ref) {
-                            const start = Math.max(0, nm.index - 40);
-                            const end = Math.min(p.length, nm.index + 40);
-                            const context = "..." + p.substring(start, end).replace(/\n/g, ' ').trim() + "...";
-                            if (!mappings.some(existing => existing.root === root && existing.loc === loc && existing.context === context)) {
-                                mappings.push({ root, loc, context, type: 'MISMATCH', foundRef });
+                    
+                    // Unified Search: Look for the name and optionally an adjacent reference
+                    const unifiedRegex = new RegExp(`\\b(${nameEscaped})\\b(?:\\s*(?:\\((\\d+)\\)|(\\d+)))?`, 'gi');
+                    let m;
+                    while ((m = unifiedRegex.exec(p)) !== null) {
+                        const foundName = m[1];
+                        const foundRef = m[2] || m[3];
+                        
+                        let type = 'NO_REF';
+                        let cssClass = 'f-warn';
+                        
+                        if (foundRef) {
+                            if (foundRef === feat.ref) {
+                                type = 'MATCH';
+                                cssClass = 'f-ref';
+                            } else {
+                                type = 'MISMATCH';
+                                cssClass = 'f-err';
                             }
                         }
+
+                        // Extract context
+                        const start = Math.max(0, m.index - 40);
+                        const end = Math.min(p.length, m.index + m[0].length + 40);
+                        let context = p.substring(start, end).replace(/\n/g, ' ').trim();
+                        
+                        // Highlight the found part within the context
+                        const highlightedPart = `<span class="${cssClass}">${m[0]}</span>`;
+                        const relativeIndex = m.index - start;
+                        context = "..." + context.substring(0, relativeIndex) + highlightedPart + context.substring(relativeIndex + m[0].length) + "...";
+
+                        mappings.push({ root, loc, context, type, foundRef });
                     }
                 });
             });
@@ -395,9 +401,16 @@ THE TOOL IS NOW A COMPLETE BRIDGE BETWEEN CLAIM LINEAGE AND DESCRIPTION VERIFICA
                 if (matches.length === 0) return;
                 descHtml += `<tr><td colspan="3" class="group-header">Feature: ${featureRegistry[root].canonical} (Claim Ref: ${featureRegistry[root].ref || 'NONE'})</td></tr>`;
                 matches.forEach(m => {
-                    const rowColor = m.type === 'MISMATCH' ? 'var(--error-text)' : 'inherit';
-                    const label = m.type === 'MISMATCH' ? `[MISMATCH: ${m.foundRef}]` : '-';
-                    descHtml += `<tr style="color: ${rowColor}"><td>${label}</td><td class="desc-loc">${m.loc}</td><td class="desc-context">${m.context}</td></tr>`;
+                    let label = '-';
+                    let rowStyle = '';
+                    if (m.type === 'MISMATCH') {
+                        label = `[MISMATCH: ${m.foundRef}]`;
+                        rowStyle = 'color: var(--error-text)';
+                    } else if (m.type === 'NO_REF') {
+                        label = '[NO REF]';
+                        rowStyle = 'color: var(--warning-text)';
+                    }
+                    descHtml += `<tr style="${rowStyle}"><td>${label}</td><td class="desc-loc">${m.loc}</td><td class="desc-context">${m.context}</td></tr>`;
                 });
             });
             descriptionMapBody.innerHTML = descHtml || '<tr><td colspan="3" style="text-align:center">[NO DESCRIPTION MATCHES]</td></tr>';
