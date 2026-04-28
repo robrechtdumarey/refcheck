@@ -334,19 +334,35 @@ THE TOOL IS NOW A COMPLETE BRIDGE BETWEEN CLAIM LINEAGE AND DESCRIPTION VERIFICA
                 if (!markerMatch) return;
                 const loc = `[${markerMatch[1]}]`;
                 
-                // For each registered feature, check for its reference number or canonical name in this paragraph
                 orderedRoots.forEach(root => {
                     const feat = featureRegistry[root];
-                    if (!feat.ref) return; // Prioritize reference-based mapping for v3
                     
-                    const refRegex = new RegExp(`\\b${feat.ref}\\b`, 'g');
-                    let m;
-                    while ((m = refRegex.exec(p)) !== null) {
-                        // Extract context (30 chars before and after)
-                        const start = Math.max(0, m.index - 40);
-                        const end = Math.min(p.length, m.index + 40);
-                        const context = "..." + p.substring(start, end).replace(/\n/g, ' ').trim() + "...";
-                        mappings.push({ root, loc, context });
+                    // 1. Search by Reference Number
+                    if (feat.ref) {
+                        const refRegex = new RegExp(`\\b${feat.ref}\\b`, 'g');
+                        let m;
+                        while ((m = refRegex.exec(p)) !== null) {
+                            const start = Math.max(0, m.index - 40);
+                            const end = Math.min(p.length, m.index + 40);
+                            const context = "..." + p.substring(start, end).replace(/\n/g, ' ').trim() + "...";
+                            mappings.push({ root, loc, context, type: 'MATCH' });
+                        }
+                    }
+
+                    // 2. Search by Name to find Mismatched References
+                    const nameEscaped = feat.canonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    const nameRegex = new RegExp(`\\b${nameEscaped}\\s*(?:\\((\\d+)\\)|(\\d+))`, 'gi');
+                    let nm;
+                    while ((nm = nameRegex.exec(p)) !== null) {
+                        const foundRef = nm[1] || nm[2];
+                        if (foundRef !== feat.ref) {
+                            const start = Math.max(0, nm.index - 40);
+                            const end = Math.min(p.length, nm.index + 40);
+                            const context = "..." + p.substring(start, end).replace(/\n/g, ' ').trim() + "...";
+                            if (!mappings.some(existing => existing.root === root && existing.loc === loc && existing.context === context)) {
+                                mappings.push({ root, loc, context, type: 'MISMATCH', foundRef });
+                            }
+                        }
                     }
                 });
             });
@@ -377,9 +393,11 @@ THE TOOL IS NOW A COMPLETE BRIDGE BETWEEN CLAIM LINEAGE AND DESCRIPTION VERIFICA
             orderedRoots.forEach(root => {
                 const matches = descFindings.filter(f => f.root === root);
                 if (matches.length === 0) return;
-                descHtml += `<tr><td colspan="3" class="group-header">Feature: ${featureRegistry[root].canonical} (${featureRegistry[root].ref})</td></tr>`;
+                descHtml += `<tr><td colspan="3" class="group-header">Feature: ${featureRegistry[root].canonical} (Claim Ref: ${featureRegistry[root].ref || 'NONE'})</td></tr>`;
                 matches.forEach(m => {
-                    descHtml += `<tr><td>-</td><td class="desc-loc">${m.loc}</td><td class="desc-context">${m.context}</td></tr>`;
+                    const rowColor = m.type === 'MISMATCH' ? 'var(--error-text)' : 'inherit';
+                    const label = m.type === 'MISMATCH' ? `[MISMATCH: ${m.foundRef}]` : '-';
+                    descHtml += `<tr style="color: ${rowColor}"><td>${label}</td><td class="desc-loc">${m.loc}</td><td class="desc-context">${m.context}</td></tr>`;
                 });
             });
             descriptionMapBody.innerHTML = descHtml || '<tr><td colspan="3" style="text-align:center">[NO DESCRIPTION MATCHES]</td></tr>';
