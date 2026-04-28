@@ -59,9 +59,10 @@ THE TOOL IS NOW A COMPLETE BRIDGE BETWEEN CLAIM LINEAGE AND DESCRIPTION VERIFICA
         }
         textarea:focus { outline: none; border-color: var(--text-primary); box-shadow: var(--accent-glow); }
 
-        /* Updated for 3 columns - Section 3 is wider */
-        .dashboard-grid { display: grid; grid-template-columns: 1fr 0.8fr 1.2fr; gap: 1.5rem; margin-top: 2rem; }
+        /* Updated for stacked layout - Section 3 spans full width below 1 & 2 */
+        .dashboard-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem; margin-top: 2rem; }
         .audit-section { border: 1px solid var(--border-color); padding: 1rem; background: rgba(0, 10, 0, 0.5); max-height: 800px; overflow-y: auto; }
+        .full-width { grid-column: 1 / span 2; max-height: none; }
 
         .tree-container { display: flex; flex-direction: column; gap: 1rem; }
         .claim-node { padding: 1rem; border: 1px solid var(--border-color); border-radius: 4px; background: #000; }
@@ -129,7 +130,7 @@ THE TOOL IS NOW A COMPLETE BRIDGE BETWEEN CLAIM LINEAGE AND DESCRIPTION VERIFICA
                     </tbody>
                 </table>
             </div>
-            <div class="audit-section">
+            <div class="audit-section full-width">
                 <h3 style="text-transform: uppercase; font-size: 0.9rem;">3. Description Reference Map (V3)</h3>
                 <table class="registry-table">
                     <thead>
