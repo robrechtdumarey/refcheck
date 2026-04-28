@@ -161,6 +161,16 @@ THE TOOL IS NOW A COMPLETE BRIDGE BETWEEN CLAIM LINEAGE AND DESCRIPTION VERIFICA
         let allOccurrences = [];
         let claimsMap = {};
 
+        const triggers = [
+            "(?:the|said|such|its|their|each|every|which)\\s+(?:one|two|three|four|five|six|seven|eight|nine|ten|at\\s+least\\s+one|plurality\\s+of)",
+            "at\\s+least\\s+one", "plurality\\s+of", "a", "an", "the", "said", "such", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "its", "their", "each", "every", "which"
+        ].join('|');
+        const stopWords = [
+            "a", "an", "the", "said", "such", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+            "its", "their", "each", "every", "at\\s+least\\s+one", "plurality\\s+of", "according\\s+to", "as\\s+claimed\\s+in", "of\\s+claim",
+            "comprising", "including", "characterized\\s+in", "wherein", "whereby", "that", "which", "for", "to", "in", "with", "by", "from", "at", "on", "having"
+        ].join('|');
+
         claimsInput.addEventListener('input', processAll);
         descriptionInput.addEventListener('input', processAll);
 
@@ -253,16 +263,6 @@ THE TOOL IS NOW A COMPLETE BRIDGE BETWEEN CLAIM LINEAGE AND DESCRIPTION VERIFICA
             return claims.map(claim => {
                 const text = claim.text;
                 let findings = [];
-                const triggers = [
-                    "(?:the|said|such|its|their|each|every|which)\\s+(?:one|two|three|four|five|six|seven|eight|nine|ten|at\\s+least\\s+one|plurality\\s+of)",
-                    "at\\s+least\\s+one", "plurality\\s+of", "a", "an", "the", "said", "such", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "its", "their", "each", "every", "which"
-                ].join('|');
-                const stopWords = [
-                    "a", "an", "the", "said", "such", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
-                    "its", "their", "each", "every", "at\\s+least\\s+one", "plurality\\s+of", "according\\s+to", "as\\s+claimed\\s+in", "of\\s+claim",
-                    "comprising", "including", "characterized\\s+in", "wherein", "whereby", "that", "which", "for", "to", "in", "with", "by", "from", "at", "on", "having"
-                ].join('|');
-
                 const featureRegex = new RegExp(`\\b(${triggers})\\b\\s+((?:(?!\\b(?:${stopWords})\\b)[^,.;(])+)\\s*(?:\\((\\d+[a-z]?)\\))?|\\((\\d+[a-z]?)\\)`, 'gi');
                 
                 let m;
@@ -328,15 +328,34 @@ THE TOOL IS NOW A COMPLETE BRIDGE BETWEEN CLAIM LINEAGE AND DESCRIPTION VERIFICA
             if (!text.trim()) return [];
             const paragraphs = text.split(/(?=\[\d{4}\])/);
             const mappings = [];
-            const seenOrphans = new Set();
+
+            // 0. Orphan Discovery Pass
+            paragraphs.forEach(p => {
+                const discoveryRegex = new RegExp(`\\b(a|an)\\s+((?:(?!\\b(?:${stopWords})\\b)[^,.;(])+)\\s*(?:\\((\\d+)\\)|(\\d+))\\b`, 'gi');
+                let dm;
+                while ((dm = discoveryRegex.exec(p)) !== null) {
+                    const rawName = dm[2].trim();
+                    const ref = dm[3] || dm[4];
+                    const cleanName = rawName.replace(/^(has|and|or|is|with|by|from|at|on|to)\s+/i, '').trim();
+                    const root = normalize(cleanName);
+                    const inClaims = orderedRoots.some(r => featureRegistry[r].ref === ref);
+                    if (!inClaims) {
+                        const orphanKey = `orphan-${root}-${ref}`;
+                        if (!featureRegistry[orphanKey]) {
+                            featureRegistry[orphanKey] = { ref, canonical: cleanName, isOrphan: true };
+                        }
+                    }
+                }
+            });
 
             paragraphs.forEach(p => {
                 const markerMatch = p.match(/^\[(\d{4})\]/);
                 if (!markerMatch) return;
                 const loc = `[${markerMatch[1]}]`;
                 
-                // 1. Pass for Known Features (from Claims)
-                orderedRoots.forEach(root => {
+                // 1. Combined Mapping Pass (Claims + Discovered Orphans)
+                const allRoots = [...orderedRoots, ...Object.keys(featureRegistry).filter(k => featureRegistry[k].isOrphan)];
+                allRoots.forEach(root => {
                     const feat = featureRegistry[root];
                     const nameEscaped = feat.canonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                     const unifiedRegex = new RegExp(`\\b(${nameEscaped})\\b(?:\\s*(?:\\((\\d+)\\)|(\\d+)))?`, 'gi');
@@ -347,7 +366,10 @@ THE TOOL IS NOW A COMPLETE BRIDGE BETWEEN CLAIM LINEAGE AND DESCRIPTION VERIFICA
                         if (foundRef) {
                             if (foundRef === feat.ref) { type = 'MATCH'; cssClass = 'f-ref'; }
                             else { type = 'MISMATCH'; cssClass = 'f-err'; }
+                        } else if (feat.isOrphan) {
+                            type = 'MATCH'; cssClass = 'f-ref';
                         }
+
                         const start = Math.max(0, m.index - 40);
                         const end = Math.min(p.length, m.index + m[0].length + 40);
                         let context = p.substring(start, end).replace(/\n/g, ' ').trim();
@@ -357,34 +379,6 @@ THE TOOL IS NOW A COMPLETE BRIDGE BETWEEN CLAIM LINEAGE AND DESCRIPTION VERIFICA
                         mappings.push({ root, loc, context, type, foundRef });
                     }
                 });
-
-                // 2. Pass for Orphans (Description-Only Features)
-                // Look for: [Name] ([Number]) or [Name] [Number]
-                const orphanRegex = /\b([a-z\s]{3,30})\s*(?:\((\d+)\)|(\d+))\b/gi;
-                let om;
-                while ((om = orphanRegex.exec(p)) !== null) {
-                    const name = om[1].trim();
-                    const ref = om[2] || om[3];
-                    const root = normalize(name);
-                    
-                    // Skip if this root or ref is already in the claim registry
-                    const exists = orderedRoots.some(r => r === root || featureRegistry[r].ref === ref);
-                    if (!exists) {
-                        const orphanKey = `orphan-${root}-${ref}`;
-                        if (!featureRegistry[orphanKey]) {
-                            featureRegistry[orphanKey] = { ref, canonical: name, isOrphan: true };
-                        }
-                        
-                        const start = Math.max(0, om.index - 40);
-                        const end = Math.min(p.length, om.index + om[0].length + 40);
-                        let context = p.substring(start, end).replace(/\n/g, ' ').trim();
-                        const highlightedPart = `<span class="f-warn">${om[0]}</span>`;
-                        const relativeIndex = om.index - start;
-                        context = "..." + context.substring(0, relativeIndex) + highlightedPart + context.substring(relativeIndex + om[0].length) + "...";
-                        
-                        mappings.push({ root: orphanKey, loc, context, type: 'DESC_ONLY', foundRef: ref });
-                    }
-                }
             });
             return mappings;
         }
