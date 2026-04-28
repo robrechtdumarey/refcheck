@@ -1,0 +1,404 @@
+<!-- 
+SESSION SUMMARY: 2026-04-28
+FEATURE CROSS-REFERENCE SPRINT - v3 COMPLETE
+
+ACCOMPLISHMENTS:
+1. TRIPLE-SECTION ARCHITECTURE: Added Section 3 (Description Cross-Reference) as requested.
+2. DESCRIPTION PARSER: Implemented logic to extract paragraph markers [xxxx] and search for feature references (xx) within the description text.
+3. ANCHOR-BASED MAPPING: Features identified in claims are now automatically mapped to their occurrences in the description using reference numbers as the primary join key.
+4. LARGER VIEWPORT: Expanded the dashboard grid to support a high-resolution 3-column layout.
+5. CONTEXTUAL LOCATION: Section 3 indicates exactly which paragraph [xxxx] each feature appears in, bridging the gap between claim language and technical disclosure.
+
+THE TOOL IS NOW A COMPLETE BRIDGE BETWEEN CLAIM LINEAGE AND DESCRIPTION VERIFICATION.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim & Description Cross-Audit v3</title>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-primary: #00FF41;
+            --text-secondary: #008F11;
+            --border-color: #003B00;
+            --accent-glow: 0 0 10px rgba(0, 255, 65, 0.2);
+            --independent-bg: #001a00;
+            --dependent-bg: #000d1a;
+            --error-text: #FF3131;
+            --warning-text: #FFB000;
+            --info-text: #00FFFF;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0; padding: 2rem; display: flex; flex-direction: column; align-items: center;
+        }
+
+        .container {
+            width: 98%; max-width: 1800px; background: rgba(0, 0, 0, 0.9);
+            border: 2px solid var(--border-color); padding: 2rem; box-shadow: var(--accent-glow);
+            position: relative; z-index: 1;
+        }
+
+        h1 {
+            text-transform: uppercase; letter-spacing: 3px; border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px; margin-bottom: 30px; text-shadow: 0 0 10px var(--text-primary);
+        }
+
+        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+        .input-group { display: flex; flex-direction: column; }
+        label { text-transform: uppercase; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
+
+        textarea {
+            height: 200px; background: #050505; color: var(--text-primary); border: 1px solid var(--border-color);
+            padding: 1rem; font-family: inherit; font-size: 0.9rem; line-height: 1.5; resize: vertical;
+        }
+        textarea:focus { outline: none; border-color: var(--text-primary); box-shadow: var(--accent-glow); }
+
+        /* Updated for 3 columns - Section 3 is wider */
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 0.8fr 1.2fr; gap: 1.5rem; margin-top: 2rem; }
+        .audit-section { border: 1px solid var(--border-color); padding: 1rem; background: rgba(0, 10, 0, 0.5); max-height: 800px; overflow-y: auto; }
+
+        .tree-container { display: flex; flex-direction: column; gap: 1rem; }
+        .claim-node { padding: 1rem; border: 1px solid var(--border-color); border-radius: 4px; background: #000; }
+        .independent-node { border-left: 5px solid var(--text-primary); }
+        .dependent-node { border-left: 5px solid var(--info-text); margin-left: 20px; }
+
+        .node-header {
+            display: flex; justify-content: space-between; font-weight: bold; font-size: 0.8rem;
+            margin-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 5px;
+        }
+        .node-text { font-size: 0.85rem; line-height: 1.6; margin-bottom: 1rem; white-space: pre-wrap; }
+
+        .registry-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; color: var(--text-secondary); }
+        .registry-table th, .registry-table td { text-align: left; padding: 6px; border-bottom: 1px solid var(--border-color); }
+        .registry-table th { color: var(--text-primary); text-transform: uppercase; font-size: 0.65rem; }
+        
+        .group-header { background: var(--border-color); color: var(--text-primary); font-weight: bold; text-transform: uppercase; font-size: 0.6rem; padding: 4px 8px !important; }
+
+        .f-intro { color: var(--text-primary); border-bottom: 2px solid var(--text-primary); font-weight: bold; }
+        .f-ref { color: var(--info-text); border-bottom: 1px solid var(--info-text); }
+        .f-poss { color: #ADFF2F; border-bottom: 1px dashed #ADFF2F; }
+        .f-err { color: var(--error-text); text-decoration: underline wavy var(--error-text); font-weight: bold; }
+        .f-warn { color: var(--warning-text); border-bottom: 1px dotted var(--warning-text); }
+
+        .desc-loc { color: var(--info-text); font-weight: bold; margin-right: 5px; }
+        .desc-context { color: var(--text-secondary); font-style: italic; }
+
+        .status-bar {
+            position: fixed; bottom: 0; width: 100%; background: var(--border-color);
+            color: var(--text-primary); padding: 5px 20px; font-size: 0.7rem;
+            text-transform: uppercase; display: flex; justify-content: space-between; z-index: 100;
+        }
+        #matrix-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.1; pointer-events: none; }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-overlay"></canvas>
+    <div class="container">
+        <h1>Claim & Description Cross-Audit <span id="ver">v3</span></h1>
+        <div class="input-grid">
+            <div class="input-group">
+                <label>Claims Input (Logic & Feature Source)</label>
+                <textarea id="claimsInput" placeholder="Paste claim text here..."></textarea>
+            </div>
+            <div class="input-group">
+                <label>Description Input (Verification Source)</label>
+                <textarea id="descriptionInput" placeholder="Paste description text here..."></textarea>
+            </div>
+        </div>
+        <div class="dashboard-grid">
+            <div class="audit-section">
+                <h3 style="text-transform: uppercase; font-size: 0.9rem;">1. Dependency & Feature Audit</h3>
+                <div id="treeContainer" class="tree-container">
+                    <div style="text-align: center; color: var(--text-secondary); padding: 2rem;">[WAITING FOR DATA]</div>
+                </div>
+            </div>
+            <div class="audit-section">
+                <h3 style="text-transform: uppercase; font-size: 0.9rem;">2. Feature Lifecycle Log (Claims Only)</h3>
+                <table class="registry-table">
+                    <thead>
+                        <tr><th>Claim</th><th>Type</th><th>Phrase</th><th>Ref #</th></tr>
+                    </thead>
+                    <tbody id="registryBody">
+                        <tr><td colspan="4" style="text-align:center">[EMPTY]</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="audit-section">
+                <h3 style="text-transform: uppercase; font-size: 0.9rem;">3. Description Reference Map (V3)</h3>
+                <table class="registry-table">
+                    <thead>
+                        <tr><th>Feature Root</th><th>Location</th><th>Context</th></tr>
+                    </thead>
+                    <tbody id="descriptionMapBody">
+                        <tr><td colspan="3" style="text-align:center">[WAITING FOR DESCRIPTION]</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="status-bar">
+        <span>System Status: <span id="status">IDLE</span></span>
+        <span>Precision Pilot - Cross-Reference Engine Active</span>
+    </div>
+
+    <script>
+        const claimsInput = document.getElementById('claimsInput');
+        const descriptionInput = document.getElementById('descriptionInput');
+        const treeContainer = document.getElementById('treeContainer');
+        const registryBody = document.getElementById('registryBody');
+        const descriptionMapBody = document.getElementById('descriptionMapBody');
+        const statusEl = document.getElementById('status');
+
+        let featureRegistry = {}; 
+        let orderedRoots = [];
+        let allOccurrences = [];
+        let claimsMap = {};
+
+        claimsInput.addEventListener('input', processAll);
+        descriptionInput.addEventListener('input', processAll);
+
+        function processAll() {
+            const claimsText = claimsInput.value;
+            const descText = descriptionInput.value;
+            
+            if (!claimsText.trim()) {
+                treeContainer.innerHTML = '<div style="text-align: center; color: var(--text-secondary); padding: 2rem;">[WAITING FOR DATA]</div>';
+                statusEl.textContent = 'IDLE';
+                return;
+            }
+
+            statusEl.textContent = 'SYNCHRONIZING...';
+            featureRegistry = {}; 
+            orderedRoots = [];
+            allOccurrences = [];
+            claimsMap = {};
+
+            // 1. Process Claims
+            const blocks = claimsText.split(/(?:^|\n)\s*(\d+)(?:\.|\s)\s*/);
+            const claims = [];
+            for (let i = 1; i < blocks.length; i += 2) {
+                const id = parseInt(blocks[i].trim());
+                const content = (blocks[i+1] || "").trim();
+                if (!content) continue;
+                const isDependent = content.toLowerCase().includes('claim');
+                const parents = isDependent ? extractParents(content, id) : [];
+                const cObj = { id, text: content, type: isDependent ? 'dependent' : 'independent', parents };
+                claims.push(cObj);
+                claimsMap[id] = cObj;
+            }
+
+            claims.forEach(c => c.lineage = getFullLineage(c.id));
+            const auditedClaims = auditFeatures(claims);
+            
+            // 2. Process Description
+            const descFindings = auditDescription(descText);
+
+            // 3. Render All
+            renderDashboard(auditedClaims, descFindings);
+            statusEl.textContent = `READY - ${claims.length} CLAIMS & DESCRIPTION SYNCED`;
+        }
+
+        function extractParents(text, currentId) {
+            const parents = new Set();
+            const lowerText = text.toLowerCase();
+            const singleRegex = /claim\s+(\d+)/g;
+            let m;
+            while ((m = singleRegex.exec(lowerText)) !== null) {
+                const pId = parseInt(m[1]);
+                if (pId < currentId) parents.add(pId);
+            }
+            const rangeRegex = /claims?\s+(\d+)\s+(?:to|or|,)\s+(\d+)/g;
+            while ((m = rangeRegex.exec(lowerText)) !== null) {
+                const start = parseInt(m[1]);
+                const end = parseInt(m[2]);
+                if (start < end) {
+                    for (let i = start; i <= end; i++) { if (i < currentId) parents.add(i); }
+                }
+            }
+            if (lowerText.includes('preceding claim')) {
+                for (let i = 1; i < currentId; i++) parents.add(i);
+            }
+            return Array.from(parents).sort((a,b) => a-b);
+        }
+
+        function getFullLineage(id) {
+            const lineage = new Set([id]);
+            const stack = [...(claimsMap[id]?.parents || [])];
+            while (stack.length > 0) {
+                const pId = stack.pop();
+                if (!lineage.has(pId)) {
+                    lineage.add(pId);
+                    if (claimsMap[pId]) stack.push(...claimsMap[pId].parents);
+                }
+            }
+            return Array.from(lineage);
+        }
+
+        function normalize(str) {
+            let s = str.toLowerCase().trim();
+            s = s.replace(/\b(a|an|the|said|such|one|two|three|four|five|six|seven|eight|nine|ten|at\s+least\s+one|plurality\s+of|its|their|each|every|any|any\s+one\s+of|any\s+of|which)\b/gi, '').replace(/\s+/g, ' ').trim();
+            s = s.replace(/\s+(of|for|with|in|by|from|at|to|on|having|according to|as claimed in|of claim|that|which|thereof)$/gi, '').trim(); 
+            if (s.endsWith('s') && !s.endsWith('ss')) return s.slice(0, -1);
+            return s;
+        }
+
+        function auditFeatures(claims) {
+            return claims.map(claim => {
+                const text = claim.text;
+                let findings = [];
+                const triggers = [
+                    "(?:the|said|such|its|their|each|every|which)\\s+(?:one|two|three|four|five|six|seven|eight|nine|ten|at\\s+least\\s+one|plurality\\s+of)",
+                    "at\\s+least\\s+one", "plurality\\s+of", "a", "an", "the", "said", "such", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "its", "their", "each", "every", "which"
+                ].join('|');
+                const stopWords = [
+                    "a", "an", "the", "said", "such", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+                    "its", "their", "each", "every", "at\\s+least\\s+one", "plurality\\s+of", "according\\s+to", "as\\s+claimed\\s+in", "of\\s+claim",
+                    "comprising", "including", "characterized\\s+in", "wherein", "whereby", "that", "which", "for", "to", "in", "with", "by", "from", "at", "on", "having"
+                ].join('|');
+
+                const featureRegex = new RegExp(`\\b(${triggers})\\b\\s+((?:(?!\\b(?:${stopWords})\\b)[^,.;(])+)\\s*(?:\\((\\d+[a-z]?)\\))?|\\((\\d+[a-z]?)\\)`, 'gi');
+                
+                let m;
+                while ((m = featureRegex.exec(text)) !== null) {
+                    const full = m[0];
+                    let article = m[1] ? m[1].toLowerCase() : null;
+                    let rawPhrase = m[2] ? m[2].trim() : null;
+                    const ref = m[3] || m[4];
+                    
+                    if (rawPhrase) rawPhrase = rawPhrase.replace(/\s+(of|for|with|in|by|from|at|to|on|having|that|which|thereof)$/gi, '').trim();
+                    if (rawPhrase && (rawPhrase.length < 2 || /^(that|which|thereof|said|such|its|their|each|every)$/i.test(rawPhrase) || /claims?\b/i.test(rawPhrase)) && !ref) continue;
+                    if (!rawPhrase && !ref) continue;
+
+                    const root = rawPhrase ? normalize(rawPhrase) : (ref ? 'ref-'+ref : null);
+                    if (!root) continue;
+
+                    let actualRoot = root;
+                    if (ref) {
+                        const existing = Object.keys(featureRegistry).find(r => featureRegistry[r].ref === ref);
+                        if (existing) actualRoot = existing;
+                    }
+
+                    if (!featureRegistry[actualRoot]) {
+                        featureRegistry[actualRoot] = { ref, canonical: rawPhrase || 'Feature '+ref, introductions: [] };
+                        orderedRoots.push(actualRoot);
+                    }
+
+                    const lineage = claim.lineage;
+                    const existsInLineage = featureRegistry[actualRoot].introductions.some(id => lineage.includes(id));
+                    let category = 'MISSING_ANTECEDENT';
+                    const isRef = article && /the|said|such|which/i.test(article);
+                    const isPoss = article && /its|their|each|every/i.test(article);
+                    const isIntro = article && !isRef && !isPoss;
+
+                    if (isIntro) {
+                        if (!existsInLineage) {
+                            if (!featureRegistry[actualRoot].introductions.includes(claim.id)) featureRegistry[actualRoot].introductions.push(claim.id);
+                            category = 'INTRODUCTION';
+                        } else category = 'REDUNDANT_INTRO';
+                    } else if (isRef || isPoss) {
+                        category = existsInLineage ? (isPoss ? 'POSSESSIVE_REF' : 'VALID_REF') : 'MISSING_ANTECEDENT';
+                    } else if (ref && !article) {
+                        const boundRoot = Object.keys(featureRegistry).find(r => featureRegistry[r].ref === ref && featureRegistry[r].introductions.some(id => lineage.includes(id)));
+                        category = boundRoot ? 'VALID_REF' : 'MISSING_ANTECEDENT';
+                    }
+
+                    const occurrence = { claimId: claim.id, original: full, displayName: (article ? article + " " : "") + (rawPhrase || 'ref-' + ref), root: actualRoot, category, ref };
+                    allOccurrences.push(occurrence);
+                    findings.push({ index: m.index, length: full.length, ...occurrence });
+                }
+
+                findings.sort((a, b) => b.index - a.index);
+                let html = text;
+                findings.forEach(f => {
+                    const cssClass = f.category === 'INTRODUCTION' ? 'f-intro' : f.category === 'VALID_REF' ? 'f-ref' : f.category === 'POSSESSIVE_REF' ? 'f-poss' : f.category === 'MISSING_ANTECEDENT' ? 'f-err' : 'f-warn';
+                    html = html.substring(0, f.index) + `<span class="${cssClass}">${f.original}</span>` + html.substring(f.index + f.length);
+                });
+                return { ...claim, auditedHtml: html };
+            });
+        }
+
+        function auditDescription(text) {
+            if (!text.trim()) return [];
+            const paragraphs = text.split(/(?=\[\d{4}\])/);
+            const mappings = [];
+
+            paragraphs.forEach(p => {
+                const markerMatch = p.match(/^\[(\d{4})\]/);
+                if (!markerMatch) return;
+                const loc = `[${markerMatch[1]}]`;
+                
+                // For each registered feature, check for its reference number or canonical name in this paragraph
+                orderedRoots.forEach(root => {
+                    const feat = featureRegistry[root];
+                    if (!feat.ref) return; // Prioritize reference-based mapping for v3
+                    
+                    const refRegex = new RegExp(`\\b${feat.ref}\\b`, 'g');
+                    let m;
+                    while ((m = refRegex.exec(p)) !== null) {
+                        // Extract context (30 chars before and after)
+                        const start = Math.max(0, m.index - 40);
+                        const end = Math.min(p.length, m.index + 40);
+                        const context = "..." + p.substring(start, end).replace(/\n/g, ' ').trim() + "...";
+                        mappings.push({ root, loc, context });
+                    }
+                });
+            });
+            return mappings;
+        }
+
+        function renderDashboard(claims, descFindings) {
+            treeContainer.innerHTML = claims.map(c => `
+                <div class="claim-node ${c.type === 'independent' ? 'independent-node' : 'dependent-node'}">
+                    <div class="node-header"><span>Claim ${c.id} [${c.type.toUpperCase()}]</span></div>
+                    <div class="node-text">${c.auditedHtml}</div>
+                </div>
+            `).join('');
+            
+            let regHtml = "";
+            orderedRoots.forEach(root => {
+                const group = allOccurrences.filter(o => o.root === root);
+                if (group.length === 0) return;
+                regHtml += `<tr><td colspan="4" class="group-header">Feature: ${featureRegistry[root].canonical}</td></tr>`;
+                group.forEach(o => {
+                    const color = o.category === 'MISSING_ANTECEDENT' ? 'var(--error-text)' : o.category === 'INTRODUCTION' ? 'var(--text-primary)' : o.category === 'POSSESSIVE_REF' ? '#ADFF2F' : 'var(--info-text)';
+                    regHtml += `<tr style="color: ${color}"><td>Claim ${o.claimId}</td><td>${o.category}</td><td>${o.displayName}</td><td>${o.ref || '-'}</td></tr>`;
+                });
+            });
+            registryBody.innerHTML = regHtml || '<tr><td colspan="4" style="text-align:center">[EMPTY]</td></tr>';
+
+            let descHtml = "";
+            orderedRoots.forEach(root => {
+                const matches = descFindings.filter(f => f.root === root);
+                if (matches.length === 0) return;
+                descHtml += `<tr><td colspan="3" class="group-header">Feature: ${featureRegistry[root].canonical} (${featureRegistry[root].ref})</td></tr>`;
+                matches.forEach(m => {
+                    descHtml += `<tr><td>-</td><td class="desc-loc">${m.loc}</td><td class="desc-context">${m.context}</td></tr>`;
+                });
+            });
+            descriptionMapBody.innerHTML = descHtml || '<tr><td colspan="3" style="text-align:center">[NO DESCRIPTION MATCHES]</td></tr>';
+        }
+
+        // Matrix Background
+        const canvas = document.getElementById('matrix-overlay');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth, height = canvas.height = window.innerHeight;
+        const columns = Math.floor(width / 20), drops = Array(columns).fill(1);
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'; ctx.fillRect(0, 0, width, height);
+            ctx.fillStyle = '#0F0'; ctx.font = '15px monospace';
+            for (let i = 0; i < drops.length; i++) {
+                ctx.fillText(String.fromCharCode(Math.random() * 128), i * 20, drops[i] * 20);
+                if (drops[i] * 20 > height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 50);
+    </script>
+</body>
+</html>
