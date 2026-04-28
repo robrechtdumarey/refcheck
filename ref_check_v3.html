@@ -131,13 +131,24 @@ THE TOOL IS NOW A COMPLETE BRIDGE BETWEEN CLAIM LINEAGE AND DESCRIPTION VERIFICA
                 </table>
             </div>
             <div class="audit-section full-width">
-                <h3 style="text-transform: uppercase; font-size: 0.9rem;">3. Description Reference Map (V3)</h3>
+                <h3 style="text-transform: uppercase; font-size: 0.9rem;">3. Claim-Description Alignment Map</h3>
                 <table class="registry-table">
                     <thead>
-                        <tr><th>Feature Root</th><th>Location</th><th>Context</th></tr>
+                        <tr><th>Status</th><th>Location</th><th>Context</th></tr>
                     </thead>
                     <tbody id="descriptionMapBody">
                         <tr><td colspan="3" style="text-align:center">[WAITING FOR DESCRIPTION]</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="audit-section full-width" style="margin-top: 2rem;">
+                <h3 style="text-transform: uppercase; font-size: 0.9rem;">4. Orphan Feature Audit (Description-Only)</h3>
+                <table class="registry-table">
+                    <thead>
+                        <tr><th>Status</th><th>Location</th><th>Context</th></tr>
+                    </thead>
+                    <tbody id="orphanMapBody">
+                        <tr><td colspan="3" style="text-align:center">[NO ORPHANS DETECTED]</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -154,6 +165,7 @@ THE TOOL IS NOW A COMPLETE BRIDGE BETWEEN CLAIM LINEAGE AND DESCRIPTION VERIFICA
         const treeContainer = document.getElementById('treeContainer');
         const registryBody = document.getElementById('registryBody');
         const descriptionMapBody = document.getElementById('descriptionMapBody');
+        const orphanMapBody = document.getElementById('orphanMapBody');
         const statusEl = document.getElementById('status');
 
         let featureRegistry = {}; 
@@ -208,11 +220,35 @@ THE TOOL IS NOW A COMPLETE BRIDGE BETWEEN CLAIM LINEAGE AND DESCRIPTION VERIFICA
             const auditedClaims = auditFeatures(claims);
             
             // 2. Process Description
+            discoverOrphans(descText);
             const descFindings = auditDescription(descText);
 
             // 3. Render All
             renderDashboard(auditedClaims, descFindings);
             statusEl.textContent = `READY - ${claims.length} CLAIMS & DESCRIPTION SYNCED`;
+        }
+
+        function discoverOrphans(text) {
+            if (!text.trim()) return;
+            const paragraphs = text.split(/(?=\[\d{4}\])/);
+            paragraphs.forEach(p => {
+                // FIXED REGEX: [^,.;(0-9] stops name capture before digits
+                const discoveryRegex = new RegExp(`\\b(a|an)\\s+((?:(?!\\b(?:${stopWords})\\b)[^,.;(0-9])+)\\s*(?:\\((\\d+)\\)|(\\d+))\\b`, 'gi');
+                let dm;
+                while ((dm = discoveryRegex.exec(p)) !== null) {
+                    const rawName = dm[2].trim();
+                    const ref = dm[3] || dm[4];
+                    const cleanName = rawName.replace(/^(has|and|or|is|with|by|from|at|on|to)\s+/i, '').trim();
+                    const root = normalize(cleanName);
+                    const inClaims = orderedRoots.some(r => featureRegistry[r].ref === ref);
+                    if (!inClaims) {
+                        const orphanKey = `orphan-${root}-${ref}`;
+                        if (!featureRegistry[orphanKey]) {
+                            featureRegistry[orphanKey] = { ref, canonical: cleanName, isOrphan: true };
+                        }
+                    }
+                }
+            });
         }
 
         function extractParents(text, currentId) {
@@ -329,31 +365,11 @@ THE TOOL IS NOW A COMPLETE BRIDGE BETWEEN CLAIM LINEAGE AND DESCRIPTION VERIFICA
             const paragraphs = text.split(/(?=\[\d{4}\])/);
             const mappings = [];
 
-            // 0. Orphan Discovery Pass
-            paragraphs.forEach(p => {
-                const discoveryRegex = new RegExp(`\\b(a|an)\\s+((?:(?!\\b(?:${stopWords})\\b)[^,.;(])+)\\s*(?:\\((\\d+)\\)|(\\d+))\\b`, 'gi');
-                let dm;
-                while ((dm = discoveryRegex.exec(p)) !== null) {
-                    const rawName = dm[2].trim();
-                    const ref = dm[3] || dm[4];
-                    const cleanName = rawName.replace(/^(has|and|or|is|with|by|from|at|on|to)\s+/i, '').trim();
-                    const root = normalize(cleanName);
-                    const inClaims = orderedRoots.some(r => featureRegistry[r].ref === ref);
-                    if (!inClaims) {
-                        const orphanKey = `orphan-${root}-${ref}`;
-                        if (!featureRegistry[orphanKey]) {
-                            featureRegistry[orphanKey] = { ref, canonical: cleanName, isOrphan: true };
-                        }
-                    }
-                }
-            });
-
             paragraphs.forEach(p => {
                 const markerMatch = p.match(/^\[(\d{4})\]/);
                 if (!markerMatch) return;
                 const loc = `[${markerMatch[1]}]`;
                 
-                // 1. Combined Mapping Pass (Claims + Discovered Orphans)
                 const allRoots = [...orderedRoots, ...Object.keys(featureRegistry).filter(k => featureRegistry[k].isOrphan)];
                 allRoots.forEach(root => {
                     const feat = featureRegistry[root];
@@ -404,34 +420,36 @@ THE TOOL IS NOW A COMPLETE BRIDGE BETWEEN CLAIM LINEAGE AND DESCRIPTION VERIFICA
             registryBody.innerHTML = regHtml || '<tr><td colspan="4" style="text-align:center">[EMPTY]</td></tr>';
 
             let descHtml = "";
-            // Combine orderedRoots and any orphan keys found
-            const allDescRoots = [...orderedRoots, ...Object.keys(featureRegistry).filter(k => featureRegistry[k].isOrphan)];
-            
-            allDescRoots.forEach(root => {
+            let orphanHtml = "";
+
+            // Render Claim Features (Section 3)
+            orderedRoots.forEach(root => {
                 const matches = descFindings.filter(f => f.root === root);
                 if (matches.length === 0) return;
                 const feat = featureRegistry[root];
-                const headerText = feat.isOrphan ? `[ORPHAN] Feature: ${feat.canonical}` : `Feature: ${feat.canonical}`;
-                const refText = feat.isOrphan ? `Ref: ${feat.ref}` : `Claim Ref: ${feat.ref || 'NONE'}`;
-                
-                descHtml += `<tr><td colspan="3" class="group-header">${headerText} (${refText})</td></tr>`;
+                descHtml += `<tr><td colspan="3" class="group-header">Feature: ${feat.canonical} (Claim Ref: ${feat.ref || 'NONE'})</td></tr>`;
                 matches.forEach(m => {
-                    let label = '-';
-                    let rowStyle = '';
-                    if (m.type === 'MISMATCH') {
-                        label = `[MISMATCH: ${m.foundRef}]`;
-                        rowStyle = 'color: var(--error-text)';
-                    } else if (m.type === 'NO_REF') {
-                        label = '[NO REF]';
-                        rowStyle = 'color: var(--warning-text)';
-                    } else if (m.type === 'DESC_ONLY') {
-                        label = '[DESC ONLY]';
-                        rowStyle = 'color: var(--warning-text)';
-                    }
+                    let label = '-', rowStyle = '';
+                    if (m.type === 'MISMATCH') { label = `[MISMATCH: ${m.foundRef}]`; rowStyle = 'color: var(--error-text)'; }
+                    else if (m.type === 'NO_REF') { label = '[NO REF]'; rowStyle = 'color: var(--warning-text)'; }
                     descHtml += `<tr style="${rowStyle}"><td>${label}</td><td class="desc-loc">${m.loc}</td><td class="desc-context">${m.context}</td></tr>`;
                 });
             });
-            descriptionMapBody.innerHTML = descHtml || '<tr><td colspan="3" style="text-align:center">[NO DESCRIPTION MATCHES]</td></tr>';
+
+            // Render Orphan Features (Section 4)
+            const orphanRoots = Object.keys(featureRegistry).filter(k => featureRegistry[k].isOrphan);
+            orphanRoots.forEach(root => {
+                const matches = descFindings.filter(f => f.root === root);
+                if (matches.length === 0) return;
+                const feat = featureRegistry[root];
+                orphanHtml += `<tr><td colspan="3" class="group-header">Feature: ${feat.canonical} (Ref: ${feat.ref})</td></tr>`;
+                matches.forEach(m => {
+                    orphanHtml += `<tr style="color: var(--warning-text)"><td>[ORPHAN]</td><td class="desc-loc">${m.loc}</td><td class="desc-context">${m.context}</td></tr>`;
+                });
+            });
+
+            descriptionMapBody.innerHTML = descHtml || '<tr><td colspan="3" style="text-align:center">[NO CLAIM MATCHES IN DESCRIPTION]</td></tr>';
+            orphanMapBody.innerHTML = orphanHtml || '<tr><td colspan="3" style="text-align:center">[NO ORPHANS DETECTED]</td></tr>';
         }
 
         // Matrix Background
