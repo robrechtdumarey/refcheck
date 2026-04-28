@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Structural Audit v1</title>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-primary: #00FF41;
+            --text-secondary: #008F11;
+            --border-color: #003B00;
+            --accent-glow: 0 0 10px rgba(0, 255, 65, 0.2);
+            --independent-bg: #001a00;
+            --dependent-bg: #000d1a;
+            --error-text: #FF3131;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1400px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid var(--border-color);
+            padding: 2rem;
+            box-shadow: var(--accent-glow);
+        }
+
+        h1 {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px var(--text-primary);
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        textarea {
+            height: 300px;
+            background: #050505;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--text-primary);
+            box-shadow: var(--accent-glow);
+        }
+
+        .dashboard-section {
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+        }
+
+        .tree-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .claim-node {
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .independent-node {
+            background: var(--independent-bg);
+            border-left: 5px solid var(--text-primary);
+        }
+
+        .dependent-node {
+            background: var(--dependent-bg);
+            margin-left: 2rem;
+            border-left: 5px solid #00FFFF;
+        }
+
+        .node-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .node-type {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: var(--border-color);
+        }
+
+        .node-body {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            max-height: 60px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .parent-list {
+            color: #00FFFF;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+
+        .status-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: var(--border-color);
+            color: var(--text-primary);
+            padding: 5px 20px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Matrix Animation Overlay */
+        #matrix-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-overlay"></canvas>
+    
+    <div class="container">
+        <h1>Claim Structural Audit <span id="ver">v1.0</span></h1>
+        
+        <div class="input-grid">
+            <div class="input-group">
+                <label>Raw Claims Input (Logic Source)</label>
+                <textarea id="claimsInput" placeholder="Paste claim text here..."></textarea>
+            </div>
+            <div class="input-group">
+                <label>Description Input (Verification Source)</label>
+                <textarea id="descriptionInput" placeholder="Paste description text here..."></textarea>
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <h2 style="text-transform: uppercase; color: var(--text-secondary)">Dependency Tree</h2>
+            <div id="treeContainer" class="tree-container">
+                <div style="text-align: center; color: var(--text-secondary); padding: 2rem;">[WAITING FOR DATA]</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="status-bar">
+        <span>System Status: <span id="status">IDLE</span></span>
+        <span>Relentless Re-activator Online</span>
+    </div>
+
+    <script>
+        const claimsInput = document.getElementById('claimsInput');
+        const treeContainer = document.getElementById('treeContainer');
+        const statusEl = document.getElementById('status');
+
+        claimsInput.addEventListener('input', processClaims);
+
+        function processClaims() {
+            const text = claimsInput.value;
+            if (!text) {
+                treeContainer.innerHTML = '<div style="text-align: center; color: var(--text-secondary); padding: 2rem;">[WAITING FOR DATA]</div>';
+                statusEl.textContent = 'IDLE';
+                return;
+            }
+
+            statusEl.textContent = 'ANALYZING STRUCTURE...';
+
+            // 1. Split into blocks
+            const blocks = text.split(/^\s*(\d+)\.\s+/gm);
+            const claims = [];
+
+            // Index 0 is often noise or title
+            for (let i = 1; i < blocks.length; i += 2) {
+                const id = blocks[i].trim();
+                const content = (blocks[i+1] || "").trim();
+                
+                // 2. Classify based on "claim" presence (ignoring the ID header)
+                // Use a regex that skips the very beginning if it matches numbering again
+                const bodyText = content.toLowerCase();
+                const isDependent = bodyText.includes('claim');
+                
+                claims.push({
+                    id: parseInt(id),
+                    text: content,
+                    type: isDependent ? 'dependent' : 'independent',
+                    parents: isDependent ? extractParents(content, parseInt(id)) : []
+                });
+            }
+
+            renderTree(claims);
+            statusEl.textContent = `READY - ${claims.length} CLAIMS DETECTED`;
+        }
+
+        function extractParents(text, currentId) {
+            const parents = new Set();
+            const lowerText = text.toLowerCase();
+            
+            // Pattern 1: "claim 1"
+            const singleMatch = lowerText.matchAll(/claim\s+(\d+)/g);
+            for (const m of singleMatch) {
+                const pId = parseInt(m[1]);
+                if (pId < currentId) parents.add(pId);
+            }
+
+            // Pattern 2: "claims 1 to 5" or "claims 1 or 2"
+            const rangeMatch = lowerText.matchAll(/claims?\s+(\d+)\s+(?:to|or|,)\s+(\d+)/g);
+            for (const m of rangeMatch) {
+                const start = parseInt(m[1]);
+                const end = parseInt(m[2]);
+                if (start < end) {
+                    for (let i = start; i <= end; i++) {
+                        if (i < currentId) parents.add(i);
+                    }
+                }
+            }
+
+            // Pattern 3: "preceding claims"
+            if (lowerText.includes('preceding claim')) {
+                for (let i = 1; i < currentId; i++) parents.add(i);
+            }
+
+            return Array.from(parents).sort((a,b) => a-b);
+        }
+
+        function renderTree(claims) {
+            let html = "";
+            claims.forEach(c => {
+                const typeClass = c.type === 'independent' ? 'independent-node' : 'dependent-node';
+                const parentStr = c.parents.length > 0 ? `Parents: [${c.parents.join(', ')}]` : '';
+                
+                html += `
+                    <div class="claim-node ${typeClass}">
+                        <div class="node-header">
+                            <span>Claim ${c.id}</span>
+                            <span class="node-type">${c.type.toUpperCase()}</span>
+                        </div>
+                        <div class="node-body">${c.text}</div>
+                        ${parentStr ? `<div class="parent-list">${parentStr}</div>` : ''}
+                    </div>
+                `;
+            });
+            treeContainer.innerHTML = html;
+        }
+
+        // Matrix Rain
+        const canvas = document.getElementById('matrix-overlay');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+        const columns = Math.floor(width / 20);
+        const drops = Array(columns).fill(1);
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, width, height);
+            ctx.fillStyle = '#0F0';
+            ctx.font = '15px monospace';
+            for (let i = 0; i < drops.length; i++) {
+                const text = String.fromCharCode(Math.random() * 128);
+                ctx.fillText(text, i * 20, drops[i] * 20);
+                if (drops[i] * 20 > height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 50);
+        window.onresize = () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; };
+    </script>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!-- 
+SESSION SUMMARY: 2026-04-27
+PRECISION REFINEMENT SPRINT - v2.8 COMPLETE
+NEXT VERSION: v3
+
+ACCOMPLISHMENTS:
+1. STRICT INTRODUCTION LOGIC: Resolved eager introduction tagging by strictly linking INTRODUCTION status to "a" or "an" articles.
+2. NESTED FEATURE CONTEXT: Implemented article-delimited boundaries to surgically separate properties ("width") from parent features ("rod").
+3. DEPENDENCY & REFERENCE UNIFICATION: Automated phrase truncation at dependency markers ("according to claim") and unified naked references with named features.
+4. STRUCTURAL BOUNDARY ENFORCEMENT: Integrated transition words (comprising, wherein) and pronouns (that, which) as hard stop-signs for feature capture.
+5. NOUN-FIRST EXTRACTION: Added prepositions (for, to, in, etc.) as boundaries to ensure core nouns (e.g., "method") are accurately registered despite descriptive noise.
+6. QUANTIFIER-AWARE EXPANSION: Added support for numerical (one, two) and quantifier-based (plurality of) introductions and their corresponding references.
+7. POSSESSIVE & UNIVERSAL COVERAGE: Implemented triggers for possessive pronouns (its, their, each, every) with unique GreenYellow (.f-poss) visualization.
+8. GLOBAL CLAIM FILTERING: Suppressed structural dependency noise by filtering out any identified phrases containing the word "claim".
+9. RELATIONAL REFERENCE RECOGNITION: Added "which" as a valid reference article (e.g., "which sensor device (100)").
+
+THE TOOL IS NOW A HIGH-RESOLUTION INSTRUMENT FOR PATENT LINEAGE AUDITING.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Structural & Feature Audit v2.8</title>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-primary: #00FF41;
+            --text-secondary: #008F11;
+            --border-color: #003B00;
+            --accent-glow: 0 0 10px rgba(0, 255, 65, 0.2);
+            --independent-bg: #001a00;
+            --dependent-bg: #000d1a;
+            --error-text: #FF3131;
+            --warning-text: #FFB000;
+            --info-text: #00FFFF;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0; padding: 2rem; display: flex; flex-direction: column; align-items: center;
+        }
+
+        .container {
+            width: 98%; max-width: 1600px; background: rgba(0, 0, 0, 0.9);
+            border: 2px solid var(--border-color); padding: 2rem; box-shadow: var(--accent-glow);
+            position: relative; z-index: 1;
+        }
+
+        h1 {
+            text-transform: uppercase; letter-spacing: 3px; border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px; margin-bottom: 30px; text-shadow: 0 0 10px var(--text-primary);
+        }
+
+        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+        .input-group { display: flex; flex-direction: column; }
+        label { text-transform: uppercase; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
+
+        textarea {
+            height: 200px; background: #050505; color: var(--text-primary); border: 1px solid var(--border-color);
+            padding: 1rem; font-family: inherit; font-size: 0.9rem; line-height: 1.5; resize: vertical;
+        }
+        textarea:focus { outline: none; border-color: var(--text-primary); box-shadow: var(--accent-glow); }
+
+        .dashboard-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 2rem; margin-top: 2rem; }
+        .audit-section { border: 1px solid var(--border-color); padding: 1rem; background: rgba(0, 10, 0, 0.5); max-height: 800px; overflow-y: auto; }
+
+        .tree-container { display: flex; flex-direction: column; gap: 1rem; }
+        .claim-node { padding: 1rem; border: 1px solid var(--border-color); border-radius: 4px; background: #000; }
+        .independent-node { border-left: 5px solid var(--text-primary); }
+        .dependent-node { border-left: 5px solid var(--info-text); margin-left: 20px; }
+
+        .node-header {
+            display: flex; justify-content: space-between; font-weight: bold; font-size: 0.8rem;
+            margin-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 5px;
+        }
+        .node-text { font-size: 0.85rem; line-height: 1.6; margin-bottom: 1rem; white-space: pre-wrap; }
+
+        .registry-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; color: var(--text-secondary); }
+        .registry-table th, .registry-table td { text-align: left; padding: 6px; border-bottom: 1px solid var(--border-color); }
+        .registry-table th { color: var(--text-primary); text-transform: uppercase; font-size: 0.65rem; }
+        
+        .group-header { background: var(--border-color); color: var(--text-primary); font-weight: bold; text-transform: uppercase; font-size: 0.6rem; padding: 4px 8px !important; }
+
+        .f-intro { color: var(--text-primary); border-bottom: 2px solid var(--text-primary); font-weight: bold; }
+        .f-ref { color: var(--info-text); border-bottom: 1px solid var(--info-text); }
+        .f-poss { color: #ADFF2F; border-bottom: 1px dashed #ADFF2F; }
+        .f-err { color: var(--error-text); text-decoration: underline wavy var(--error-text); font-weight: bold; }
+        .f-warn { color: var(--warning-text); border-bottom: 1px dotted var(--warning-text); }
+
+        .status-bar {
+            position: fixed; bottom: 0; width: 100%; background: var(--border-color);
+            color: var(--text-primary); padding: 5px 20px; font-size: 0.7rem;
+            text-transform: uppercase; display: flex; justify-content: space-between; z-index: 100;
+        }
+        #matrix-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.1; pointer-events: none; }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-overlay"></canvas>
+    <div class="container">
+        <h1>Claim Structural & Feature Audit <span id="ver">v2.8</span></h1>
+        <div class="input-grid">
+            <div class="input-group">
+                <label>Claims Input (Logic & Feature Source)</label>
+                <textarea id="claimsInput" placeholder="Paste claim text here..."></textarea>
+            </div>
+            <div class="input-group">
+                <label>Description Input (Verification Source)</label>
+                <textarea id="descriptionInput" placeholder="Paste description text here..."></textarea>
+            </div>
+        </div>
+        <div class="dashboard-grid">
+            <div class="audit-section">
+                <h3 style="text-transform: uppercase; font-size: 0.9rem;">1. Dependency & Feature Audit</h3>
+                <div id="treeContainer" class="tree-container">
+                    <div style="text-align: center; color: var(--text-secondary); padding: 2rem;">[WAITING FOR DATA]</div>
+                </div>
+            </div>
+            <div class="audit-section">
+                <h3 style="text-transform: uppercase; font-size: 0.9rem;">2. Feature Lifecycle Log (Lineage Scoped)</h3>
+                <table class="registry-table">
+                    <thead>
+                        <tr><th>Claim</th><th>Type</th><th>Descriptive Text</th><th>Ref #</th></tr>
+                    </thead>
+                    <tbody id="registryBody">
+                        <tr><td colspan="4" style="text-align:center">[EMPTY]</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="status-bar">
+        <span>System Status: <span id="status">IDLE</span></span>
+        <span>Relentless Re-activator - Scoped Lineage Active</span>
+    </div>
+
+    <script>
+        const claimsInput = document.getElementById('claimsInput');
+        const treeContainer = document.getElementById('treeContainer');
+        const registryBody = document.getElementById('registryBody');
+        const statusEl = document.getElementById('status');
+
+        let featureRegistry = {}; 
+        let orderedRoots = [];
+        let allOccurrences = [];
+        let claimsMap = {};
+
+        claimsInput.addEventListener('input', processClaims);
+
+        function processClaims() {
+            const text = claimsInput.value;
+            if (!text.trim()) {
+                treeContainer.innerHTML = '<div style="text-align: center; color: var(--text-secondary); padding: 2rem;">[WAITING FOR DATA]</div>';
+                statusEl.textContent = 'IDLE';
+                return;
+            }
+
+            statusEl.textContent = 'AUDITING LINEAGE...';
+            featureRegistry = {}; 
+            orderedRoots = [];
+            allOccurrences = [];
+            claimsMap = {};
+
+            const blocks = text.split(/(?:^|\n)\s*(\d+)(?:\.|\s)\s*/);
+            const claims = [];
+            for (let i = 1; i < blocks.length; i += 2) {
+                const id = parseInt(blocks[i].trim());
+                const content = (blocks[i+1] || "").trim();
+                if (!content) continue;
+                const isDependent = content.toLowerCase().includes('claim');
+                const parents = isDependent ? extractParents(content, id) : [];
+                const cObj = { id, text: content, type: isDependent ? 'dependent' : 'independent', parents };
+                claims.push(cObj);
+                claimsMap[id] = cObj;
+            }
+
+            // Calculate recursive lineage for each claim
+            claims.forEach(c => {
+                c.lineage = getFullLineage(c.id);
+            });
+
+            const auditedClaims = auditFeatures(claims);
+            renderDashboard(auditedClaims);
+            statusEl.textContent = `READY - ${claims.length} CLAIMS AUDITED`;
+        }
+
+        function getFullLineage(id) {
+            const lineage = new Set([id]);
+            const stack = [...(claimsMap[id]?.parents || [])];
+            while (stack.length > 0) {
+                const pId = stack.pop();
+                if (!lineage.has(pId)) {
+                    lineage.add(pId);
+                    if (claimsMap[pId]) stack.push(...claimsMap[pId].parents);
+                }
+            }
+            return Array.from(lineage);
+        }
+
+        function extractParents(text, currentId) {
+            const parents = new Set();
+            const lowerText = text.toLowerCase();
+            const singleRegex = /claim\s+(\d+)/g;
+            let m;
+            while ((m = singleRegex.exec(lowerText)) !== null) {
+                const pId = parseInt(m[1]);
+                if (pId < currentId) parents.add(pId);
+            }
+            const rangeRegex = /claims?\s+(\d+)\s+(?:to|or|,)\s+(\d+)/g;
+            while ((m = rangeRegex.exec(lowerText)) !== null) {
+                const start = parseInt(m[1]);
+                const end = parseInt(m[2]);
+                if (start < end) {
+                    for (let i = start; i <= end; i++) { if (i < currentId) parents.add(i); }
+                }
+            }
+            if (lowerText.includes('preceding claim')) {
+                for (let i = 1; i < currentId; i++) parents.add(i);
+            }
+            return Array.from(parents).sort((a,b) => a-b);
+        }
+
+        function normalize(str) {
+            let s = str.toLowerCase().trim();
+            s = s.replace(/\b(a|an|the|said|such|one|two|three|four|five|six|seven|eight|nine|ten|at\s+least\s+one|plurality\s+of|its|their|each|every|any|any\s+one\s+of|any\s+of|which)\b/gi, '').replace(/\s+/g, ' ').trim();
+            // Aggressive cleaning of connectors, dependency noise, prepositions, and structural pronouns
+            s = s.replace(/\s+(of|for|with|in|by|from|at|to|on|having|according to|as claimed in|of claim|that|which|thereof)$/gi, '').trim(); 
+            if (s.endsWith('s') && !s.endsWith('ss')) return s.slice(0, -1);
+            return s;
+        }
+
+        function auditFeatures(claims) {
+            return claims.map(claim => {
+                const text = claim.text;
+                let findings = [];
+                
+                // Ordered trigger list for longest-match precedence
+                const triggers = [
+                    "(?:the|said|such|its|their|each|every|which)\\s+(?:one|two|three|four|five|six|seven|eight|nine|ten|at\\s+least\\s+one|plurality\\s+of)",
+                    "at\\s+least\\s+one",
+                    "plurality\\s+of",
+                    "a", "an", "the", "said", "such", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+                    "its", "their", "each", "every", "which"
+                ].join('|');
+
+                const stopWords = [
+                    "a", "an", "the", "said", "such", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+                    "its", "their", "each", "every",
+                    "at\\s+least\\s+one", "plurality\\s+of", "according\\s+to", "as\\s+claimed\\s+in", "of\\s+claim",
+                    "comprising", "including", "characterized\\s+in", "wherein", "whereby", "that", "which",
+                    "for", "to", "in", "with", "by", "from", "at", "on", "having"
+                ].join('|');
+
+                const featureRegex = new RegExp(`\\b(${triggers})\\b\\s+((?:(?!\\b(?:${stopWords})\\b)[^,.;(])+)\\s*(?:\\((\\d+[a-z]?)\\))?|\\((\\d+[a-z]?)\\)`, 'gi');
+                
+                let m;
+                while ((m = featureRegex.exec(text)) !== null) {
+                    const full = m[0];
+                    let article = m[1] ? m[1].toLowerCase() : null;
+                    let rawPhrase = m[2] ? m[2].trim() : null;
+                    const ref = m[3] || m[4];
+                    
+                    if (rawPhrase) {
+                        // Truncate structural noise and prepositions from the raw phrase
+                        rawPhrase = rawPhrase.replace(/\s+(of|for|with|in|by|from|at|to|on|having|that|which|thereof)$/gi, '').trim();
+                    }
+
+                    // Skip features that are just structural noise, lone triggers, or claim references
+                    if (rawPhrase && (rawPhrase.length < 2 || /^(that|which|thereof|said|such|its|their|each|every)$/i.test(rawPhrase) || /claims?\b/i.test(rawPhrase)) && !ref) continue;
+                    if (!rawPhrase && !ref) continue;
+
+                    const root = rawPhrase ? normalize(rawPhrase) : (ref ? 'ref-'+ref : null);
+                    if (!root) continue;
+
+                    let category = 'MISSING_ANTECEDENT';
+                    const isRef = article && /the|said|such|which/i.test(article);
+                    const isPoss = article && /its|their|each|every/i.test(article);
+                    const isIntro = article && !isRef && !isPoss;
+
+                    // UNIFICATION LOGIC: Re-use existing root if ref matches
+                    let actualRoot = root;
+                    if (ref) {
+                        const existing = Object.keys(featureRegistry).find(r => featureRegistry[r].ref === ref);
+                        if (existing) actualRoot = existing;
+                    }
+
+                    if (!featureRegistry[actualRoot]) {
+                        featureRegistry[actualRoot] = { ref, canonical: rawPhrase || 'Feature '+ref, introductions: [] };
+                        orderedRoots.push(actualRoot);
+                    }
+
+                    const lineage = claim.lineage;
+                    const existsInLineage = featureRegistry[actualRoot].introductions.some(id => lineage.includes(id));
+
+                    if (isIntro) {
+                        if (!existsInLineage) {
+                            if (!featureRegistry[actualRoot].introductions.includes(claim.id)) {
+                                featureRegistry[actualRoot].introductions.push(claim.id);
+                            }
+                            category = 'INTRODUCTION';
+                        } else {
+                            category = 'REDUNDANT_INTRO';
+                        }
+                    } else if (isRef || isPoss) {
+                        category = existsInLineage ? (isPoss ? 'POSSESSIVE_REF' : 'VALID_REF') : 'MISSING_ANTECEDENT';
+                    } else if (ref && !article) {
+                        // Naked ref check in lineage
+                        const boundRoot = Object.keys(featureRegistry).find(r => 
+                            featureRegistry[r].ref === ref && featureRegistry[r].introductions.some(id => lineage.includes(id))
+                        );
+                        category = boundRoot ? 'VALID_REF' : 'MISSING_ANTECEDENT';
+                    }
+
+                    const displayName = (article ? article + " " : "") + (rawPhrase || 'ref-' + ref);
+                    const occurrence = { claimId: claim.id, original: full, displayName, root: actualRoot, category, ref };
+                    allOccurrences.push(occurrence);
+                    findings.push({ index: m.index, length: full.length, ...occurrence });
+                }
+
+                findings.sort((a, b) => b.index - a.index);
+                let html = text;
+                findings.forEach(f => {
+                    const cssClass = f.category === 'INTRODUCTION' ? 'f-intro' : 
+                                   f.category === 'VALID_REF' ? 'f-ref' : 
+                                   f.category === 'POSSESSIVE_REF' ? 'f-poss' :
+                                   f.category === 'MISSING_ANTECEDENT' ? 'f-err' : 'f-warn';
+                    const tooltip = `${f.category}`;
+                    const span = `<span class="${cssClass}" title="${tooltip}">${f.original}</span>`;
+                    html = html.substring(0, f.index) + span + html.substring(f.index + f.length);
+                });
+                return { ...claim, auditedHtml: html };
+            });
+        }
+
+        function renderDashboard(claims) {
+            treeContainer.innerHTML = claims.map(c => `
+                <div class="claim-node ${c.type === 'independent' ? 'independent-node' : 'dependent-node'}">
+                    <div class="node-header">
+                        <span>Claim ${c.id} [${c.type.toUpperCase()}]</span>
+                        <span>${c.parents.length > 0 ? `Parents: ${c.parents.join(',')}` : ''}</span>
+                    </div>
+                    <div class="node-text">${c.auditedHtml}</div>
+                </div>
+            `).join('');
+            
+            let registryHtml = "";
+            orderedRoots.forEach(root => {
+                const group = allOccurrences.filter(o => o.root === root);
+                if (group.length === 0) return;
+                registryHtml += `<tr><td colspan="4" class="group-header">Feature: ${featureRegistry[root].canonical}</td></tr>`;
+                group.forEach(o => {
+                    const statusColor = o.category === 'MISSING_ANTECEDENT' ? 'var(--error-text)' : 
+                                      o.category === 'INTRODUCTION' ? 'var(--text-primary)' : 
+                                      o.category === 'POSSESSIVE_REF' ? '#ADFF2F' : 'var(--info-text)';
+                    registryHtml += `
+                        <tr style="color: ${statusColor}">
+                            <td>Claim ${o.claimId}</td><td>${o.category}</td><td>${o.displayName}</td><td>${o.ref || '-'}</td>
+                        </tr>
+                    `;
+                });
+            });
+            registryBody.innerHTML = registryHtml || '<tr><td colspan="4" style="text-align:center">[EMPTY]</td></tr>';
+        }
+
+        const canvas = document.getElementById('matrix-overlay');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+        const columns = Math.floor(width / 20);
+        const drops = Array(columns).fill(1);
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, width, height);
+            ctx.fillStyle = '#0F0';
+            ctx.font = '15px monospace';
+            for (let i = 0; i < drops.length; i++) {
+                const text = String.fromCharCode(Math.random() * 128);
+                ctx.fillText(text, i * 20, drops[i] * 20);
+                if (drops[i] * 20 > height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 50);
+        window.onresize = () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; };
+    </script>
+</body>
+</html>
