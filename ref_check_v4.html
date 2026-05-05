@@ -1,22 +1,21 @@
 <!-- 
 SESSION SUMMARY: 2026-05-05
-REFCHECK v4.2 - MULTI-THEME SENTINEL
+REFCHECK v4.3 - INTEGRATED SENTINEL SLIDER
 
 ACCOMPLISHMENTS:
-1. THEME SELECTOR: Integrated a top-right selector for 'Matrix', 'Light', and 'Dark' visual modes.
-2. DYNAMIC CSS ARCHITECTURE: Refactored styles to use a theme-based variable system.
-3. MINIMALIST DESIGNS: 
-    - LIGHT: White background, high-contrast black/blue text, zero glow.
-    - DARK: Pure black background, white/cyan accents, zero glow.
-4. CANVAS CONTROL: The Matrix rain background is now intelligently toggled based on the active theme.
-5. PERSISTENT THEMING: Logic prepared for session-wide visual consistency.
+1. INTEGRATED THEME SLIDER: Replaced the dropdown with a segmented radio-slider positioned inside the Sentinel border.
+2. CHROMATIC REFINEMENT: Eliminated all grayscale fills in Light/Dark modes.
+    - LIGHT: White/Blue/Cyan palette (Zero Gray).
+    - DARK: Black/Cyan/Blue palette (Zero Gray).
+3. POSITIONAL UPGRADE: The selector is now a structural element of the header rather than a floating utility.
+4. INTERACTIVE FEEDBACK: Added smooth sliding transitions for theme switching.
 -->
 <!DOCTYPE html>
 <html lang="en" class="theme-matrix">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claim & Description Cross-Audit v4.2 - Multi-Theme Sentinel</title>
+    <title>Claim & Description Cross-Audit v4.3 - Integrated Sentinel Slider</title>
     <style>
         /* Matrix Theme (Default) */
         .theme-matrix {
@@ -32,38 +31,41 @@ ACCOMPLISHMENTS:
             --review-bg: #3B0000;
             --input-bg: rgba(0, 5, 0, 0.8);
             --container-bg: rgba(0, 0, 0, 0.9);
+            --slider-bg: #001a00;
         }
 
-        /* Light Theme (Minimalist) */
+        /* Light Theme (No Gray) */
         .theme-light {
             --bg-color: #FFFFFF;
-            --text-primary: #000000;
-            --text-secondary: #666666;
-            --border-color: #DDDDDD;
+            --text-primary: #0000FF;
+            --text-secondary: #00008B;
+            --border-color: #0000FF;
             --accent-glow: none;
-            --error-text: #D93025;
-            --warning-text: #F29900;
-            --info-text: #1A73E8;
-            --perfect-bg: #E6F4EA;
-            --review-bg: #FCE8E6;
-            --input-bg: #F8F9FA;
+            --error-text: #FF0000;
+            --warning-text: #FF8C00;
+            --info-text: #008B8B;
+            --perfect-bg: #F0FFF0;
+            --review-bg: #FFF0F0;
+            --input-bg: #FFFFFF;
             --container-bg: #FFFFFF;
+            --slider-bg: #E0E0FF;
         }
 
-        /* Dark Theme (Minimalist) */
+        /* Dark Theme (No Gray) */
         .theme-dark {
             --bg-color: #000000;
             --text-primary: #FFFFFF;
-            --text-secondary: #AAAAAA;
-            --border-color: #333333;
+            --text-secondary: #00FFFF;
+            --border-color: #00FFFF;
             --accent-glow: none;
-            --error-text: #FF5252;
-            --warning-text: #FFD740;
-            --info-text: #40C4FF;
-            --perfect-bg: #1B3320;
-            --review-bg: #331B1B;
-            --input-bg: #121212;
+            --error-text: #FF0000;
+            --warning-text: #FFFF00;
+            --info-text: #00BFFF;
+            --perfect-bg: #002200;
+            --review-bg: #220000;
+            --input-bg: #000000;
             --container-bg: #000000;
+            --slider-bg: #002222;
         }
 
         body {
@@ -82,17 +84,6 @@ ACCOMPLISHMENTS:
         }
         .theme-light #matrix-canvas, .theme-dark #matrix-canvas { display: none; }
 
-        .theme-selector {
-            position: fixed; top: 1rem; right: 1rem; z-index: 1000;
-            display: flex; gap: 0.5rem; background: var(--border-color);
-            padding: 5px; border-radius: 4px; border: 1px solid var(--text-primary);
-        }
-        .theme-selector select {
-            background: var(--bg-color); color: var(--text-primary);
-            border: 1px solid var(--text-primary); font-family: inherit;
-            font-size: 0.7rem; padding: 2px 5px; outline: none; cursor: pointer;
-        }
-
         .container {
             width: 95%; max-width: 1600px; background: var(--container-bg);
             border: 2px solid var(--border-color); padding: 2rem; box-shadow: var(--accent-glow);
@@ -100,10 +91,36 @@ ACCOMPLISHMENTS:
             transition: all 0.3s;
         }
 
-        h1 {
-            text-transform: uppercase; letter-spacing: 3px; border-bottom: 2px solid var(--border-color);
-            padding-bottom: 10px; margin-bottom: 30px; text-shadow: var(--accent-glow);
+        .header-row {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-bottom: 30px;
         }
+
+        h1 {
+            text-transform: uppercase; letter-spacing: 3px; margin: 0;
+            text-shadow: var(--accent-glow); border: none;
+        }
+
+        /* Segmented Slider Control */
+        .theme-slider {
+            display: flex; background: var(--slider-bg); border: 1px solid var(--border-color);
+            border-radius: 20px; padding: 2px; position: relative; width: 240px;
+        }
+        .theme-slider input { display: none; }
+        .theme-slider label {
+            flex: 1; text-align: center; font-size: 0.6rem; font-weight: bold;
+            padding: 5px 0; cursor: pointer; z-index: 2; position: relative;
+            transition: color 0.3s; color: var(--text-secondary);
+        }
+        .theme-slider input:checked + label { color: var(--text-primary); }
+        .slider-glider {
+            position: absolute; height: calc(100% - 4px); width: calc(33.33% - 2px);
+            background: var(--border-color); border-radius: 18px; top: 2px; left: 2px;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1;
+        }
+        #t-matrix:checked ~ .slider-glider { transform: translateX(0); }
+        #t-light:checked ~ .slider-glider { transform: translateX(100%); }
+        #t-dark:checked ~ .slider-glider { transform: translateX(200%); }
 
         .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
         .input-group { display: flex; flex-direction: column; }
@@ -118,11 +135,11 @@ ACCOMPLISHMENTS:
 
         /* Audit Dashboard */
         .audit-dashboard {
-            margin-bottom: 2rem; border: 1px solid var(--border-color); padding: 1rem; background: rgba(0, 15, 0, 0.1);
+            margin-bottom: 2rem; border: 1px solid var(--border-color); padding: 1rem; background: rgba(0, 15, 0, 0.05);
         }
         .audit-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
         .audit-table th, .audit-table td { text-align: left; padding: 0.6rem; border-bottom: 1px solid var(--border-color); }
-        .audit-table th { background: var(--border-color); color: var(--text-primary); text-transform: uppercase; }
+        .audit-table th { background: var(--border-color); color: var(--bg-color); text-transform: uppercase; }
 
         .status-badge {
             padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.7rem; text-transform: uppercase;
@@ -132,7 +149,7 @@ ACCOMPLISHMENTS:
 
         /* Section Layout */
         .dashboard-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem; margin-top: 2rem; }
-        .audit-section { border: 1px solid var(--border-color); padding: 1rem; background: rgba(0, 10, 0, 0.05); max-height: 800px; overflow-y: auto; }
+        .audit-section { border: 1px solid var(--border-color); padding: 1rem; background: rgba(0, 10, 0, 0.02); max-height: 800px; overflow-y: auto; }
         .full-width { grid-column: 1 / span 2; max-height: none; }
 
         .tree-container { display: flex; flex-direction: column; gap: 1rem; }
@@ -150,7 +167,7 @@ ACCOMPLISHMENTS:
         .registry-table th, .registry-table td { text-align: left; padding: 6px; border-bottom: 1px solid var(--border-color); }
         .registry-table th { color: var(--text-primary); text-transform: uppercase; font-size: 0.65rem; }
         
-        .group-header { background: var(--border-color); color: var(--text-primary); font-weight: bold; text-transform: uppercase; font-size: 0.6rem; padding: 4px 8px !important; }
+        .group-header { background: var(--border-color); color: var(--bg-color); font-weight: bold; text-transform: uppercase; font-size: 0.6rem; padding: 4px 8px !important; }
 
         .f-intro { color: var(--text-primary); border-bottom: 2px solid var(--text-primary); font-weight: bold; }
         .f-ref { color: var(--info-text); border-bottom: 1px solid var(--info-text); }
@@ -159,14 +176,14 @@ ACCOMPLISHMENTS:
         .f-warn { color: var(--warning-text); border-bottom: 1px dotted var(--warning-text); }
 
         .btn-action {
-            background: var(--border-color); color: var(--text-primary); border: 1px solid var(--text-primary);
+            background: var(--border-color); color: var(--bg-color); border: 1px solid var(--border-color);
             padding: 0.3rem 0.8rem; border-radius: 4px; cursor: pointer; font-size: 0.7rem; font-weight: bold; text-transform: uppercase;
         }
         .btn-action:hover { background: var(--text-primary); color: var(--bg-color); box-shadow: var(--accent-glow); }
 
         .status-bar {
             position: fixed; bottom: 0; width: 100%; background: var(--border-color);
-            color: var(--text-primary); padding: 5px 20px; font-size: 0.7rem;
+            color: var(--bg-color); padding: 5px 20px; font-size: 0.7rem;
             text-transform: uppercase; display: flex; justify-content: space-between; z-index: 100;
         }
         .hidden { display: none; }
@@ -178,17 +195,19 @@ ACCOMPLISHMENTS:
 <body class="theme-matrix">
     <canvas id="matrix-canvas"></canvas>
     
-    <div class="theme-selector">
-        <label style="color: var(--text-primary); font-size: 0.6rem; margin-right: 5px;">THEME:</label>
-        <select id="themeSelect" onchange="changeTheme(this.value)">
-            <option value="theme-matrix">MATRIX</option>
-            <option value="theme-light">LIGHT</option>
-            <option value="theme-dark">DARK</option>
-        </select>
-    </div>
-
     <div class="container">
-        <h1>Claim Structural Sentinel <span id="ver">v4.2</span></h1>
+        <div class="header-row">
+            <h1>Claim Structural Sentinel <span id="ver">v4.3</span></h1>
+            <div class="theme-slider">
+                <input type="radio" id="t-matrix" name="theme" value="theme-matrix" checked onchange="changeTheme(this.value)">
+                <label for="t-matrix">MATRIX</label>
+                <input type="radio" id="t-light" name="theme" value="theme-light" onchange="changeTheme(this.value)">
+                <label for="t-light">LIGHT</label>
+                <input type="radio" id="t-dark" name="theme" value="theme-dark" onchange="changeTheme(this.value)">
+                <label for="t-dark">DARK</label>
+                <div class="slider-glider"></div>
+            </div>
+        </div>
         
         <div class="input-grid">
             <div class="input-group">
@@ -316,19 +335,13 @@ ACCOMPLISHMENTS:
         function processAll() {
             const claimsText = claimsInput.value;
             const descText = descriptionInput.value;
-            
             if (!claimsText.trim() && !descText.trim()) {
                 treeContainer.innerHTML = '<div style="text-align: center; color: var(--text-secondary); padding: 2rem;">[WAITING FOR DATA]</div>';
                 statusEl.textContent = 'IDLE';
                 return;
             }
-
             statusEl.textContent = 'SYNCHRONIZING...';
-            featureRegistry = {}; 
-            orderedRoots = [];
-            allOccurrences = [];
-            claimsMap = {};
-
+            featureRegistry = {}; orderedRoots = []; allOccurrences = []; claimsMap = {};
             const blocks = claimsText.split(/(?:^|\n)\s*(\d+)(?:\.|\s)\s*/);
             const claims = [];
             for (let i = 1; i < blocks.length; i += 2) {
@@ -338,10 +351,8 @@ ACCOMPLISHMENTS:
                 const isDependent = content.toLowerCase().includes('claim');
                 const parents = isDependent ? extractParents(content, id) : [];
                 const cObj = { id, text: content, type: isDependent ? 'dependent' : 'independent', parents };
-                claims.push(cObj);
-                claimsMap[id] = cObj;
+                claims.push(cObj); claimsMap[id] = cObj;
             }
-
             claims.forEach(c => c.lineage = getFullLineage(c.id));
             const auditedClaims = auditFeatures(claims);
             discoverOrphans(descText);
