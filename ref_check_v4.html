@@ -1,24 +1,25 @@
 <!-- 
 SESSION SUMMARY: 2026-05-05
-REFCHECK v4.1 - FEATURE-CENTRIC STRUCTURAL AUDIT
+REFCHECK v4.2 - MULTI-THEME SENTINEL
 
 ACCOMPLISHMENTS:
-1. FEATURE-CENTRIC DASHBOARD: Pivoted the Structural Audit from a per-claim view to a per-feature view.
-2. DISCOVERY ENGINE: Re-integrated the Orphan Discovery logic to capture features defined only in the description.
-3. SEQUENTIAL ORDERING: Audit table now prioritizes features in their claim-appearance order, followed by description orphans.
-4. BINARY STATUS REFINEMENT: 
-    - PERFECT: Intro exists + Valid Refs + Found in Description with matching ref.
-    - REVIEW NEEDED: Missing intro, bad ref, description mismatch, or Orphan status.
-5. IMPROVED TRACING: Command buttons now link directly to registry entries for surgical deep-dives.
+1. THEME SELECTOR: Integrated a top-right selector for 'Matrix', 'Light', and 'Dark' visual modes.
+2. DYNAMIC CSS ARCHITECTURE: Refactored styles to use a theme-based variable system.
+3. MINIMALIST DESIGNS: 
+    - LIGHT: White background, high-contrast black/blue text, zero glow.
+    - DARK: Pure black background, white/cyan accents, zero glow.
+4. CANVAS CONTROL: The Matrix rain background is now intelligently toggled based on the active theme.
+5. PERSISTENT THEMING: Logic prepared for session-wide visual consistency.
 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="theme-matrix">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claim & Description Cross-Audit v4.1 - Feature Sentinel</title>
+    <title>Claim & Description Cross-Audit v4.2 - Multi-Theme Sentinel</title>
     <style>
-        :root {
+        /* Matrix Theme (Default) */
+        .theme-matrix {
             --bg-color: #000000;
             --text-primary: #00FF41;
             --text-secondary: #008F11;
@@ -29,6 +30,40 @@ ACCOMPLISHMENTS:
             --info-text: #00FFFF;
             --perfect-bg: #003B00;
             --review-bg: #3B0000;
+            --input-bg: rgba(0, 5, 0, 0.8);
+            --container-bg: rgba(0, 0, 0, 0.9);
+        }
+
+        /* Light Theme (Minimalist) */
+        .theme-light {
+            --bg-color: #FFFFFF;
+            --text-primary: #000000;
+            --text-secondary: #666666;
+            --border-color: #DDDDDD;
+            --accent-glow: none;
+            --error-text: #D93025;
+            --warning-text: #F29900;
+            --info-text: #1A73E8;
+            --perfect-bg: #E6F4EA;
+            --review-bg: #FCE8E6;
+            --input-bg: #F8F9FA;
+            --container-bg: #FFFFFF;
+        }
+
+        /* Dark Theme (Minimalist) */
+        .theme-dark {
+            --bg-color: #000000;
+            --text-primary: #FFFFFF;
+            --text-secondary: #AAAAAA;
+            --border-color: #333333;
+            --accent-glow: none;
+            --error-text: #FF5252;
+            --warning-text: #FFD740;
+            --info-text: #40C4FF;
+            --perfect-bg: #1B3320;
+            --review-bg: #331B1B;
+            --input-bg: #121212;
+            --container-bg: #000000;
         }
 
         body {
@@ -37,6 +72,7 @@ ACCOMPLISHMENTS:
             color: var(--text-primary);
             margin: 0; padding: 2rem; display: flex; flex-direction: column; align-items: center;
             overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         #matrix-canvas {
@@ -44,16 +80,29 @@ ACCOMPLISHMENTS:
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1; pointer-events: none;
         }
+        .theme-light #matrix-canvas, .theme-dark #matrix-canvas { display: none; }
+
+        .theme-selector {
+            position: fixed; top: 1rem; right: 1rem; z-index: 1000;
+            display: flex; gap: 0.5rem; background: var(--border-color);
+            padding: 5px; border-radius: 4px; border: 1px solid var(--text-primary);
+        }
+        .theme-selector select {
+            background: var(--bg-color); color: var(--text-primary);
+            border: 1px solid var(--text-primary); font-family: inherit;
+            font-size: 0.7rem; padding: 2px 5px; outline: none; cursor: pointer;
+        }
 
         .container {
-            width: 95%; max-width: 1600px; background: rgba(0, 0, 0, 0.9);
+            width: 95%; max-width: 1600px; background: var(--container-bg);
             border: 2px solid var(--border-color); padding: 2rem; box-shadow: var(--accent-glow);
             position: relative; z-index: 1; backdrop-filter: blur(2px);
+            transition: all 0.3s;
         }
 
         h1 {
             text-transform: uppercase; letter-spacing: 3px; border-bottom: 2px solid var(--border-color);
-            padding-bottom: 10px; margin-bottom: 30px; text-shadow: 0 0 10px var(--text-primary);
+            padding-bottom: 10px; margin-bottom: 30px; text-shadow: var(--accent-glow);
         }
 
         .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
@@ -61,14 +110,15 @@ ACCOMPLISHMENTS:
         label { text-transform: uppercase; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: bold; }
 
         textarea {
-            height: 200px; background: rgba(0, 5, 0, 0.8); color: var(--text-primary); border: 1px solid var(--border-color);
+            height: 200px; background: var(--input-bg); color: var(--text-primary); border: 1px solid var(--border-color);
             padding: 1rem; font-family: inherit; font-size: 0.9rem; line-height: 1.5; resize: vertical;
+            transition: all 0.3s;
         }
         textarea:focus { outline: none; border-color: var(--text-primary); box-shadow: var(--accent-glow); }
 
         /* Audit Dashboard */
         .audit-dashboard {
-            margin-bottom: 2rem; border: 1px solid var(--border-color); padding: 1rem; background: rgba(0, 15, 0, 0.5);
+            margin-bottom: 2rem; border: 1px solid var(--border-color); padding: 1rem; background: rgba(0, 15, 0, 0.1);
         }
         .audit-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
         .audit-table th, .audit-table td { text-align: left; padding: 0.6rem; border-bottom: 1px solid var(--border-color); }
@@ -82,11 +132,11 @@ ACCOMPLISHMENTS:
 
         /* Section Layout */
         .dashboard-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem; margin-top: 2rem; }
-        .audit-section { border: 1px solid var(--border-color); padding: 1rem; background: rgba(0, 10, 0, 0.5); max-height: 800px; overflow-y: auto; }
+        .audit-section { border: 1px solid var(--border-color); padding: 1rem; background: rgba(0, 10, 0, 0.05); max-height: 800px; overflow-y: auto; }
         .full-width { grid-column: 1 / span 2; max-height: none; }
 
         .tree-container { display: flex; flex-direction: column; gap: 1rem; }
-        .claim-node { padding: 1rem; border: 1px solid var(--border-color); border-radius: 4px; background: #000; }
+        .claim-node { padding: 1rem; border: 1px solid var(--border-color); border-radius: 4px; background: var(--input-bg); }
         .independent-node { border-left: 5px solid var(--text-primary); }
         .dependent-node { border-left: 5px solid var(--info-text); margin-left: 20px; }
 
@@ -125,10 +175,20 @@ ACCOMPLISHMENTS:
         ::-webkit-scrollbar-thumb { background: var(--border-color); }
     </style>
 </head>
-<body>
+<body class="theme-matrix">
     <canvas id="matrix-canvas"></canvas>
+    
+    <div class="theme-selector">
+        <label style="color: var(--text-primary); font-size: 0.6rem; margin-right: 5px;">THEME:</label>
+        <select id="themeSelect" onchange="changeTheme(this.value)">
+            <option value="theme-matrix">MATRIX</option>
+            <option value="theme-light">LIGHT</option>
+            <option value="theme-dark">DARK</option>
+        </select>
+    </div>
+
     <div class="container">
-        <h1>Claim Structural Sentinel <span id="ver">v4.1</span></h1>
+        <h1>Claim Structural Sentinel <span id="ver">v4.2</span></h1>
         
         <div class="input-grid">
             <div class="input-group">
@@ -198,6 +258,12 @@ ACCOMPLISHMENTS:
     </div>
 
     <script>
+        // Theme Logic
+        function changeTheme(theme) {
+            document.documentElement.className = theme;
+            document.body.className = theme;
+        }
+
         // Matrix Rain Logic
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
@@ -207,6 +273,7 @@ ACCOMPLISHMENTS:
         const columns = Math.floor(width / fontSize);
         const drops = Array(columns).fill(1);
         function drawMatrix() {
+            if (document.documentElement.className !== 'theme-matrix') return;
             ctx.fillStyle = "rgba(0, 0, 0, 0.05)"; ctx.fillRect(0, 0, width, height);
             ctx.font = fontSize + "px monospace";
             for (let i = 0; i < drops.length; i++) {
@@ -262,7 +329,6 @@ ACCOMPLISHMENTS:
             allOccurrences = [];
             claimsMap = {};
 
-            // 1. Process Claims
             const blocks = claimsText.split(/(?:^|\n)\s*(\d+)(?:\.|\s)\s*/);
             const claims = [];
             for (let i = 1; i < blocks.length; i += 2) {
@@ -278,14 +344,8 @@ ACCOMPLISHMENTS:
 
             claims.forEach(c => c.lineage = getFullLineage(c.id));
             const auditedClaims = auditFeatures(claims);
-
-            // 2. Discover Orphans from Description
             discoverOrphans(descText);
-
-            // 3. Process Description Alignment
             const descFindings = auditDescription(descText);
-
-            // 4. Render
             renderDashboard(auditedClaims, descFindings);
             statusEl.textContent = `TRACE COMPLETE - ${orderedRoots.length} FEATURES AUDITED`;
         }
@@ -362,37 +422,31 @@ ACCOMPLISHMENTS:
                 const text = claim.text;
                 let findings = [];
                 const featureRegex = new RegExp(`\\b(${triggers})\\b\\s+((?:(?!\\b(?:${stopWords})\\b)[^,.;(])+)\\s*(?:\\((\\d+[a-z]?)\\))?|\\((\\d+[a-z]?)\\)`, 'gi');
-                
                 let m;
                 while ((m = featureRegex.exec(text)) !== null) {
                     const full = m[0];
                     let article = m[1] ? m[1].toLowerCase() : null;
                     let rawPhrase = m[2] ? m[2].trim() : null;
                     const ref = m[3] || m[4];
-                    
                     if (rawPhrase) rawPhrase = rawPhrase.replace(/\s+(of|for|with|in|by|from|at|to|on|having|that|which|thereof)$/gi, '').trim();
                     if (rawPhrase && (rawPhrase.length < 2 || /^(that|which|thereof|said|such|its|their|each|every)$/i.test(rawPhrase) || /claims?\b/i.test(rawPhrase)) && !ref) continue;
                     const root = rawPhrase ? normalize(rawPhrase) : (ref ? 'ref-'+ref : null);
                     if (!root) continue;
-
                     let actualRoot = root;
                     if (ref) {
                         const existing = Object.keys(featureRegistry).find(r => featureRegistry[r].ref === ref);
                         if (existing) actualRoot = existing;
                     }
-
                     if (!featureRegistry[actualRoot]) {
                         featureRegistry[actualRoot] = { ref, canonical: rawPhrase || 'Feature '+ref, introductions: [] };
                         orderedRoots.push(actualRoot);
                     }
-
                     const lineage = claim.lineage;
                     const existsInLineage = featureRegistry[actualRoot].introductions.some(id => lineage.includes(id));
                     let category = 'MISSING_ANTECEDENT';
                     const isRef = article && /the|said|such|which/i.test(article);
                     const isPoss = article && /its|their|each|every/i.test(article);
                     const isIntro = article && !isRef && !isPoss;
-
                     if (isIntro) {
                         if (!existsInLineage) {
                             if (!featureRegistry[actualRoot].introductions.includes(claim.id)) featureRegistry[actualRoot].introductions.push(claim.id);
@@ -404,12 +458,10 @@ ACCOMPLISHMENTS:
                         const boundRoot = Object.keys(featureRegistry).find(r => featureRegistry[r].ref === ref && featureRegistry[r].introductions.some(id => lineage.includes(id)));
                         category = boundRoot ? 'VALID_REF' : 'MISSING_ANTECEDENT';
                     }
-
                     const occurrence = { claimId: claim.id, original: full, displayName: (article ? article + " " : "") + (rawPhrase || 'ref-' + ref), root: actualRoot, category, ref };
                     allOccurrences.push(occurrence);
                     findings.push({ index: m.index, length: full.length, ...occurrence });
                 }
-
                 findings.sort((a, b) => b.index - a.index);
                 let html = text;
                 findings.forEach(f => {
@@ -424,12 +476,10 @@ ACCOMPLISHMENTS:
             if (!text.trim()) return [];
             const paragraphs = text.split(/(?=\[\d{4}\])/);
             const mappings = [];
-
             paragraphs.forEach(p => {
                 const markerMatch = p.match(/^\[(\d{4})\]/);
                 if (!markerMatch) return;
                 const loc = `[${markerMatch[1]}]`;
-                
                 orderedRoots.forEach(root => {
                     const feat = featureRegistry[root];
                     const nameEscaped = feat.canonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -456,29 +506,21 @@ ACCOMPLISHMENTS:
         }
 
         function renderDashboard(claims, descFindings) {
-            // 1. Render Feature-Centric Audit Dashboard
             let auditHtml = "";
             orderedRoots.forEach(root => {
                 const feat = featureRegistry[root];
                 const occurrences = allOccurrences.filter(o => o.root === root);
-                
-                // Legal Integrity
                 const hasIntro = feat.introductions.length > 0;
                 const hasError = occurrences.some(o => o.category === 'MISSING_ANTECEDENT');
                 const legalStatus = (hasIntro && !hasError) ? 'PERFECT' : 'REVIEW NEEDED';
                 const lClass = legalStatus === 'PERFECT' ? 'status-perfect' : 'status-review';
-
-                // Description Sync
                 const matches = descFindings.filter(f => f.root === root);
                 const hasMatch = matches.some(m => m.type === 'MATCH');
                 const hasMismatch = matches.some(m => m.type === 'MISMATCH');
                 const syncStatus = (hasMatch && !hasMismatch) ? 'PERFECT' : 'REVIEW NEEDED';
                 const sClass = syncStatus === 'PERFECT' ? 'status-perfect' : 'status-review';
-
-                // Final Binary Status
                 const overallStatus = (legalStatus === 'PERFECT' && syncStatus === 'PERFECT' && !feat.isOrphan) ? 'PERFECT' : 'REVIEW NEEDED';
                 const oClass = overallStatus === 'PERFECT' ? 'status-perfect' : 'status-review';
-
                 auditHtml += `
                     <tr>
                         <td><b style="color: ${feat.isOrphan ? 'var(--warning-text)' : 'var(--text-primary)'}">${feat.canonical}${feat.isOrphan ? ' [ORPHAN]' : ''}</b></td>
@@ -491,32 +533,24 @@ ACCOMPLISHMENTS:
                 `;
             });
             auditBody.innerHTML = auditHtml;
-
-            // 2. Render Tree
             treeContainer.innerHTML = claims.map(c => `
                 <div class="claim-node ${c.type === 'independent' ? 'independent-node' : 'dependent-node'}" id="claim-${c.id}">
                     <div class="node-header"><span>Claim ${c.id} [${c.type.toUpperCase()}]</span></div>
                     <div class="node-text">${c.auditedHtml}</div>
                 </div>
             `).join('');
-            
-            // 3. Render Registry
             let regHtml = "";
             orderedRoots.forEach(root => {
                 const group = allOccurrences.filter(o => o.root === root);
                 if (group.length === 0 && !featureRegistry[root].isOrphan) return;
                 regHtml += `<tr><td colspan="4" class="group-header" id="reg-${root}">Feature: ${featureRegistry[root].canonical}</td></tr>`;
-                if (featureRegistry[root].isOrphan) {
-                    regHtml += `<tr style="color: var(--warning-text)"><td>DESC</td><td>ORPHAN</td><td>${featureRegistry[root].canonical}</td><td>${featureRegistry[root].ref}</td></tr>`;
-                }
+                if (featureRegistry[root].isOrphan) regHtml += `<tr style="color: var(--warning-text)"><td>DESC</td><td>ORPHAN</td><td>${featureRegistry[root].canonical}</td><td>${featureRegistry[root].ref}</td></tr>`;
                 group.forEach(o => {
                     const color = o.category === 'MISSING_ANTECEDENT' ? 'var(--error-text)' : o.category === 'INTRODUCTION' ? 'var(--text-primary)' : o.category === 'POSSESSIVE_REF' ? '#ADFF2F' : 'var(--info-text)';
                     regHtml += `<tr style="color: ${color}"><td>Claim ${o.claimId}</td><td>${o.category}</td><td>${o.displayName}</td><td>${o.ref || '-'}</td></tr>`;
                 });
             });
             registryBody.innerHTML = regHtml || '<tr><td colspan="4" style="text-align:center">[EMPTY]</td></tr>';
-
-            // 4. Render Map
             let descHtml = "";
             orderedRoots.forEach(root => {
                 const matches = descFindings.filter(f => f.root === root);
