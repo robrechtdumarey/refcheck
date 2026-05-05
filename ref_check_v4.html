@@ -1,22 +1,22 @@
 <!-- 
 SESSION SUMMARY: 2026-05-05
-REFCHECK v4 - BINARY STRUCTURAL AUDIT UPGRADE
+REFCHECK v4.1 - FEATURE-CENTRIC STRUCTURAL AUDIT
 
 ACCOMPLISHMENTS:
-1. CINEMATIC MATRIX THEME: Ported the high-fidelity rain and phosphor-green aesthetic from Summary v19.
-2. STRUCTURAL AUDIT MODULE: Integrated a high-level status dashboard for rapid integrity checks.
-3. BINARY SCORING: Claims are now flagged as 'PERFECT' or 'REVIEW NEEDED' based on:
-    - Legal Integrity (Antecedent Basis / MISSING_ANTECEDENT).
-    - Description Sync (Feature grounding in technical disclosure).
-4. COLLAPSIBLE PREPROCESSING: Hidden buffers for a cleaner audit experience.
-5. INTEGRATED DASHBOARD: Merged the deep-dive logic with global alignment mapping.
+1. FEATURE-CENTRIC DASHBOARD: Pivoted the Structural Audit from a per-claim view to a per-feature view.
+2. DISCOVERY ENGINE: Re-integrated the Orphan Discovery logic to capture features defined only in the description.
+3. SEQUENTIAL ORDERING: Audit table now prioritizes features in their claim-appearance order, followed by description orphans.
+4. BINARY STATUS REFINEMENT: 
+    - PERFECT: Intro exists + Valid Refs + Found in Description with matching ref.
+    - REVIEW NEEDED: Missing intro, bad ref, description mismatch, or Orphan status.
+5. IMPROVED TRACING: Command buttons now link directly to registry entries for surgical deep-dives.
 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claim & Description Cross-Audit v4 - Structural Sentinel</title>
+    <title>Claim & Description Cross-Audit v4.1 - Feature Sentinel</title>
     <style>
         :root {
             --bg-color: #000000;
@@ -128,7 +128,7 @@ ACCOMPLISHMENTS:
 <body>
     <canvas id="matrix-canvas"></canvas>
     <div class="container">
-        <h1>Claim Structural Sentinel <span id="ver">v4</span></h1>
+        <h1>Claim Structural Sentinel <span id="ver">v4.1</span></h1>
         
         <div class="input-grid">
             <div class="input-group">
@@ -142,11 +142,12 @@ ACCOMPLISHMENTS:
         </div>
 
         <div class="audit-dashboard">
-            <h3 style="text-transform: uppercase; font-size: 0.9rem; color: var(--text-secondary);">Structural Audit Dashboard</h3>
+            <h3 style="text-transform: uppercase; font-size: 0.9rem; color: var(--text-secondary);">Structural Audit Dashboard (Feature-Centric)</h3>
             <table class="audit-table">
                 <thead>
                     <tr>
-                        <th>Claim ID</th>
+                        <th>Feature Name</th>
+                        <th>Ref #</th>
                         <th>Legal Integrity</th>
                         <th>Description Sync</th>
                         <th>Status</th>
@@ -154,7 +155,7 @@ ACCOMPLISHMENTS:
                     </tr>
                 </thead>
                 <tbody id="auditBody">
-                    <tr><td colspan="5" style="text-align:center; color: var(--text-secondary)">[WAITING FOR BUFFER INPUT]</td></tr>
+                    <tr><td colspan="6" style="text-align:center; color: var(--text-secondary)">[WAITING FOR BUFFER INPUT]</td></tr>
                 </tbody>
             </table>
         </div>
@@ -249,7 +250,7 @@ ACCOMPLISHMENTS:
             const claimsText = claimsInput.value;
             const descText = descriptionInput.value;
             
-            if (!claimsText.trim()) {
+            if (!claimsText.trim() && !descText.trim()) {
                 treeContainer.innerHTML = '<div style="text-align: center; color: var(--text-secondary); padding: 2rem;">[WAITING FOR DATA]</div>';
                 statusEl.textContent = 'IDLE';
                 return;
@@ -261,6 +262,7 @@ ACCOMPLISHMENTS:
             allOccurrences = [];
             claimsMap = {};
 
+            // 1. Process Claims
             const blocks = claimsText.split(/(?:^|\n)\s*(\d+)(?:\.|\s)\s*/);
             const claims = [];
             for (let i = 1; i < blocks.length; i += 2) {
@@ -276,10 +278,39 @@ ACCOMPLISHMENTS:
 
             claims.forEach(c => c.lineage = getFullLineage(c.id));
             const auditedClaims = auditFeatures(claims);
+
+            // 2. Discover Orphans from Description
+            discoverOrphans(descText);
+
+            // 3. Process Description Alignment
             const descFindings = auditDescription(descText);
 
+            // 4. Render
             renderDashboard(auditedClaims, descFindings);
-            statusEl.textContent = `TRACE COMPLETE - ${claims.length} NODES AUDITED`;
+            statusEl.textContent = `TRACE COMPLETE - ${orderedRoots.length} FEATURES AUDITED`;
+        }
+
+        function discoverOrphans(text) {
+            if (!text.trim()) return;
+            const paragraphs = text.split(/(?=\[\d{4}\])/);
+            paragraphs.forEach(p => {
+                const discoveryRegex = new RegExp(`\\b(a|an)\\s+((?:(?!\\b(?:${stopWords})\\b)[^,.;(0-9])+)\\s*(?:\\((\\d+)\\)|(\\d+))\\b`, 'gi');
+                let dm;
+                while ((dm = discoveryRegex.exec(p)) !== null) {
+                    const rawName = dm[2].trim();
+                    const ref = dm[3] || dm[4];
+                    const cleanName = rawName.replace(/^(has|and|or|is|with|by|from|at|on|to)\s+/i, '').trim();
+                    const root = normalize(cleanName);
+                    const inClaims = orderedRoots.some(r => featureRegistry[r].ref === ref);
+                    if (!inClaims) {
+                        const orphanKey = `orphan-${root}-${ref}`;
+                        if (!featureRegistry[orphanKey]) {
+                            featureRegistry[orphanKey] = { ref, canonical: cleanName, introductions: [], isOrphan: true };
+                            orderedRoots.push(orphanKey);
+                        }
+                    }
+                }
+            });
         }
 
         function extractParents(text, currentId) {
@@ -385,7 +416,7 @@ ACCOMPLISHMENTS:
                     const cssClass = f.category === 'INTRODUCTION' ? 'f-intro' : f.category === 'VALID_REF' ? 'f-ref' : f.category === 'POSSESSIVE_REF' ? 'f-poss' : f.category === 'MISSING_ANTECEDENT' ? 'f-err' : 'f-warn';
                     html = html.substring(0, f.index) + `<span class="${cssClass}">${f.original}</span>` + html.substring(f.index + f.length);
                 });
-                return { ...claim, auditedHtml: html, findings };
+                return { ...claim, auditedHtml: html };
             });
         }
 
@@ -425,34 +456,43 @@ ACCOMPLISHMENTS:
         }
 
         function renderDashboard(claims, descFindings) {
-            // Render Binary Audit Dashboard
+            // 1. Render Feature-Centric Audit Dashboard
             let auditHtml = "";
-            claims.forEach(c => {
-                const integrityFail = c.findings.some(f => f.category === 'MISSING_ANTECEDENT');
-                const featuresInClaim = [...new Set(c.findings.map(f => f.root))];
-                const syncFail = featuresInClaim.length > 0 && featuresInClaim.some(root => !descFindings.some(f => f.root === root && f.type === 'MATCH'));
+            orderedRoots.forEach(root => {
+                const feat = featureRegistry[root];
+                const occurrences = allOccurrences.filter(o => o.root === root);
                 
-                const integrityStatus = integrityFail ? 'REVIEW NEEDED' : 'PERFECT';
-                const syncStatus = syncFail ? 'REVIEW NEEDED' : 'PERFECT';
-                const overallStatus = (integrityFail || syncFail) ? 'REVIEW NEEDED' : 'PERFECT';
+                // Legal Integrity
+                const hasIntro = feat.introductions.length > 0;
+                const hasError = occurrences.some(o => o.category === 'MISSING_ANTECEDENT');
+                const legalStatus = (hasIntro && !hasError) ? 'PERFECT' : 'REVIEW NEEDED';
+                const lClass = legalStatus === 'PERFECT' ? 'status-perfect' : 'status-review';
 
-                const iClass = integrityFail ? 'status-review' : 'status-perfect';
-                const sClass = syncFail ? 'status-review' : 'status-perfect';
-                const oClass = (integrityFail || syncFail) ? 'status-review' : 'status-perfect';
+                // Description Sync
+                const matches = descFindings.filter(f => f.root === root);
+                const hasMatch = matches.some(m => m.type === 'MATCH');
+                const hasMismatch = matches.some(m => m.type === 'MISMATCH');
+                const syncStatus = (hasMatch && !hasMismatch) ? 'PERFECT' : 'REVIEW NEEDED';
+                const sClass = syncStatus === 'PERFECT' ? 'status-perfect' : 'status-review';
+
+                // Final Binary Status
+                const overallStatus = (legalStatus === 'PERFECT' && syncStatus === 'PERFECT' && !feat.isOrphan) ? 'PERFECT' : 'REVIEW NEEDED';
+                const oClass = overallStatus === 'PERFECT' ? 'status-perfect' : 'status-review';
 
                 auditHtml += `
                     <tr>
-                        <td><b>CLAIM ${c.id}</b></td>
-                        <td><span class="status-badge ${iClass}">${integrityStatus}</span></td>
+                        <td><b style="color: ${feat.isOrphan ? 'var(--warning-text)' : 'var(--text-primary)'}">${feat.canonical}${feat.isOrphan ? ' [ORPHAN]' : ''}</b></td>
+                        <td>${feat.ref || '-'}</td>
+                        <td><span class="status-badge ${lClass}">${legalStatus}</span></td>
                         <td><span class="status-badge ${sClass}">${syncStatus}</span></td>
                         <td><span class="status-badge ${oClass}">${overallStatus}</span></td>
-                        <td><button class="btn-action" onclick="scrollToNode('claim-${c.id}')">TRACE</button></td>
+                        <td><button class="btn-action" onclick="scrollToFeature('${root}')">TRACE</button></td>
                     </tr>
                 `;
             });
             auditBody.innerHTML = auditHtml;
 
-            // Render Tree
+            // 2. Render Tree
             treeContainer.innerHTML = claims.map(c => `
                 <div class="claim-node ${c.type === 'independent' ? 'independent-node' : 'dependent-node'}" id="claim-${c.id}">
                     <div class="node-header"><span>Claim ${c.id} [${c.type.toUpperCase()}]</span></div>
@@ -460,12 +500,15 @@ ACCOMPLISHMENTS:
                 </div>
             `).join('');
             
-            // Render Registry
+            // 3. Render Registry
             let regHtml = "";
             orderedRoots.forEach(root => {
                 const group = allOccurrences.filter(o => o.root === root);
-                if (group.length === 0) return;
-                regHtml += `<tr><td colspan="4" class="group-header">Feature: ${featureRegistry[root].canonical}</td></tr>`;
+                if (group.length === 0 && !featureRegistry[root].isOrphan) return;
+                regHtml += `<tr><td colspan="4" class="group-header" id="reg-${root}">Feature: ${featureRegistry[root].canonical}</td></tr>`;
+                if (featureRegistry[root].isOrphan) {
+                    regHtml += `<tr style="color: var(--warning-text)"><td>DESC</td><td>ORPHAN</td><td>${featureRegistry[root].canonical}</td><td>${featureRegistry[root].ref}</td></tr>`;
+                }
                 group.forEach(o => {
                     const color = o.category === 'MISSING_ANTECEDENT' ? 'var(--error-text)' : o.category === 'INTRODUCTION' ? 'var(--text-primary)' : o.category === 'POSSESSIVE_REF' ? '#ADFF2F' : 'var(--info-text)';
                     regHtml += `<tr style="color: ${color}"><td>Claim ${o.claimId}</td><td>${o.category}</td><td>${o.displayName}</td><td>${o.ref || '-'}</td></tr>`;
@@ -473,25 +516,26 @@ ACCOMPLISHMENTS:
             });
             registryBody.innerHTML = regHtml || '<tr><td colspan="4" style="text-align:center">[EMPTY]</td></tr>';
 
-            // Render Map
+            // 4. Render Map
             let descHtml = "";
             orderedRoots.forEach(root => {
                 const matches = descFindings.filter(f => f.root === root);
                 if (matches.length === 0) return;
                 const feat = featureRegistry[root];
-                descHtml += `<tr><td colspan="3" class="group-header">Feature: ${feat.canonical} (Claim Ref: ${feat.ref || 'NONE'})</td></tr>`;
+                descHtml += `<tr><td colspan="3" class="group-header">Feature: ${feat.canonical} (Ref: ${feat.ref || 'NONE'})</td></tr>`;
                 matches.forEach(m => {
-                    let label = '-', rowStyle = '';
-                    if (m.type === 'MISMATCH') { label = `[MISMATCH: ${m.foundRef}]`; rowStyle = 'color: var(--error-text)'; }
-                    else if (m.type === 'NO_REF') { label = '[NO REF]'; rowStyle = 'color: var(--warning-text)'; }
+                    let label = m.type === 'MATCH' ? 'OK' : '-';
+                    let rowStyle = '';
+                    if (m.type === 'MISMATCH') { label = `MISMATCH: ${m.foundRef}`; rowStyle = 'color: var(--error-text)'; }
+                    else if (m.type === 'NO_REF') { label = 'NO REF'; rowStyle = 'color: var(--warning-text)'; }
                     descHtml += `<tr style="${rowStyle}"><td>${label}</td><td style="color: var(--info-text); font-weight: bold;">${m.loc}</td><td style="color: var(--text-secondary); font-style: italic;">${m.context}</td></tr>`;
                 });
             });
             descriptionMapBody.innerHTML = descHtml || '<tr><td colspan="3" style="text-align:center">[NO TRACE MATCHES]</td></tr>';
         }
 
-        function scrollToNode(id) {
-            const el = document.getElementById(id);
+        function scrollToFeature(root) {
+            const el = document.getElementById('reg-' + root);
             if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     </script>
