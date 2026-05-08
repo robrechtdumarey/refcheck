@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-matrix">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refcheck v6.4 - Unified Discovery Engine</title>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-primary: #00FF41;
+            --text-secondary: #008F11;
+            --border-color: #003B00;
+            --accent-glow: 0 0 10px rgba(0, 255, 65, 0.2);
+            --input-bg: rgba(0, 5, 0, 0.8);
+            --container-bg: rgba(0, 0, 0, 0.9);
+            --section-bg: rgba(0, 15, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0; padding: 2rem; display: flex; flex-direction: column; align-items: center;
+        }
+
+        .container {
+            width: 95%; max-width: 1400px; background: var(--container-bg);
+            border: 2px solid var(--border-color); padding: 2rem; box-shadow: var(--accent-glow);
+        }
+
+        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+        .input-group { display: flex; flex-direction: column; }
+        label { text-transform: uppercase; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: bold; }
+
+        textarea {
+            height: 200px; background: var(--input-bg); color: var(--text-primary); border: 1px solid var(--border-color);
+            padding: 1rem; font-family: inherit; font-size: 0.9rem; line-height: 1.5; resize: vertical;
+        }
+
+        .output-section {
+            margin-top: 1rem; border: 1px solid var(--border-color); padding: 1.5rem; background: var(--section-bg);
+            transition: opacity 0.3s ease;
+        }
+
+        .view-selector {
+            display: flex; align-items: center; margin-bottom: 1rem; gap: 15px;
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .terminal-switch {
+            position: relative; display: inline-block; width: 60px; height: 24px;
+        }
+        .terminal-switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--slider-bg, #001a00); border: 1px solid var(--border-color);
+            transition: .4s; border-radius: 4px;
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 16px; width: 16px; left: 4px; bottom: 3px;
+            background-color: var(--text-secondary); transition: .4s; border-radius: 2px;
+        }
+        input:checked + .slider { background-color: var(--border-color); }
+        input:checked + .slider:before { transform: translateX(34px); background-color: var(--text-primary); }
+        
+        .view-label { color: var(--text-secondary); font-weight: bold; }
+        .active-view { color: var(--text-primary); text-shadow: var(--accent-glow); }
+
+        /* Segment Selector */
+        .segment-selector {
+            display: flex; background: var(--input-bg); border: 1px solid var(--border-color);
+            border-radius: 4px; overflow: hidden;
+        }
+        .segment-selector input { display: none; }
+        .segment-selector label {
+            padding: 5px 15px; font-size: 0.7rem; cursor: pointer; color: var(--text-secondary);
+            border-right: 1px solid var(--border-color); margin: 0; transition: 0.3s;
+        }
+        .segment-selector label:last-child { border-right: none; }
+        .segment-selector input:checked + label {
+            background: var(--border-color); color: var(--text-primary); text-shadow: var(--accent-glow);
+        }
+
+        .hidden { display: none !important; }
+
+        .logic-summary {
+            font-size: 0.7rem; color: var(--text-secondary); border: 1px solid var(--border-color);
+            padding: 10px; margin-bottom: 1.5rem; background: rgba(0,10,0,0.3);
+        }
+        .logic-summary h4 { margin: 0 0 5px 0; text-transform: uppercase; color: var(--text-primary); }
+        .logic-summary ul { margin: 0; padding-left: 15px; }
+
+        .claim-card {
+            border: 1px solid var(--border-color); padding: 1rem; margin-bottom: 1rem; background: rgba(0,20,0,0.2);
+        }
+
+        .ref-group { margin-top: 1rem; padding-left: 1rem; border-left: 2px solid var(--text-secondary); }
+        .feature-item { font-size: 0.85rem; color: var(--text-secondary); margin: 2px 0; }
+        .count-badge { color: var(--text-primary); font-weight: bold; margin-right: 10px; }
+        
+        .stats { font-size: 0.75rem; color: #aaa; margin-bottom: 10px; }
+        .highlight { color: #fff; font-weight: bold; }
+        .badge-harden { background: #00FF41; color: #000; font-size: 0.6rem; padding: 2px 5px; border-radius: 3px; vertical-align: middle; margin-left: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Refcheck v6.4 <span class="badge-harden">UNIFIED</span> <span style="font-size: 0.5em;">Logical Alignment Engine</span></h1>
+        
+        <div class="logic-summary">
+            <h4>Unified Discovery Logic v6.4</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <h5 style="margin: 0; color: var(--text-primary); text-decoration: underline;">EXTRACTION RULES (Shared)</h5>
+                    <ul>
+                        <li><strong>Contextual Catch:</strong> Backtracks from numbers to capture nouns/articles (a, an, the, said).</li>
+                        <li><strong>Fallback:</strong> Captures up to 3 preceding words if no article is found.</li>
+                        <li><strong>Noise Filtering:</strong> Ignores Figure refs (Fig. 1), years (2026), and technical units (150 mm).</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 style="margin: 0; color: var(--text-primary); text-decoration: underline;">SECTION BEHAVIOR (Split)</h5>
+                    <ul>
+                        <li><strong>Claims:</strong> Validates against independent claim headers and dependency logic.</li>
+                        <li><strong>Description:</strong> Processes blocks by paragraph or [0001] markers with identical extraction rigor.</li>
+                        <li><strong>Integrity:</strong> Both sections use the same high-resolution "Card" grouping by reference number.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-grid">
+            <div class="input-group">
+                <label>Claims</label>
+                <textarea id="claimsInput" placeholder="PASTE CLAIMS HERE..."></textarea>
+            </div>
+            <div class="input-group">
+                <label>Description</label>
+                <textarea id="descriptionInput" placeholder="PASTE DESCRIPTION HERE..."></textarea>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 40px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+            <div style="width: 100px; font-size: 0.7rem; color: var(--text-primary); font-weight: bold; border: 1px solid var(--border-color); padding: 4px; text-align: center;">CLAIMS</div>
+            <div class="view-selector">
+                <span class="view-label" id="label-indep">Independent Only</span>
+                <label class="terminal-switch">
+                    <input type="checkbox" id="scopeToggle" onchange="toggleView()">
+                    <span class="slider"></span>
+                </label>
+                <span class="view-label" id="label-all">All Claims</span>
+            </div>
+
+            <div class="view-selector">
+                <span class="view-label" id="label-indiv">Individual View</span>
+                <label class="terminal-switch">
+                    <input type="checkbox" id="viewToggle" onchange="toggleView()">
+                    <span class="slider"></span>
+                </label>
+                <span class="view-label" id="label-group">Grouped View</span>
+            </div>
+        </div>
+
+        <div id="output" class="output-section" style="margin-bottom: 3rem;">
+            <h2 id="viewHeading" style="text-transform: uppercase; font-size: 1.1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-top: 0;">Independent Claim Reference Check</h2>
+            <div id="resultsDisplay">
+                <div style="text-align: center; color: var(--text-secondary);">[WAITING FOR INPUT]</div>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 40px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+            <div style="width: 100px; font-size: 0.7rem; color: var(--text-primary); font-weight: bold; border: 1px solid var(--border-color); padding: 4px; text-align: center;">DESCRIPTION</div>
+            <div class="view-selector">
+                <span class="view-label" id="label-desc-indiv">Individual View</span>
+                <label class="terminal-switch">
+                    <input type="checkbox" id="descViewToggle" onchange="toggleView()">
+                    <span class="slider"></span>
+                </label>
+                <span class="view-label" id="label-desc-group">Grouped View</span>
+            </div>
+        </div>
+
+        <div id="descOutput" class="output-section" style="margin-bottom: 3rem;">
+            <h2 id="descViewHeading" style="text-transform: uppercase; font-size: 1.1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-top: 0;">Description Reference Check</h2>
+            <div id="descResultsDisplay">
+                <div style="text-align: center; color: var(--text-secondary);">[WAITING FOR DESCRIPTION INPUT]</div>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 40px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+            <div style="width: 100px; font-size: 0.7rem; color: var(--text-primary); font-weight: bold; border: 1px solid var(--border-color); padding: 4px; text-align: center;">GLOBAL</div>
+            <div class="segment-selector">
+                <input type="radio" name="globalFilter" id="filter-all" value="all" checked onchange="process()">
+                <label for="filter-all">GLOBAL VIEW</label>
+                
+                <input type="radio" name="globalFilter" id="filter-match" value="match" onchange="process()">
+                <label for="filter-match">MATCHED (CLM+DESC)</label>
+                
+                <input type="radio" name="globalFilter" id="filter-orphan" value="orphan" onchange="process()">
+                <label for="filter-orphan">UNCLAIMED (DESC ONLY)</label>
+            </div>
+        </div>
+
+        <div id="mergedOutput" class="output-section">
+            <h2 style="text-transform: uppercase; font-size: 1.1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-top: 0;">Global Audit: Claims + Description</h2>
+            <div id="mergedResultsDisplay">
+                <div style="text-align: center; color: var(--text-secondary);">[WAITING FOR COMPLETE INPUT]</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const claimsInput = document.getElementById('claimsInput');
+        const descriptionInput = document.getElementById('descriptionInput');
+        const resultsDisplay = document.getElementById('resultsDisplay');
+        const descResultsDisplay = document.getElementById('descResultsDisplay');
+        const mergedResultsDisplay = document.getElementById('mergedResultsDisplay');
+        const viewHeading = document.getElementById('viewHeading');
+        const descViewHeading = document.getElementById('descViewHeading');
+        
+        const scopeToggle = document.getElementById('scopeToggle');
+        const viewToggle = document.getElementById('viewToggle');
+        const descViewToggle = document.getElementById('descViewToggle');
+        
+        const labelIndep = document.getElementById('label-indep');
+        const labelAll = document.getElementById('label-all');
+        const labelIndiv = document.getElementById('label-indiv');
+        const labelGroup = document.getElementById('label-group');
+        
+        const labelDescIndiv = document.getElementById('label-desc-indiv');
+        const labelDescGroup = document.getElementById('label-desc-group');
+
+        claimsInput.addEventListener('input', process);
+        descriptionInput.addEventListener('input', process);
+
+        function toggleView() {
+            const isAll = scopeToggle.checked;
+            const isGrouped = viewToggle.checked;
+            const isDescGrouped = descViewToggle.checked;
+            
+            labelAll.className = isAll ? 'view-label active-view' : 'view-label';
+            labelIndep.className = isAll ? 'view-label' : 'view-label active-view';
+            labelGroup.className = isGrouped ? 'view-label active-view' : 'view-label';
+            labelIndiv.className = isGrouped ? 'view-label' : 'view-label active-view';
+            
+            labelDescGroup.className = isDescGrouped ? 'view-label active-view' : 'view-label';
+            labelDescIndiv.className = isDescGrouped ? 'view-label' : 'view-label active-view';
+            
+            const scopeText = isAll ? 'Full Scope' : 'Independent Claim';
+            const modeText = isGrouped ? 'Grouped Claim Reference Check' : 'Reference Check';
+            viewHeading.textContent = isGrouped ? modeText : `${scopeText} ${modeText}`;
+            
+            descViewHeading.textContent = isDescGrouped ? 'Grouped Description Reference Check' : 'Description Reference Check';
+            
+            process();
+        }
+
+        function process() {
+            const claimsText = claimsInput.value.trim();
+            const descText = descriptionInput.value.trim();
+            
+            const isAllScope = scopeToggle.checked;
+            const isGroupedView = viewToggle.checked;
+            const isDescGroupedView = descViewToggle.checked;
+            const globalFilter = document.querySelector('input[name="globalFilter"]:checked').value;
+            
+            const claimsRefMap = {};
+            const descRefMap = {}; 
+            const masterRefMap = {}; // Truly merged map
+
+            // 1. Process Claims
+            let claimsHtml = processClaims(claimsText, isAllScope, isGroupedView, claimsRefMap);
+            // Process ALL claims for the master map regardless of toggle
+            processClaims(claimsText, true, true, masterRefMap);
+
+            // 2. Process Description
+            let descHtml = "";
+            if (descText) {
+                descHtml = processDescription(descText, descRefMap, isDescGroupedView);
+                // Also process into master map
+                processDescription(descText, masterRefMap, true);
+            }
+
+            // 3. Render Outputs
+            
+            // Section 1: Claims
+            if (isGroupedView) {
+                resultsDisplay.innerHTML = renderGlobalRefGroups(claimsRefMap, "Aggregated Claim Reference Map");
+            } else {
+                resultsDisplay.innerHTML = claimsHtml || `<div style="text-align: center; color: var(--text-secondary);">[NO CLAIMS DATA]</div>`;
+            }
+
+            // Section 2: Description
+            if (isDescGroupedView && descText) {
+                descResultsDisplay.innerHTML = renderGlobalRefGroups(descRefMap, "Aggregated Description Reference Map");
+            } else {
+                descResultsDisplay.innerHTML = descHtml || `<div style="text-align: center; color: var(--text-secondary);">[WAITING FOR DESCRIPTION INPUT]</div>`;
+            }
+
+            // Section 3: Merged Global Audit
+            if (claimsText || descText) {
+                // Apply Global Filter
+                const filteredMap = {};
+                for (const [ref, data] of Object.entries(masterRefMap)) {
+                    const hasClaims = Object.values(data.features || {}).some(f => Array.from(f.sources).some(s => s.startsWith('Clm')));
+                    const hasDesc = Object.values(data.features || {}).some(f => Array.from(f.sources).some(s => s.startsWith('[') || s.startsWith('P')));
+
+                    if (globalFilter === 'all') {
+                        filteredMap[ref] = data;
+                    } else if (globalFilter === 'match') {
+                        if (hasClaims && hasDesc) filteredMap[ref] = data;
+                    } else if (globalFilter === 'orphan') {
+                        if (hasDesc && !hasClaims) filteredMap[ref] = data;
+                    }
+                }
+                mergedResultsDisplay.innerHTML = renderGlobalRefGroups(filteredMap, `Global Audit (${globalFilter.toUpperCase()} VIEW)`);
+            } else {
+                mergedResultsDisplay.innerHTML = `<div style="text-align: center; color: var(--text-secondary);">[WAITING FOR COMPLETE INPUT]</div>`;
+            }
+        }
+
+        /* --- SHARED UTILITIES --- */
+
+        function isNoise(text, refNumber, pos) {
+            // Years (1900-2039)
+            if (/^(20[0-3]\d|19\d{2})$/.test(refNumber)) return true;
+            
+            // Figure references
+            const contextBefore = text.substring(Math.max(0, pos - 15), pos);
+            if (/\bfig(?:ure)?\.?\s*$/i.test(contextBefore)) return true;
+            
+            // Patent codes (EP... / US...)
+            const wordContext = text.substring(Math.max(0, pos - 10), pos + refNumber.length + 5);
+            if (/\b[A-Z]{2,}\d+[A-Z\d]*\b/.test(wordContext)) return true;
+
+            return false;
+        }
+
+        function extractFeature(text, pos) {
+            let before = text.substring(Math.max(0, pos - 100), pos).trim();
+            if (before.endsWith('(')) before = before.slice(0, -1).trim();
+
+            const words = before.split(/\s+/);
+            const articles = ['a', 'an', 'the', 'said'];
+            let featureWords = [];
+            
+            let foundArticle = false;
+            for (let i = words.length - 1; i >= Math.max(0, words.length - 10); i--) {
+                const wordRaw = words[i];
+                const wordClean = wordRaw.toLowerCase().replace(/[^a-z0-9]/g, ''); 
+                
+                // STOP if we hit another reference number to prevent greedy capture
+                if (/^\d+[a-z]?$/.test(wordClean) && !articles.includes(wordClean)) {
+                    break;
+                }
+
+                if (articles.includes(wordClean)) {
+                    featureWords.unshift(wordRaw);
+                    foundArticle = true;
+                    break;
+                }
+                featureWords.unshift(wordRaw);
+            }
+
+            if (!foundArticle && featureWords.length > 3) {
+                featureWords = featureWords.slice(-3);
+            }
+
+            const result = featureWords.join(' ').trim().replace(/^[,\.;\s\(]+|[,\.;\s\)]+$/g, '');
+            return result || "[UNKNOWN FEATURE]";
+        }
+
+        function renderRefGroups(refMap) {
+            let html = '';
+            const sortedRefs = Object.keys(refMap).sort((a, b) => {
+                const na = parseInt(a), nb = parseInt(b);
+                if (!isNaN(na) && !isNaN(nb)) return na - nb;
+                return a.localeCompare(b);
+            });
+
+            for (const ref of sortedRefs) {
+                const features = refMap[ref];
+                const counts = {};
+                features.forEach(f => {
+                    const normalized = f.toLowerCase();
+                    counts[normalized] = (counts[normalized] || 0) + 1;
+                });
+
+                html += `<div class="ref-group"><strong>Ref ${ref}</strong>`;
+                for (const [feat, count] of Object.entries(counts)) {
+                    html += `
+                        <div class="feature-item">
+                            <span class="count-badge">${count}x</span> ${feat}
+                        </div>
+                    `;
+                }
+                html += `</div>`;
+            }
+            return html;
+        }
+
+        function renderGlobalRefGroups(refMap, title) {
+            let html = `<h2 style="text-transform: uppercase; font-size: 1.1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-top: 2rem;">${title}</h2>`;
+            const sortedRefs = Object.keys(refMap).sort((a, b) => {
+                const na = parseInt(a), nb = parseInt(b);
+                if (!isNaN(na) && !isNaN(nb)) return na - nb;
+                return a.localeCompare(b);
+            });
+
+            for (const ref of sortedRefs) {
+                html += `<div class="ref-group"><strong>Ref ${ref}</strong>`;
+                const features = refMap[ref].features || {};
+                for (const [feat, data] of Object.entries(features)) {
+                    const sourceList = Array.from(data.sources).sort().join(', ');
+                    html += `
+                        <div class="feature-item">
+                            <span class="count-badge">${data.count}x</span> ${feat} 
+                            <span style="font-size: 0.7rem; color: var(--text-secondary); margin-left: 10px;">[Source: ${sourceList}]</span>
+                        </div>
+                    `;
+                }
+                html += `</div>`;
+            }
+            return html || `<div style="text-align: center; color: var(--text-secondary); padding: 20px;">[NO DATA MATCHING FILTER]</div>`;
+        }
+
+        /* --- CLAIMS LOGIC --- */
+
+        function processClaims(claimsText, isAllScope, isGroupedView, globalRefMap) {
+            const claimBlocks = claimsText.split(/(?=\b\d+[\.\s]\s+)/);
+            let html = '';
+            let independentIntros = [];
+
+            claimBlocks.forEach(block => {
+                const claimText = block.trim();
+                if (!claimText) return;
+
+                const claimNumberMatch = claimText.match(/^\b(\d+)\b/);
+                if (!claimNumberMatch) return; 
+                const claimNumber = claimNumberMatch[1];
+
+                const intro = getIntroFeature(claimText);
+                const bodyText = claimText.replace(/^\b\d+[\.\s]+\s*/, '');
+                const hasClaimWord = /\bclaims?\b/i.test(bodyText);
+                
+                let isIndependent = !hasClaimWord;
+                if (hasClaimWord && intro) {
+                    const matchFound = independentIntros.some(prev => prev === intro);
+                    if (!matchFound) isIndependent = true;
+                }
+                if (intro && isIndependent) independentIntros.push(intro);
+
+                const shouldRender = isAllScope || isIndependent;
+
+                const allNumbers = claimText.match(/\b\d+[a-z]?\b/g) || [];
+                const totalNumbersCount = allNumbers.length;
+
+                const depNumbers = getDepNumbers(claimText);
+                const techNumbers = getTechNumbers(claimText);
+
+                const numberRegex = /\b\d+[a-z]?\b/g;
+                let match;
+                let firstFound = false;
+                const localRefMap = {}; 
+                let processedRefCount = 0;
+                let processedDepCount = 0;
+                let processedTechCount = 0;
+                let processedNoiseCount = 0;
+
+                while ((match = numberRegex.exec(claimText)) !== null) {
+                    const refNumber = match[0];
+                    const pos = match.index;
+
+                    if (!firstFound && pos < 25) { 
+                        if (refNumber === claimNumber) {
+                            firstFound = true;
+                            continue; 
+                        }
+                    }
+
+                    if (isNoise(claimText, refNumber, pos)) {
+                        processedNoiseCount++;
+                        continue;
+                    }
+
+                    const isDep = depNumbers.some(dn => dn.val === refNumber && Math.abs(dn.pos - pos) < 5);
+                    if (isDep) {
+                        processedDepCount++;
+                        continue;
+                    }
+
+                    const isTech = techNumbers.some(tn => tn.val === refNumber && Math.abs(tn.pos - pos) < 5);
+                    if (isTech) {
+                        processedTechCount++;
+                        continue;
+                    }
+
+                    const feature = extractFeature(claimText, pos);
+                    processedRefCount++;
+                    
+                    if (!localRefMap[refNumber]) localRefMap[refNumber] = [];
+                    localRefMap[refNumber].push(feature);
+
+                    // Aggregation (Respects Scope)
+                    if (shouldRender) {
+                        const normFeat = feature.toLowerCase();
+                        if (!globalRefMap[refNumber]) globalRefMap[refNumber] = { features: {} };
+                        if (!globalRefMap[refNumber].features[normFeat]) {
+                            globalRefMap[refNumber].features[normFeat] = { count: 0, sources: new Set() };
+                        }
+                        globalRefMap[refNumber].features[normFeat].count++;
+                        globalRefMap[refNumber].features[normFeat].sources.add(`Clm ${claimNumber}`);
+                    }
+                }
+
+                if (!isGroupedView && shouldRender) {
+                    const integrityOk = totalNumbersCount === (1 + processedDepCount + processedTechCount + processedNoiseCount + processedRefCount);
+                    const statusColor = integrityOk ? '#00FF41' : '#FF3131';
+                    const typeLabel = isIndependent ? 'INDEPENDENT' : 'DEPENDENT';
+
+                    html += `
+                        <div class="claim-card">
+                            <div class="stats" style="color: ${statusColor}; border-bottom: 1px solid ${statusColor}; padding-bottom: 5px;">
+                                [${typeLabel}] CLAIM <span class="highlight">${claimNumber}</span> | 
+                                INTEGRITY AUDIT: [Total: ${totalNumbersCount}] == [Clm: 1] + [Dep: ${processedDepCount}] + [Tch: ${processedTechCount}] + [Noise: ${processedNoiseCount}] + [Refs: ${processedRefCount}] | 
+                                STATUS: ${integrityOk ? 'VERIFIED' : 'DISCREPANCY DETECTED'}
+                            </div>
+                            <div class="ref-check-output">
+                                ${renderRefGroups(localRefMap)}
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            return html;
+        }
+
+        function getIntroFeature(text) {
+            const body = text.replace(/^\b\d+[\.\s]+\s*/, '');
+            const match = body.match(/^([^,;(\d]+?)(?:\s+(?:according to|comprising|for|characterized|wherein|whereby|containing)|\s*[\(;0-9]|$)/i);
+            return match ? match[1].toLowerCase().replace(/\b(a|an|the|said)\b/g, '').replace(/\s+/g, ' ').trim() : "";
+        }
+
+        function getDepNumbers(text) {
+            const deps = [];
+            const depRegex = /\bclaims?\b\s+(?:any\s+one\s+or\s+more\s+of\s+the\s+|any\s+one\s+of\s+the\s+|the\s+)?(\d+)(?:\s+(?:or|to|,)\s+(\d+))?/gi;
+            let m;
+            while ((m = depRegex.exec(text)) !== null) {
+                if (m[1]) deps.push({ val: m[1], pos: m.index + m[0].indexOf(m[1]) });
+                if (m[2]) deps.push({ val: m[2], pos: m.index + m[0].indexOf(m[2], m[0].indexOf(m[1]) + 1) });
+            }
+            return deps;
+        }
+
+        function getTechNumbers(text) {
+            const techs = [];
+            const techRegex = /\b(\d+)\s*(?:%|(?:mm|cm|m|kg|g|s|h|ms|°C|Hz|V|W|A)\b)/gi;
+            let m;
+            while ((m = techRegex.exec(text)) !== null) {
+                techs.push({ val: m[1], pos: m.index });
+            }
+            return techs;
+        }
+
+        /* --- DESCRIPTION LOGIC --- */
+
+        function processDescription(descText, globalRefMap, isGroupedOnly) {
+            const paragraphs = descText.split(/\n\s*\n|(?=\[\d{4}\])/);
+            
+            let html = "";
+            let paragraphCount = 0;
+
+            paragraphs.forEach((pText, index) => {
+                const pClean = pText.trim();
+                if (!pClean) return;
+                
+                // Mask Paragraph Markers on pClean to ensure alignment
+                const pMasked = pClean.replace(/\[\d{4}\]/g, m => ' '.repeat(m.length));
+                
+                const allNumbers = pClean.match(/\b\d+[a-z]?\b/g) || [];
+                const totalNumbersCount = allNumbers.length;
+
+                const markerMatch = pClean.match(/^\[\d{4}\]/);
+                const markerCount = markerMatch ? 1 : 0;
+                
+                const techNumbers = getTechNumbers(pClean);
+                const techNumbersCount = techNumbers.length;
+
+                const numberRegex = /\b\d+[a-z]?\b/g;
+                let match;
+                const localRefMap = {};
+                let processedRefCount = 0;
+                let processedNoiseCount = 0;
+
+                while ((match = numberRegex.exec(pMasked)) !== null) {
+                    const refNumber = match[0];
+                    const pos = match.index;
+
+                    if (isNoise(pClean, refNumber, pos)) {
+                        processedNoiseCount++;
+                        continue;
+                    }
+
+                    const isTech = techNumbers.some(tn => tn.val === refNumber && Math.abs(tn.pos - pos) < 5);
+                    if (isTech) continue; 
+
+                    const feature = extractFeature(pClean, pos);
+                    processedRefCount++;
+
+                    if (!localRefMap[refNumber]) localRefMap[refNumber] = [];
+                    localRefMap[refNumber].push(feature);
+
+                    // Aggregation
+                    const normFeat = feature.toLowerCase();
+                    if (!globalRefMap[refNumber]) globalRefMap[refNumber] = { features: {} };
+                    if (!globalRefMap[refNumber].features[normFeat]) {
+                        globalRefMap[refNumber].features[normFeat] = { count: 0, sources: new Set() };
+                    }
+                    globalRefMap[refNumber].features[normFeat].count++;
+                    globalRefMap[refNumber].features[normFeat].sources.add(markerMatch ? markerMatch[0] : `P${index + 1}`);
+                }
+
+                if (!isGroupedOnly && (processedRefCount > 0 || totalNumbersCount > 0)) {
+                    paragraphCount++;
+                    const pLabel = markerMatch ? markerMatch[0] : `Paragraph ${index + 1}`;
+                    
+                    const integrityOk = totalNumbersCount === (markerCount + techNumbersCount + processedNoiseCount + processedRefCount);
+                    const statusColor = integrityOk ? '#00FF41' : '#FF3131';
+
+                    html += `
+                        <div class="claim-card">
+                            <div class="stats" style="color: ${statusColor}; border-bottom: 1px solid ${statusColor}; padding-bottom: 5px; margin-bottom: 10px;">
+                                <span class="highlight">${pLabel}</span> | 
+                                INTEGRITY AUDIT: [Total: ${totalNumbersCount}] == [Mark: ${markerCount}] + [Tch: ${techNumbersCount}] + [Noise: ${processedNoiseCount}] + [Refs: ${processedRefCount}] | 
+                                STATUS: ${integrityOk ? 'VERIFIED' : 'DISCREPANCY DETECTED'}
+                            </div>
+                            <div class="ref-check-output">
+                                ${renderRefGroups(localRefMap)}
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            return html;
+        }
+
+        toggleView();
+    </script>
+</body>
+</html>
