@@ -1,0 +1,1000 @@
+Section;Mode;Ref;Feature
+1;Indep-Indiv;1;agricultural machine
+1;Indep-Indiv;1;the agricultural machine
+1;Indep-Indiv;10;a bunker
+1;Indep-Indiv;10;the bunker
+1;Indep-Indiv;10;the movable bunker
+1;Indep-Indiv;14;a movement mechanism
+1;Indep-Indiv;16;a movement mechanism
+1;Indep-Indiv;18;a movement mechanism
+1;Indep-Indiv;200;a supplying conveying device
+1;Indep-Indiv;200;the supplying conveying device
+1;Indep-Indiv;210;an outlet side
+1;Indep-Indiv;210;the outlet side
+1;Indep-Indiv;300;a discharging conveying device
+1;Indep-Indiv;10;a movable bunker
+1;Indep-Indiv;10;the movable bunker
+1;Indep-Indiv;10;the bunker
+1;Indep-Indiv;12;the movement mechanism
+1;Indep-Indiv;14;the movement mechanism
+1;Indep-Indiv;18;the movement mechanism
+1;Indep-Indiv;200;the supplying conveying device
+1;Indep-Indiv;210;the outlet side
+1;Indep-Grouped;1;agricultural machine
+1;Indep-Grouped;1;the agricultural machine
+1;Indep-Grouped;10;a bunker
+1;Indep-Grouped;10;the bunker
+1;Indep-Grouped;10;the movable bunker
+1;Indep-Grouped;10;a movable bunker
+1;Indep-Grouped;12;the movement mechanism
+1;Indep-Grouped;14;a movement mechanism
+1;Indep-Grouped;14;the movement mechanism
+1;Indep-Grouped;16;a movement mechanism
+1;Indep-Grouped;18;a movement mechanism
+1;Indep-Grouped;18;the movement mechanism
+1;Indep-Grouped;200;a supplying conveying device
+1;Indep-Grouped;200;the supplying conveying device
+1;Indep-Grouped;210;an outlet side
+1;Indep-Grouped;210;the outlet side
+1;Indep-Grouped;300;a discharging conveying device
+1;All-Indiv;1;agricultural machine
+1;All-Indiv;1;the agricultural machine
+1;All-Indiv;10;a bunker
+1;All-Indiv;10;the bunker
+1;All-Indiv;10;the movable bunker
+1;All-Indiv;14;a movement mechanism
+1;All-Indiv;16;a movement mechanism
+1;All-Indiv;18;a movement mechanism
+1;All-Indiv;200;a supplying conveying device
+1;All-Indiv;200;the supplying conveying device
+1;All-Indiv;210;an outlet side
+1;All-Indiv;210;the outlet side
+1;All-Indiv;300;a discharging conveying device
+1;All-Indiv;10;the movable bunker
+1;All-Indiv;10;the bunker
+1;All-Indiv;19;an inlet opening
+1;All-Indiv;19;the inlet opening
+1;All-Indiv;192;the inlet opening is provided with two upright edges
+1;All-Indiv;192;the upright edges
+1;All-Indiv;194;the inlet opening is provided with two upright edges
+1;All-Indiv;194;the upright edges
+1;All-Indiv;200;the supplying conveying device
+1;All-Indiv;210;the outlet side
+1;All-Indiv;19;the inlet opening
+1;All-Indiv;192;an upright edge
+1;All-Indiv;194;an upright edge
+1;All-Indiv;200;the supplying conveying device
+1;All-Indiv;202;an adjacent side
+1;All-Indiv;204;an adjacent side
+1;All-Indiv;10;the movable bunker
+1;All-Indiv;19;the inlet opening
+1;All-Indiv;192;an upright edge
+1;All-Indiv;194;an upright edge
+1;All-Indiv;200;the supplying conveying device
+1;All-Indiv;202;an adjacent side
+1;All-Indiv;204;an adjacent side
+1;All-Indiv;10;the movable bunker
+1;All-Indiv;10;the bunker
+1;All-Indiv;14;the movement mechanism
+1;All-Indiv;16;the movement mechanism
+1;All-Indiv;17;an outlet opening
+1;All-Indiv;17;the outlet opening
+1;All-Indiv;18;the movement mechanism
+1;All-Indiv;172;the bottom
+1;All-Indiv;200;the supplying conveying device
+1;All-Indiv;300;the discharging conveying device
+1;All-Indiv;1;an agricultural machine
+1;All-Indiv;10;the movable bunker
+1;All-Indiv;10;the bunker
+1;All-Indiv;14;the movement mechanism
+1;All-Indiv;16;the movement mechanism
+1;All-Indiv;18;the movement mechanism
+1;All-Indiv;300;the discharging conveying device
+1;All-Indiv;302;the discharging conveying device consists of at least two folding-out and folding-in parts
+1;All-Indiv;302;the parts
+1;All-Indiv;304;folding-in parts
+1;All-Indiv;304;the parts
+1;All-Indiv;304;the most downstream part
+1;All-Indiv;306;the most downstream part comprises at least one tiltable segment
+1;All-Indiv;306;the at least one tiltable part
+1;All-Indiv;308;the most downstream part comprises at least one tiltable segment
+1;All-Indiv;308;the at least one tiltable part
+1;All-Indiv;310;the most downstream end
+1;All-Indiv;10;the bunker
+1;All-Indiv;11;a bottom
+1;All-Indiv;11;the bottom
+1;All-Indiv;300;the discharging conveying device
+1;All-Indiv;1;the agricultural machine
+1;All-Indiv;10;the bunker
+1;All-Indiv;14;a first movable rod
+1;All-Indiv;14;the first movable rod
+1;All-Indiv;14;the first and second movable rods
+1;All-Indiv;16;a second movable rod
+1;All-Indiv;16;the second movable rod
+1;All-Indiv;16;the first and second movable rods
+1;All-Indiv;18;an actuator
+1;All-Indiv;18;the actuator
+1;All-Indiv;1;the agricultural machine
+1;All-Indiv;10;the bunker
+1;All-Indiv;500;the agricultural machine furthermore comprises limiting elements
+1;All-Indiv;1;agricultural machine
+1;All-Indiv;1;the agricultural machine
+1;All-Indiv;10;the movable bunker
+1;All-Indiv;500;the limiting elements
+1;All-Indiv;500;the frame
+1;All-Indiv;10;the movable bunker
+1;All-Indiv;10;the bunker
+1;All-Indiv;11;the bottom
+1;All-Indiv;17;an outlet opening
+1;All-Indiv;17;the outlet opening
+1;All-Indiv;172;the bottom
+1;All-Indiv;180;a cleaning zone
+1;All-Indiv;300;the discharging conveying device
+1;All-Indiv;310;an inlet side
+1;All-Indiv;310;the inlet side
+1;All-Indiv;320;an outlet side
+1;All-Indiv;1;the agricultural machine
+1;All-Indiv;30;a side wall
+1;All-Indiv;180;the cleaning zone
+1;All-Indiv;182;cleaning rollers
+1;All-Indiv;182;the direction of one or more cleaning rollers
+1;All-Indiv;184;wiping fingers
+1;All-Indiv;186;tumble steps
+1;All-Indiv;300;the discharging conveying device
+1;All-Indiv;310;the inlet side
+1;All-Indiv;10;the movable bunker
+1;All-Indiv;400;the movable bunker is furthermore provided with at least one raisable sidewall
+1;All-Indiv;400;the at least one raisable side wall
+1;All-Indiv;410;one actuator
+1;All-Indiv;10;the bunker
+1;All-Indiv;17;the outlet opening
+1;All-Indiv;19;an inlet opening
+1;All-Indiv;200;the supplying conveying device
+1;All-Indiv;300;the discharging conveying device
+1;All-Indiv;300;the discharging conveying device is being folded in
+1;All-Indiv;400;the at least one raisable side wall
+1;All-Indiv;400;the at least one raisable side walls
+1;All-Indiv;402;a tiltable unit
+1;All-Indiv;402;the tiltable unit
+1;All-Indiv;410;the at least one actuator
+1;All-Indiv;420;a first side panel
+1;All-Indiv;420;the first side panel
+1;All-Indiv;422;a first side
+1;All-Indiv;422;a second side
+1;All-Indiv;422;the first side
+1;All-Indiv;422;the second side
+1;All-Indiv;424;the tilting point
+1;All-Indiv;426;the second side panel at their end
+1;All-Indiv;430;a second side panel
+1;All-Indiv;430;the second side panel
+1;All-Indiv;434;the tilting point
+1;All-Indiv;436;the second side panel at their end
+1;All-Indiv;440;a third side panel
+1;All-Indiv;440;the third side panel
+1;All-Indiv;442;the side
+1;All-Indiv;450;a fourth side panel
+1;All-Indiv;450;the fourth side panel
+1;All-Indiv;454;the tilting point
+1;All-Indiv;10;a movable bunker
+1;All-Indiv;10;the movable bunker
+1;All-Indiv;10;the bunker
+1;All-Indiv;12;the movement mechanism
+1;All-Indiv;14;the movement mechanism
+1;All-Indiv;18;the movement mechanism
+1;All-Indiv;200;the supplying conveying device
+1;All-Indiv;210;the outlet side
+1;All-Grouped;1;agricultural machine
+1;All-Grouped;1;the agricultural machine
+1;All-Grouped;1;an agricultural machine
+1;All-Grouped;10;a bunker
+1;All-Grouped;10;the bunker
+1;All-Grouped;10;the movable bunker
+1;All-Grouped;10;a movable bunker
+1;All-Grouped;11;a bottom
+1;All-Grouped;11;the bottom
+1;All-Grouped;12;the movement mechanism
+1;All-Grouped;14;a movement mechanism
+1;All-Grouped;14;the movement mechanism
+1;All-Grouped;14;a first movable rod
+1;All-Grouped;14;the first movable rod
+1;All-Grouped;14;the first and second movable rods
+1;All-Grouped;16;a movement mechanism
+1;All-Grouped;16;the movement mechanism
+1;All-Grouped;16;a second movable rod
+1;All-Grouped;16;the second movable rod
+1;All-Grouped;16;the first and second movable rods
+1;All-Grouped;17;an outlet opening
+1;All-Grouped;17;the outlet opening
+1;All-Grouped;18;a movement mechanism
+1;All-Grouped;18;the movement mechanism
+1;All-Grouped;18;an actuator
+1;All-Grouped;18;the actuator
+1;All-Grouped;19;an inlet opening
+1;All-Grouped;19;the inlet opening
+1;All-Grouped;30;a side wall
+1;All-Grouped;172;the bottom
+1;All-Grouped;180;a cleaning zone
+1;All-Grouped;180;the cleaning zone
+1;All-Grouped;182;cleaning rollers
+1;All-Grouped;182;the direction of one or more cleaning rollers
+1;All-Grouped;184;wiping fingers
+1;All-Grouped;186;tumble steps
+1;All-Grouped;192;the inlet opening is provided with two upright edges
+1;All-Grouped;192;the upright edges
+1;All-Grouped;192;an upright edge
+1;All-Grouped;194;the inlet opening is provided with two upright edges
+1;All-Grouped;194;the upright edges
+1;All-Grouped;194;an upright edge
+1;All-Grouped;200;a supplying conveying device
+1;All-Grouped;200;the supplying conveying device
+1;All-Grouped;202;an adjacent side
+1;All-Grouped;204;an adjacent side
+1;All-Grouped;210;an outlet side
+1;All-Grouped;210;the outlet side
+1;All-Grouped;300;a discharging conveying device
+1;All-Grouped;300;the discharging conveying device
+1;All-Grouped;300;the discharging conveying device is being folded in
+1;All-Grouped;302;the discharging conveying device consists of at least two folding-out and folding-in parts
+1;All-Grouped;302;the parts
+1;All-Grouped;304;folding-in parts
+1;All-Grouped;304;the parts
+1;All-Grouped;304;the most downstream part
+1;All-Grouped;306;the most downstream part comprises at least one tiltable segment
+1;All-Grouped;306;the at least one tiltable part
+1;All-Grouped;308;the most downstream part comprises at least one tiltable segment
+1;All-Grouped;308;the at least one tiltable part
+1;All-Grouped;310;the most downstream end
+1;All-Grouped;310;an inlet side
+1;All-Grouped;310;the inlet side
+1;All-Grouped;320;an outlet side
+1;All-Grouped;400;the movable bunker is furthermore provided with at least one raisable sidewall
+1;All-Grouped;400;the at least one raisable side wall
+1;All-Grouped;400;the at least one raisable side walls
+1;All-Grouped;402;a tiltable unit
+1;All-Grouped;402;the tiltable unit
+1;All-Grouped;410;one actuator
+1;All-Grouped;410;the at least one actuator
+1;All-Grouped;420;a first side panel
+1;All-Grouped;420;the first side panel
+1;All-Grouped;422;a first side
+1;All-Grouped;422;a second side
+1;All-Grouped;422;the first side
+1;All-Grouped;422;the second side
+1;All-Grouped;424;the tilting point
+1;All-Grouped;426;the second side panel at their end
+1;All-Grouped;430;a second side panel
+1;All-Grouped;430;the second side panel
+1;All-Grouped;434;the tilting point
+1;All-Grouped;436;the second side panel at their end
+1;All-Grouped;440;a third side panel
+1;All-Grouped;440;the third side panel
+1;All-Grouped;442;the side
+1;All-Grouped;450;a fourth side panel
+1;All-Grouped;450;the fourth side panel
+1;All-Grouped;454;the tilting point
+1;All-Grouped;500;the agricultural machine furthermore comprises limiting elements
+1;All-Grouped;500;the limiting elements
+1;All-Grouped;500;the frame
+2;Indiv;10;the bunker
+2;Indiv;10;the bunker
+2;Indiv;1;an agricultural machine
+2;Indiv;1;the agricultural machine
+2;Indiv;1;the agricultural machine
+2;Indiv;1;the agricultural machine
+2;Indiv;10;a bunker
+2;Indiv;1;the agricultural machine
+2;Indiv;10;the bunker
+2;Indiv;200;a supplying conveying device
+2;Indiv;200;supplying conveying device
+2;Indiv;200;the supplying conveying device
+2;Indiv;210;an outlet side
+2;Indiv;210;the downstream end
+2;Indiv;210;the downstream end also referred to as outlet side
+2;Indiv;210;the agricultural products are collected, and that this downstream end
+2;Indiv;1;the agricultural machine
+2;Indiv;10;the bunker
+2;Indiv;300;a discharging conveying device
+2;Indiv;300;the discharging conveying device
+2;Indiv;1;the agricultural machine
+2;Indiv;10;the bunker
+2;Indiv;10;the movable bunker
+2;Indiv;14;a movement mechanism
+2;Indiv;16;a movement mechanism
+2;Indiv;18;a movement mechanism
+2;Indiv;19;an inlet opening
+2;Indiv;190;an upright wall
+2;Indiv;200;the supplying conveying device
+2;Indiv;200;the supplying conveyor belt
+2;Indiv;210;the outlet side
+2;Indiv;1;the agricultural machine
+2;Indiv;1;an agricultural machine
+2;Indiv;10;a movable bunker
+2;Indiv;10;the bunker
+2;Indiv;10;the movable bunker
+2;Indiv;19;an inlet opening
+2;Indiv;19;this inlet opening
+2;Indiv;19;the inlet opening
+2;Indiv;192;two upright edges
+2;Indiv;192;these upright edges
+2;Indiv;192;the upright edges
+2;Indiv;192;the transverse direction d of these upright edges
+2;Indiv;194;two upright edges
+2;Indiv;194;the upright edges
+2;Indiv;194;the transverse direction d of these upright edges
+2;Indiv;200;the supplying conveying device
+2;Indiv;210;the outlet side
+2;Indiv;10;the bunker
+2;Indiv;19;the inlet opening
+2;Indiv;192;an upright edge
+2;Indiv;194;an upright edge
+2;Indiv;196;a movable screen
+2;Indiv;196;a screen
+2;Indiv;198;the side wall
+2;Indiv;200;the supplying conveying device
+2;Indiv;200;a supplying conveying device
+2;Indiv;202;an adjacent side
+2;Indiv;202;the adjacent sides
+2;Indiv;204;an adjacent side
+2;Indiv;204;the adjacent sides
+2;Indiv;10;the bunker
+2;Indiv;10;the movable bunker
+2;Indiv;19;the inlet opening
+2;Indiv;192;an upright edge
+2;Indiv;194;an upright edge
+2;Indiv;200;the supplying conveying device
+2;Indiv;202;an adjacent side
+2;Indiv;204;an adjacent side
+2;Indiv;210;the discharge end
+2;Indiv;1;the agricultural machine
+2;Indiv;10;the movable bunker
+2;Indiv;10;the bunker
+2;Indiv;17;an outlet opening
+2;Indiv;17;the outlet opening
+2;Indiv;172;the bottom
+2;Indiv;200;the supplying conveying device
+2;Indiv;300;the discharging conveying device
+2;Indiv;10;the movable bunker
+2;Indiv;10;the bunker
+2;Indiv;14;the movement mechanism
+2;Indiv;16;the movement mechanism
+2;Indiv;18;the movement mechanism
+2;Indiv;300;the discharging conveying device
+2;Indiv;1;an agricultural machine
+2;Indiv;1;the agricultural machine
+2;Indiv;10;the bunker
+2;Indiv;30;the side wall
+2;Indiv;300;the bunker and discharging conveying device
+2;Indiv;300;the discharging conveying device
+2;Indiv;10;the bunker
+2;Indiv;17;the outlet opening
+2;Indiv;17;the outlet opening or, in other words, it closes off this outlet opening
+2;Indiv;200;the supplying conveyor belt
+2;Indiv;200;the supplying conveying device
+2;Indiv;210;the downstream part
+2;Indiv;300;the discharging conveying device
+2;Indiv;302;two folding parts
+2;Indiv;302;these parts
+2;Indiv;302;the parts
+2;Indiv;302;the first part
+2;Indiv;304;two folding parts
+2;Indiv;304;these parts
+2;Indiv;304;the parts
+2;Indiv;304;the second part
+2;Indiv;304;the most downstream part
+2;Indiv;306;two tiltable segments
+2;Indiv;306;the two tiltable parts
+2;Indiv;308;two tiltable segments
+2;Indiv;308;the two tiltable parts
+2;Indiv;320;the most downstream end
+2;Indiv;10;the bunker
+2;Indiv;11;a bottom
+2;Indiv;11;the bottom
+2;Indiv;17;the outlet opening
+2;Indiv;172;the bottom
+2;Indiv;300;the discharging conveying device
+2;Indiv;300;the subsequent discharging conveying device
+2;Indiv;1;the agricultural machine
+2;Indiv;10;the bunker
+2;Indiv;14;a mechanism of rods
+2;Indiv;14;the mechanism of rods
+2;Indiv;14;a first movable rod
+2;Indiv;14;the first movable rod
+2;Indiv;14;the first
+2;Indiv;16;a mechanism of rods
+2;Indiv;16;the mechanism of rods
+2;Indiv;16;a second movable rod
+2;Indiv;16;the second movable rod
+2;Indiv;16;the first and second
+2;Indiv;18;an actuator
+2;Indiv;18;the actuator
+2;Indiv;1;the agricultural machine
+2;Indiv;10;the movable bunker
+2;Indiv;10;the bunker
+2;Indiv;14;the movement mechanism
+2;Indiv;16;the movement mechanism
+2;Indiv;18;the movement mechanism
+2;Indiv;500;four limiting elements
+2;Indiv;500;the limiting elements
+2;Indiv;500;other limiting elements
+2;Indiv;500;the plastic block
+2;Indiv;500;two limiting elements
+2;Indiv;500;an arm. these two limiting elements
+2;Indiv;500;the two limiting elements
+2;Indiv;600;the frame
+2;Indiv;602;a supporting plate
+2;Indiv;602;the direction of travel are arranged on either side of this supporting plate
+2;Indiv;1;the agricultural machine
+2;Indiv;10;the bunker
+2;Indiv;10;the movable bunker
+2;Indiv;500;of limiting elements
+2;Indiv;500;these limiting elements
+2;Indiv;500;the limiting elements
+2;Indiv;10;the movable bunker
+2;Indiv;10;the bunker
+2;Indiv;11;a bottom
+2;Indiv;11;the bottom
+2;Indiv;17;the outlet opening
+2;Indiv;17;an outlet opening
+2;Indiv;172;the bottom
+2;Indiv;180;a cleaning zone
+2;Indiv;180;the cleaning zone
+2;Indiv;182;the illustrated exemplary embodiment, this cleaning zone
+2;Indiv;182;a cleaning roller
+2;Indiv;182;the illustrated cleaning roller
+2;Indiv;182;the cleaning roller
+2;Indiv;182;the following elements: one or more cleaning elements; one or more cleaning rollers
+2;Indiv;182;more cleaning rollers
+2;Indiv;182;the direction of one or more cleaning rollers
+2;Indiv;184;the illustrated exemplary embodiment, it is advantageous if wiping fingers
+2;Indiv;184;more wiping fingers
+2;Indiv;300;the discharging conveying device
+2;Indiv;300;the illustrated discharging conveying device
+2;Indiv;310;an inlet side
+2;Indiv;310;the bunker on its inlet side
+2;Indiv;310;the inlet side
+2;Indiv;320;an outlet side
+2;Indiv;320;the bunker on its inlet side and deliver these on its outlet side
+2;Indiv;10;the movable bunker
+2;Indiv;10;the bunker
+2;Indiv;17;the outlet opening
+2;Indiv;172;the bottom
+2;Indiv;180;the illustrated cleaning zone
+2;Indiv;182;the cleaning roller
+2;Indiv;186;forms tumble steps
+2;Indiv;300;the discharging conveying device
+2;Indiv;310;the supply side
+2;Indiv;1;the agricultural machine
+2;Indiv;30;a side wall
+2;Indiv;30;the side wall
+2;Indiv;180;the cleaning zone
+2;Indiv;300;the discharging conveying device
+2;Indiv;310;the inlet side
+2;Indiv;10;the movable bunker
+2;Indiv;10;the bunker
+2;Indiv;17;the outlet opening
+2;Indiv;19;the inlet opening
+2;Indiv;200;the supplying conveying device
+2;Indiv;300;the discharging conveying device
+2;Indiv;400;raisable side walls
+2;Indiv;400;the raisable side walls
+2;Indiv;400;the side walls
+2;Indiv;400;the at least one raisable side walls
+2;Indiv;400;the raisable side wall
+2;Indiv;402;the tiltable unit
+2;Indiv;410;an actuator
+2;Indiv;410;the actuator
+2;Indiv;410;the unit may for example comprise one or more other suitable actuators
+2;Indiv;420;a tiltable unit
+2;Indiv;420;a first side panel
+2;Indiv;420;the first side panel
+2;Indiv;422;a first side
+2;Indiv;422;a second side
+2;Indiv;422;the first side
+2;Indiv;422;the second side
+2;Indiv;424;the tilting point
+2;Indiv;424;the tilting points
+2;Indiv;430;a second side panel
+2;Indiv;430;the second side panel
+2;Indiv;434;the tilting point
+2;Indiv;434;the tilting points
+2;Indiv;440;a third side panel
+2;Indiv;440;third side panel
+2;Indiv;442;the side
+2;Indiv;450;a fourth side panel
+2;Indiv;450;the fourth side panel
+2;Indiv;454;the tilting point
+2;Indiv;10;a movable bunker
+2;Indiv;10;the movable bunker
+2;Indiv;10;the bunker
+2;Indiv;12;the movement mechanism
+2;Indiv;14;the movement mechanism
+2;Indiv;18;the movement mechanism
+2;Indiv;19;the inlet opening
+2;Indiv;192;the upright edges
+2;Indiv;194;the upright edges
+2;Indiv;198;the circumference
+2;Indiv;200;the supplying conveying device
+2;Indiv;206;a movement range
+2;Indiv;210;the outlet side
+2;Grouped;1;an agricultural machine
+2;Grouped;1;the agricultural machine
+2;Grouped;10;the bunker
+2;Grouped;10;a bunker
+2;Grouped;10;the movable bunker
+2;Grouped;10;a movable bunker
+2;Grouped;11;a bottom
+2;Grouped;11;the bottom
+2;Grouped;12;the movement mechanism
+2;Grouped;14;a movement mechanism
+2;Grouped;14;the movement mechanism
+2;Grouped;14;a mechanism of rods
+2;Grouped;14;the mechanism of rods
+2;Grouped;14;a first movable rod
+2;Grouped;14;the first movable rod
+2;Grouped;14;the first
+2;Grouped;16;a movement mechanism
+2;Grouped;16;the movement mechanism
+2;Grouped;16;a mechanism of rods
+2;Grouped;16;the mechanism of rods
+2;Grouped;16;a second movable rod
+2;Grouped;16;the second movable rod
+2;Grouped;16;the first and second
+2;Grouped;17;an outlet opening
+2;Grouped;17;the outlet opening
+2;Grouped;17;the outlet opening or, in other words, it closes off this outlet opening
+2;Grouped;18;a movement mechanism
+2;Grouped;18;the movement mechanism
+2;Grouped;18;an actuator
+2;Grouped;18;the actuator
+2;Grouped;19;an inlet opening
+2;Grouped;19;this inlet opening
+2;Grouped;19;the inlet opening
+2;Grouped;30;the side wall
+2;Grouped;30;a side wall
+2;Grouped;172;the bottom
+2;Grouped;180;a cleaning zone
+2;Grouped;180;the cleaning zone
+2;Grouped;180;the illustrated cleaning zone
+2;Grouped;182;the illustrated exemplary embodiment, this cleaning zone
+2;Grouped;182;a cleaning roller
+2;Grouped;182;the illustrated cleaning roller
+2;Grouped;182;the cleaning roller
+2;Grouped;182;the following elements: one or more cleaning elements; one or more cleaning rollers
+2;Grouped;182;more cleaning rollers
+2;Grouped;182;the direction of one or more cleaning rollers
+2;Grouped;184;the illustrated exemplary embodiment, it is advantageous if wiping fingers
+2;Grouped;184;more wiping fingers
+2;Grouped;186;forms tumble steps
+2;Grouped;190;an upright wall
+2;Grouped;192;two upright edges
+2;Grouped;192;these upright edges
+2;Grouped;192;the upright edges
+2;Grouped;192;the transverse direction d of these upright edges
+2;Grouped;192;an upright edge
+2;Grouped;194;two upright edges
+2;Grouped;194;the upright edges
+2;Grouped;194;the transverse direction d of these upright edges
+2;Grouped;194;an upright edge
+2;Grouped;196;a movable screen
+2;Grouped;196;a screen
+2;Grouped;198;the side wall
+2;Grouped;198;the circumference
+2;Grouped;200;a supplying conveying device
+2;Grouped;200;supplying conveying device
+2;Grouped;200;the supplying conveying device
+2;Grouped;200;the supplying conveyor belt
+2;Grouped;202;an adjacent side
+2;Grouped;202;the adjacent sides
+2;Grouped;204;an adjacent side
+2;Grouped;204;the adjacent sides
+2;Grouped;206;a movement range
+2;Grouped;210;an outlet side
+2;Grouped;210;the downstream end
+2;Grouped;210;the downstream end also referred to as outlet side
+2;Grouped;210;the agricultural products are collected, and that this downstream end
+2;Grouped;210;the outlet side
+2;Grouped;210;the discharge end
+2;Grouped;210;the downstream part
+2;Grouped;300;a discharging conveying device
+2;Grouped;300;the discharging conveying device
+2;Grouped;300;the bunker and discharging conveying device
+2;Grouped;300;the subsequent discharging conveying device
+2;Grouped;300;the illustrated discharging conveying device
+2;Grouped;302;two folding parts
+2;Grouped;302;these parts
+2;Grouped;302;the parts
+2;Grouped;302;the first part
+2;Grouped;304;two folding parts
+2;Grouped;304;these parts
+2;Grouped;304;the parts
+2;Grouped;304;the second part
+2;Grouped;304;the most downstream part
+2;Grouped;306;two tiltable segments
+2;Grouped;306;the two tiltable parts
+2;Grouped;308;two tiltable segments
+2;Grouped;308;the two tiltable parts
+2;Grouped;310;an inlet side
+2;Grouped;310;the bunker on its inlet side
+2;Grouped;310;the inlet side
+2;Grouped;310;the supply side
+2;Grouped;320;the most downstream end
+2;Grouped;320;an outlet side
+2;Grouped;320;the bunker on its inlet side and deliver these on its outlet side
+2;Grouped;400;raisable side walls
+2;Grouped;400;the raisable side walls
+2;Grouped;400;the side walls
+2;Grouped;400;the at least one raisable side walls
+2;Grouped;400;the raisable side wall
+2;Grouped;402;the tiltable unit
+2;Grouped;410;an actuator
+2;Grouped;410;the actuator
+2;Grouped;410;the unit may for example comprise one or more other suitable actuators
+2;Grouped;420;a tiltable unit
+2;Grouped;420;a first side panel
+2;Grouped;420;the first side panel
+2;Grouped;422;a first side
+2;Grouped;422;a second side
+2;Grouped;422;the first side
+2;Grouped;422;the second side
+2;Grouped;424;the tilting point
+2;Grouped;424;the tilting points
+2;Grouped;430;a second side panel
+2;Grouped;430;the second side panel
+2;Grouped;434;the tilting point
+2;Grouped;434;the tilting points
+2;Grouped;440;a third side panel
+2;Grouped;440;third side panel
+2;Grouped;442;the side
+2;Grouped;450;a fourth side panel
+2;Grouped;450;the fourth side panel
+2;Grouped;454;the tilting point
+2;Grouped;500;four limiting elements
+2;Grouped;500;the limiting elements
+2;Grouped;500;other limiting elements
+2;Grouped;500;the plastic block
+2;Grouped;500;two limiting elements
+2;Grouped;500;an arm. these two limiting elements
+2;Grouped;500;the two limiting elements
+2;Grouped;500;of limiting elements
+2;Grouped;500;these limiting elements
+2;Grouped;600;the frame
+2;Grouped;602;a supporting plate
+2;Grouped;602;the direction of travel are arranged on either side of this supporting plate
+3;all;1;agricultural machine
+3;all;1;the agricultural machine
+3;all;1;an agricultural machine
+3;all;10;a bunker
+3;all;10;the bunker
+3;all;10;the movable bunker
+3;all;10;a movable bunker
+3;all;11;a bottom
+3;all;11;the bottom
+3;all;12;the movement mechanism
+3;all;14;a movement mechanism
+3;all;14;the movement mechanism
+3;all;14;a first movable rod
+3;all;14;the first movable rod
+3;all;14;the first and second movable rods
+3;all;14;a mechanism of rods
+3;all;14;the mechanism of rods
+3;all;14;the first
+3;all;16;a movement mechanism
+3;all;16;the movement mechanism
+3;all;16;a second movable rod
+3;all;16;the second movable rod
+3;all;16;the first and second movable rods
+3;all;16;a mechanism of rods
+3;all;16;the mechanism of rods
+3;all;16;the first and second
+3;all;17;an outlet opening
+3;all;17;the outlet opening
+3;all;17;the outlet opening or, in other words, it closes off this outlet opening
+3;all;18;a movement mechanism
+3;all;18;the movement mechanism
+3;all;18;an actuator
+3;all;18;the actuator
+3;all;19;an inlet opening
+3;all;19;the inlet opening
+3;all;19;this inlet opening
+3;all;30;a side wall
+3;all;30;the side wall
+3;all;172;the bottom
+3;all;180;a cleaning zone
+3;all;180;the cleaning zone
+3;all;180;the illustrated cleaning zone
+3;all;182;cleaning rollers
+3;all;182;the direction of one or more cleaning rollers
+3;all;182;the illustrated exemplary embodiment, this cleaning zone
+3;all;182;a cleaning roller
+3;all;182;the illustrated cleaning roller
+3;all;182;the cleaning roller
+3;all;182;the following elements: one or more cleaning elements; one or more cleaning rollers
+3;all;182;more cleaning rollers
+3;all;184;wiping fingers
+3;all;184;the illustrated exemplary embodiment, it is advantageous if wiping fingers
+3;all;184;more wiping fingers
+3;all;186;tumble steps
+3;all;186;forms tumble steps
+3;all;190;an upright wall
+3;all;192;the inlet opening is provided with two upright edges
+3;all;192;the upright edges
+3;all;192;an upright edge
+3;all;192;two upright edges
+3;all;192;these upright edges
+3;all;192;the transverse direction d of these upright edges
+3;all;194;the inlet opening is provided with two upright edges
+3;all;194;the upright edges
+3;all;194;an upright edge
+3;all;194;two upright edges
+3;all;194;the transverse direction d of these upright edges
+3;all;196;a movable screen
+3;all;196;a screen
+3;all;198;the side wall
+3;all;198;the circumference
+3;all;200;a supplying conveying device
+3;all;200;the supplying conveying device
+3;all;200;supplying conveying device
+3;all;200;the supplying conveyor belt
+3;all;202;an adjacent side
+3;all;202;the adjacent sides
+3;all;204;an adjacent side
+3;all;204;the adjacent sides
+3;all;206;a movement range
+3;all;210;an outlet side
+3;all;210;the outlet side
+3;all;210;the downstream end
+3;all;210;the downstream end also referred to as outlet side
+3;all;210;the agricultural products are collected, and that this downstream end
+3;all;210;the discharge end
+3;all;210;the downstream part
+3;all;300;a discharging conveying device
+3;all;300;the discharging conveying device
+3;all;300;the discharging conveying device is being folded in
+3;all;300;the bunker and discharging conveying device
+3;all;300;the subsequent discharging conveying device
+3;all;300;the illustrated discharging conveying device
+3;all;302;the discharging conveying device consists of at least two folding-out and folding-in parts
+3;all;302;the parts
+3;all;302;two folding parts
+3;all;302;these parts
+3;all;302;the first part
+3;all;304;folding-in parts
+3;all;304;the parts
+3;all;304;the most downstream part
+3;all;304;two folding parts
+3;all;304;these parts
+3;all;304;the second part
+3;all;306;the most downstream part comprises at least one tiltable segment
+3;all;306;the at least one tiltable part
+3;all;306;two tiltable segments
+3;all;306;the two tiltable parts
+3;all;308;the most downstream part comprises at least one tiltable segment
+3;all;308;the at least one tiltable part
+3;all;308;two tiltable segments
+3;all;308;the two tiltable parts
+3;all;310;the most downstream end
+3;all;310;an inlet side
+3;all;310;the inlet side
+3;all;310;the bunker on its inlet side
+3;all;310;the supply side
+3;all;320;an outlet side
+3;all;320;the most downstream end
+3;all;320;the bunker on its inlet side and deliver these on its outlet side
+3;all;400;the movable bunker is furthermore provided with at least one raisable sidewall
+3;all;400;the at least one raisable side wall
+3;all;400;the at least one raisable side walls
+3;all;400;raisable side walls
+3;all;400;the raisable side walls
+3;all;400;the side walls
+3;all;400;the raisable side wall
+3;all;402;a tiltable unit
+3;all;402;the tiltable unit
+3;all;410;one actuator
+3;all;410;the at least one actuator
+3;all;410;an actuator
+3;all;410;the actuator
+3;all;410;the unit may for example comprise one or more other suitable actuators
+3;all;420;a first side panel
+3;all;420;the first side panel
+3;all;420;a tiltable unit
+3;all;422;a first side
+3;all;422;a second side
+3;all;422;the first side
+3;all;422;the second side
+3;all;424;the tilting point
+3;all;424;the tilting points
+3;all;426;the second side panel at their end
+3;all;430;a second side panel
+3;all;430;the second side panel
+3;all;434;the tilting point
+3;all;434;the tilting points
+3;all;436;the second side panel at their end
+3;all;440;a third side panel
+3;all;440;the third side panel
+3;all;440;third side panel
+3;all;442;the side
+3;all;450;a fourth side panel
+3;all;450;the fourth side panel
+3;all;454;the tilting point
+3;all;500;the agricultural machine furthermore comprises limiting elements
+3;all;500;the limiting elements
+3;all;500;the frame
+3;all;500;four limiting elements
+3;all;500;other limiting elements
+3;all;500;the plastic block
+3;all;500;two limiting elements
+3;all;500;an arm. these two limiting elements
+3;all;500;the two limiting elements
+3;all;500;of limiting elements
+3;all;500;these limiting elements
+3;all;600;the frame
+3;all;602;a supporting plate
+3;all;602;the direction of travel are arranged on either side of this supporting plate
+3;match;1;agricultural machine
+3;match;1;the agricultural machine
+3;match;1;an agricultural machine
+3;match;10;a bunker
+3;match;10;the bunker
+3;match;10;the movable bunker
+3;match;10;a movable bunker
+3;match;11;a bottom
+3;match;11;the bottom
+3;match;12;the movement mechanism
+3;match;14;a movement mechanism
+3;match;14;the movement mechanism
+3;match;14;a first movable rod
+3;match;14;the first movable rod
+3;match;14;the first and second movable rods
+3;match;14;a mechanism of rods
+3;match;14;the mechanism of rods
+3;match;14;the first
+3;match;16;a movement mechanism
+3;match;16;the movement mechanism
+3;match;16;a second movable rod
+3;match;16;the second movable rod
+3;match;16;the first and second movable rods
+3;match;16;a mechanism of rods
+3;match;16;the mechanism of rods
+3;match;16;the first and second
+3;match;17;an outlet opening
+3;match;17;the outlet opening
+3;match;17;the outlet opening or, in other words, it closes off this outlet opening
+3;match;18;a movement mechanism
+3;match;18;the movement mechanism
+3;match;18;an actuator
+3;match;18;the actuator
+3;match;19;an inlet opening
+3;match;19;the inlet opening
+3;match;19;this inlet opening
+3;match;30;a side wall
+3;match;30;the side wall
+3;match;172;the bottom
+3;match;180;a cleaning zone
+3;match;180;the cleaning zone
+3;match;180;the illustrated cleaning zone
+3;match;182;cleaning rollers
+3;match;182;the direction of one or more cleaning rollers
+3;match;182;the illustrated exemplary embodiment, this cleaning zone
+3;match;182;a cleaning roller
+3;match;182;the illustrated cleaning roller
+3;match;182;the cleaning roller
+3;match;182;the following elements: one or more cleaning elements; one or more cleaning rollers
+3;match;182;more cleaning rollers
+3;match;184;wiping fingers
+3;match;184;the illustrated exemplary embodiment, it is advantageous if wiping fingers
+3;match;184;more wiping fingers
+3;match;186;tumble steps
+3;match;186;forms tumble steps
+3;match;192;the inlet opening is provided with two upright edges
+3;match;192;the upright edges
+3;match;192;an upright edge
+3;match;192;two upright edges
+3;match;192;these upright edges
+3;match;192;the transverse direction d of these upright edges
+3;match;194;the inlet opening is provided with two upright edges
+3;match;194;the upright edges
+3;match;194;an upright edge
+3;match;194;two upright edges
+3;match;194;the transverse direction d of these upright edges
+3;match;200;a supplying conveying device
+3;match;200;the supplying conveying device
+3;match;200;supplying conveying device
+3;match;200;the supplying conveyor belt
+3;match;202;an adjacent side
+3;match;202;the adjacent sides
+3;match;204;an adjacent side
+3;match;204;the adjacent sides
+3;match;210;an outlet side
+3;match;210;the outlet side
+3;match;210;the downstream end
+3;match;210;the downstream end also referred to as outlet side
+3;match;210;the agricultural products are collected, and that this downstream end
+3;match;210;the discharge end
+3;match;210;the downstream part
+3;match;300;a discharging conveying device
+3;match;300;the discharging conveying device
+3;match;300;the discharging conveying device is being folded in
+3;match;300;the bunker and discharging conveying device
+3;match;300;the subsequent discharging conveying device
+3;match;300;the illustrated discharging conveying device
+3;match;302;the discharging conveying device consists of at least two folding-out and folding-in parts
+3;match;302;the parts
+3;match;302;two folding parts
+3;match;302;these parts
+3;match;302;the first part
+3;match;304;folding-in parts
+3;match;304;the parts
+3;match;304;the most downstream part
+3;match;304;two folding parts
+3;match;304;these parts
+3;match;304;the second part
+3;match;306;the most downstream part comprises at least one tiltable segment
+3;match;306;the at least one tiltable part
+3;match;306;two tiltable segments
+3;match;306;the two tiltable parts
+3;match;308;the most downstream part comprises at least one tiltable segment
+3;match;308;the at least one tiltable part
+3;match;308;two tiltable segments
+3;match;308;the two tiltable parts
+3;match;310;the most downstream end
+3;match;310;an inlet side
+3;match;310;the inlet side
+3;match;310;the bunker on its inlet side
+3;match;310;the supply side
+3;match;320;an outlet side
+3;match;320;the most downstream end
+3;match;320;the bunker on its inlet side and deliver these on its outlet side
+3;match;400;the movable bunker is furthermore provided with at least one raisable sidewall
+3;match;400;the at least one raisable side wall
+3;match;400;the at least one raisable side walls
+3;match;400;raisable side walls
+3;match;400;the raisable side walls
+3;match;400;the side walls
+3;match;400;the raisable side wall
+3;match;402;a tiltable unit
+3;match;402;the tiltable unit
+3;match;410;one actuator
+3;match;410;the at least one actuator
+3;match;410;an actuator
+3;match;410;the actuator
+3;match;410;the unit may for example comprise one or more other suitable actuators
+3;match;420;a first side panel
+3;match;420;the first side panel
+3;match;420;a tiltable unit
+3;match;422;a first side
+3;match;422;a second side
+3;match;422;the first side
+3;match;422;the second side
+3;match;424;the tilting point
+3;match;424;the tilting points
+3;match;430;a second side panel
+3;match;430;the second side panel
+3;match;434;the tilting point
+3;match;434;the tilting points
+3;match;440;a third side panel
+3;match;440;the third side panel
+3;match;440;third side panel
+3;match;442;the side
+3;match;450;a fourth side panel
+3;match;450;the fourth side panel
+3;match;454;the tilting point
+3;match;500;the agricultural machine furthermore comprises limiting elements
+3;match;500;the limiting elements
+3;match;500;the frame
+3;match;500;four limiting elements
+3;match;500;other limiting elements
+3;match;500;the plastic block
+3;match;500;two limiting elements
+3;match;500;an arm. these two limiting elements
+3;match;500;the two limiting elements
+3;match;500;of limiting elements
+3;match;500;these limiting elements
+3;orphan;190;an upright wall
+3;orphan;196;a movable screen
+3;orphan;196;a screen
+3;orphan;198;the side wall
+3;orphan;198;the circumference
+3;orphan;206;a movement range
+3;orphan;600;the frame
+3;orphan;602;a supporting plate
+3;orphan;602;the direction of travel are arranged on either side of this supporting plate

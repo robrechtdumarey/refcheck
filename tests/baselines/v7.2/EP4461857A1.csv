@@ -1,0 +1,662 @@
+Section;Mode;Ref;Feature
+1;Indep-Indiv;2;a take-up roller
+1;Indep-Indiv;2;the take-up roller
+1;Indep-Indiv;3;a pressure roller
+1;Indep-Indiv;3;the pressure roller
+1;Indep-Indiv;4;a rod
+1;Indep-Indiv;4;the rod
+1;Indep-Indiv;5;a lever
+1;Indep-Indiv;5;the lever
+1;Indep-Indiv;6;a cut-out
+1;Indep-Indiv;40;a longitudinal direction
+1;Indep-Indiv;40;the longitudinal direction
+1;Indep-Indiv;41;a first end
+1;Indep-Indiv;41;the first end
+1;Indep-Indiv;42;a second end
+1;Indep-Indiv;42;the second end
+1;Indep-Indiv;43;an elongated part
+1;Indep-Indiv;51;a bottom contact surface
+1;Indep-Indiv;51;the bottom contact surface
+1;Indep-Indiv;62;a top abutment surface
+1;Indep-Indiv;62;the top abutment surface
+1;Indep-Indiv;1;a fabric take-up device
+1;Indep-Indiv;2;a take-up roller
+1;Indep-Indiv;2;the take-up roller
+1;Indep-Indiv;3;a pressure roller
+1;Indep-Indiv;3;the pressure roller
+1;Indep-Indiv;4;a rod
+1;Indep-Indiv;4;the rod
+1;Indep-Indiv;5;a lever
+1;Indep-Indiv;5;the lever
+1;Indep-Indiv;6;a cut-out
+1;Indep-Indiv;40;a longitudinal direction
+1;Indep-Indiv;40;the longitudinal direction
+1;Indep-Indiv;41;a first end
+1;Indep-Indiv;41;the first end
+1;Indep-Indiv;42;a second end
+1;Indep-Indiv;42;the second end
+1;Indep-Indiv;43;an elongated part
+1;Indep-Indiv;51;a bottom contact surface
+1;Indep-Indiv;62;a top abutment surface
+1;Indep-Indiv;62;the top abutment surface
+1;Indep-Grouped;1;a fabric take-up device
+1;Indep-Grouped;2;a take-up roller
+1;Indep-Grouped;2;the take-up roller
+1;Indep-Grouped;3;a pressure roller
+1;Indep-Grouped;3;the pressure roller
+1;Indep-Grouped;4;a rod
+1;Indep-Grouped;4;the rod
+1;Indep-Grouped;5;a lever
+1;Indep-Grouped;5;the lever
+1;Indep-Grouped;6;a cut-out
+1;Indep-Grouped;40;a longitudinal direction
+1;Indep-Grouped;40;the longitudinal direction
+1;Indep-Grouped;41;a first end
+1;Indep-Grouped;41;the first end
+1;Indep-Grouped;42;a second end
+1;Indep-Grouped;42;the second end
+1;Indep-Grouped;43;an elongated part
+1;Indep-Grouped;51;a bottom contact surface
+1;Indep-Grouped;51;the bottom contact surface
+1;Indep-Grouped;62;a top abutment surface
+1;Indep-Grouped;62;the top abutment surface
+1;All-Indiv;2;a take-up roller
+1;All-Indiv;2;the take-up roller
+1;All-Indiv;3;a pressure roller
+1;All-Indiv;3;the pressure roller
+1;All-Indiv;4;a rod
+1;All-Indiv;4;the rod
+1;All-Indiv;5;a lever
+1;All-Indiv;5;the lever
+1;All-Indiv;6;a cut-out
+1;All-Indiv;40;a longitudinal direction
+1;All-Indiv;40;the longitudinal direction
+1;All-Indiv;41;a first end
+1;All-Indiv;41;the first end
+1;All-Indiv;42;a second end
+1;All-Indiv;42;the second end
+1;All-Indiv;43;an elongated part
+1;All-Indiv;51;a bottom contact surface
+1;All-Indiv;51;the bottom contact surface
+1;All-Indiv;62;a top abutment surface
+1;All-Indiv;62;the top abutment surface
+1;All-Indiv;4;the rod
+1;All-Indiv;6;the cut-out
+1;All-Indiv;6;the cut-out
+1;All-Indiv;2;the fabric take-up device according to claim
+1;All-Indiv;3;the fabric take-up device according to claim
+1;All-Indiv;4;the rod
+1;All-Indiv;5;the lever
+1;All-Indiv;6;the cut-out
+1;All-Indiv;40;the longitudinal direction
+1;All-Indiv;55;a side contact surface
+1;All-Indiv;61;an axial abutment surface
+1;All-Indiv;61;the cut-out which axial abutment surface
+1;All-Indiv;61;the axial abutment surface
+1;All-Indiv;61;the axial abutment surface
+1;All-Indiv;62;the top abutment surface
+1;All-Indiv;4;the rod
+1;All-Indiv;6;the cut-out
+1;All-Indiv;41;the first end
+1;All-Indiv;44;an end face
+1;All-Indiv;4;the rod
+1;All-Indiv;5;the lever
+1;All-Indiv;51;the bottom contact surface
+1;All-Indiv;52;a protrusion
+1;All-Indiv;52;the protrusion
+1;All-Indiv;62;the top abutment surface
+1;All-Indiv;1;the fabric take-up device
+1;All-Indiv;3;the pressure roller
+1;All-Indiv;7;a holder
+1;All-Indiv;7;the holder
+1;All-Indiv;8;an outer bearing
+1;All-Indiv;8;the outer bearing
+1;All-Indiv;80;a semi-circular form with two side ends
+1;All-Indiv;80;the pressure roller at its side ends
+1;All-Indiv;3;the pressure roller
+1;All-Indiv;8;the outer bearing
+1;All-Indiv;81;a border
+1;All-Indiv;5;the lever
+1;All-Indiv;7;the holder
+1;All-Indiv;53;a first end
+1;All-Indiv;5;the lever
+1;All-Indiv;7;the holder
+1;All-Indiv;8;the outer bearing
+1;All-Indiv;71;a stationary arm
+1;All-Indiv;71;the stationary arm
+1;All-Indiv;72;a swivel arm
+1;All-Indiv;72;the swivel arm
+1;All-Indiv;74;a spring
+1;All-Indiv;75;a common swivel axis
+1;All-Indiv;5;the lever
+1;All-Indiv;54;a second end
+1;All-Indiv;71;the stationary arm
+1;All-Indiv;73;a threaded tension rod
+1;All-Indiv;5;the lever
+1;All-Indiv;62;the top abutment surface
+1;All-Indiv;72;the swivel arm
+1;All-Indiv;100;a sensor device
+1;All-Indiv;100;a sensor device is provided, which sensor device
+1;All-Indiv;3;the pressure roller
+1;All-Indiv;4;the rod
+1;All-Indiv;9;an inner bearing
+1;All-Indiv;41;the first end
+1;All-Indiv;42;the second end
+1;All-Indiv;1;a fabric take-up device
+1;All-Indiv;2;a take-up roller
+1;All-Indiv;2;the take-up roller
+1;All-Indiv;3;a pressure roller
+1;All-Indiv;3;the pressure roller
+1;All-Indiv;4;a rod
+1;All-Indiv;4;the rod
+1;All-Indiv;5;a lever
+1;All-Indiv;5;the lever
+1;All-Indiv;6;a cut-out
+1;All-Indiv;40;a longitudinal direction
+1;All-Indiv;40;the longitudinal direction
+1;All-Indiv;41;a first end
+1;All-Indiv;41;the first end
+1;All-Indiv;42;a second end
+1;All-Indiv;42;the second end
+1;All-Indiv;43;an elongated part
+1;All-Indiv;51;a bottom contact surface
+1;All-Indiv;62;a top abutment surface
+1;All-Indiv;62;the top abutment surface
+1;All-Grouped;1;the fabric take-up device
+1;All-Grouped;1;a fabric take-up device
+1;All-Grouped;2;a take-up roller
+1;All-Grouped;2;the take-up roller
+1;All-Grouped;2;the fabric take-up device according to claim
+1;All-Grouped;3;a pressure roller
+1;All-Grouped;3;the pressure roller
+1;All-Grouped;3;the fabric take-up device according to claim
+1;All-Grouped;4;a rod
+1;All-Grouped;4;the rod
+1;All-Grouped;5;a lever
+1;All-Grouped;5;the lever
+1;All-Grouped;6;a cut-out
+1;All-Grouped;6;the cut-out
+1;All-Grouped;7;a holder
+1;All-Grouped;7;the holder
+1;All-Grouped;8;an outer bearing
+1;All-Grouped;8;the outer bearing
+1;All-Grouped;9;an inner bearing
+1;All-Grouped;40;a longitudinal direction
+1;All-Grouped;40;the longitudinal direction
+1;All-Grouped;41;a first end
+1;All-Grouped;41;the first end
+1;All-Grouped;42;a second end
+1;All-Grouped;42;the second end
+1;All-Grouped;43;an elongated part
+1;All-Grouped;44;an end face
+1;All-Grouped;51;a bottom contact surface
+1;All-Grouped;51;the bottom contact surface
+1;All-Grouped;52;a protrusion
+1;All-Grouped;52;the protrusion
+1;All-Grouped;53;a first end
+1;All-Grouped;54;a second end
+1;All-Grouped;55;a side contact surface
+1;All-Grouped;61;an axial abutment surface
+1;All-Grouped;61;the cut-out which axial abutment surface
+1;All-Grouped;61;the axial abutment surface
+1;All-Grouped;62;a top abutment surface
+1;All-Grouped;62;the top abutment surface
+1;All-Grouped;71;a stationary arm
+1;All-Grouped;71;the stationary arm
+1;All-Grouped;72;a swivel arm
+1;All-Grouped;72;the swivel arm
+1;All-Grouped;73;a threaded tension rod
+1;All-Grouped;74;a spring
+1;All-Grouped;75;a common swivel axis
+1;All-Grouped;80;a semi-circular form with two side ends
+1;All-Grouped;80;the pressure roller at its side ends
+1;All-Grouped;81;a border
+1;All-Grouped;100;a sensor device
+1;All-Grouped;100;a sensor device is provided, which sensor device
+2;Indiv;0;the rod, it is known from ep
+2;Indiv;107;the rod, it is known from ep
+2;Indiv;798;[unknown feature]
+2;Indiv;1;the features of claim
+2;Indiv;15;the features of claim
+2;Indiv;1;a fabric take-up device
+2;Indiv;1;the take-up device
+2;Indiv;2;a take-up roller
+2;Indiv;3;a pressure roller
+2;Indiv;3;the pressure roller
+2;Indiv;4;a rod
+2;Indiv;4;the rod
+2;Indiv;11;support structures
+2;Indiv;11;the mounting and support structures
+2;Indiv;11;the two mounting and support structures
+2;Indiv;12;support structures
+2;Indiv;12;the mounting and support structures
+2;Indiv;12;the two mounting and support structures
+2;Indiv;1;the fabric take-up device
+2;Indiv;3;the pressure roller
+2;Indiv;300;an additional second pressure roller
+2;Indiv;300;the additional second pressure roller
+2;Indiv;2;the take-up roller
+2;Indiv;3;the pressure roller
+2;Indiv;4;the rod
+2;Indiv;5;a lever
+2;Indiv;5;the second end respectively, which levers
+2;Indiv;11;the mounting and support structures
+2;Indiv;12;the mounting and support structures
+2;Indiv;41;a first end
+2;Indiv;41;the first end
+2;Indiv;42;a second end
+2;Indiv;42;the second end
+2;Indiv;43;an elongated part
+2;Indiv;7;a holder
+2;Indiv;11;the mounting and support structures
+2;Indiv;12;the mounting and support structures
+2;Indiv;71;a stationary arm
+2;Indiv;71;the stationary arm
+2;Indiv;72;a swivel arm
+2;Indiv;1;the fabric take-up device
+2;Indiv;4;the rod
+2;Indiv;5;a lever
+2;Indiv;5;the lever
+2;Indiv;11;the mounting and support structure
+2;Indiv;41;the first end
+2;Indiv;2;the take-up roller
+2;Indiv;5;the lever
+2;Indiv;7;the holder
+2;Indiv;10;a drive gear
+2;Indiv;53;a first end
+2;Indiv;54;a second end
+2;Indiv;71;the stationary arm
+2;Indiv;72;the swivel arm
+2;Indiv;73;a threaded tension rod
+2;Indiv;75;a common swivel axis
+2;Indiv;4;the rod
+2;Indiv;6;a cut-out
+2;Indiv;40;a longitudinal direction
+2;Indiv;41;the first end
+2;Indiv;61;an axial abutment surface
+2;Indiv;61;the axial abutment surface
+2;Indiv;62;a top abutment surface
+2;Indiv;62;the top abutment surface
+2;Indiv;4;the rod
+2;Indiv;6;the cut-out
+2;Indiv;62;the top abutment surface
+2;Indiv;621;distinct abutment areas
+2;Indiv;622;distinct abutment areas
+2;Indiv;2;the take-up roller
+2;Indiv;4;the rod
+2;Indiv;5;the lever
+2;Indiv;40;the longitudinal direction
+2;Indiv;51;a bottom contact surface
+2;Indiv;51;the bottom contact surface
+2;Indiv;57;between two surfaces
+2;Indiv;57;the surfaces
+2;Indiv;58;between two surfaces
+2;Indiv;58;the surfaces
+2;Indiv;62;the top abutment surface
+2;Indiv;621;the two abutment areas
+2;Indiv;622;the two abutment areas
+2;Indiv;4;the rod
+2;Indiv;5;the lever
+2;Indiv;51;the bottom contact surface
+2;Indiv;52;a protrusion
+2;Indiv;52;the protrusion
+2;Indiv;62;the top abutment surface
+2;Indiv;4;the rod
+2;Indiv;6;the cut-out
+2;Indiv;40;the longitudinal direction
+2;Indiv;41;the first end
+2;Indiv;44;an end face
+2;Indiv;61;axial abutment surface
+2;Indiv;61;the cut-out which axial abutment surface
+2;Indiv;4;the rod
+2;Indiv;5;the lever
+2;Indiv;40;the longitudinal direction
+2;Indiv;55;a side contact surface
+2;Indiv;61;the axial abutment surface
+2;Indiv;3;the pressure roller
+2;Indiv;7;the holder
+2;Indiv;8;an outer bearing
+2;Indiv;8;the outer bearing
+2;Indiv;72;the swivel arm
+2;Indiv;80;a semi-circular form with two side ends
+2;Indiv;80;the two side ends
+2;Indiv;81;a border
+2;Indiv;3;the pressure roller
+2;Indiv;8;the outer bearing
+2;Indiv;80;its side ends
+2;Indiv;3;a pressure roller
+2;Indiv;3;the pressure roller
+2;Indiv;8;the outer bearing
+2;Indiv;80;its side ends
+2;Indiv;84;the substantially straight lines
+2;Indiv;2;the take-up roller
+2;Indiv;3;the pressure roller
+2;Indiv;71;the stationary arm
+2;Indiv;72;the swivel arm
+2;Indiv;74;a spring
+2;Indiv;2;the take-up roller
+2;Indiv;3;the pressure roller
+2;Indiv;4;the rod
+2;Indiv;9;two inner bearings
+2;Indiv;9;the rod which inner bearings
+2;Indiv;9;the inner bearings
+2;Indiv;41;the first end
+2;Indiv;42;the second end
+2;Indiv;43;the elongated part
+2;Indiv;91;using positioning pins
+2;Indiv;2;the take-up roller
+2;Indiv;3;the pressure roller
+2;Indiv;4;the rod
+2;Indiv;5;the lever
+2;Indiv;72;the swivel arm
+2;Indiv;3;the pressure roller
+2;Indiv;4;the rod
+2;Indiv;5;the lever
+2;Indiv;56;a lever reference surface
+2;Indiv;72;the swivel arm
+2;Indiv;100;a sensor device
+2;Indiv;100;which sensor device
+2;Indiv;100;the sensor device
+2;Indiv;720;a swivel arm reference surface
+2;Indiv;2;the take-up roller
+2;Indiv;3;the pressure roller
+2;Indiv;4;the rod
+2;Indiv;9;one inner bearing
+2;Indiv;41;the first end
+2;Indiv;42;the second end
+2;Indiv;4;the rod
+2;Indiv;6;a cut-out
+2;Indiv;41;the first end
+2;Indiv;4;the rod
+2;Indiv;6;the cut-out
+2;Indiv;60;axial abutment surfaces
+2;Indiv;61;axial abutment surfaces
+2;Indiv;4;the rod
+2;Indiv;62;the axial abutment surface
+2;Indiv;621;the rod and having distinct abutment areas
+2;Indiv;622;the rod and having distinct abutment areas
+2;Indiv;3;the pressure roller
+2;Indiv;7;the holder
+2;Indiv;8;the outer bearing
+2;Indiv;71;a stationary arm
+2;Indiv;72;a swivel arm
+2;Grouped;0;the rod, it is known from ep
+2;Grouped;1;the features of claim
+2;Grouped;1;a fabric take-up device
+2;Grouped;1;the take-up device
+2;Grouped;1;the fabric take-up device
+2;Grouped;2;a take-up roller
+2;Grouped;2;the take-up roller
+2;Grouped;3;a pressure roller
+2;Grouped;3;the pressure roller
+2;Grouped;4;a rod
+2;Grouped;4;the rod
+2;Grouped;5;a lever
+2;Grouped;5;the second end respectively, which levers
+2;Grouped;5;the lever
+2;Grouped;6;a cut-out
+2;Grouped;6;the cut-out
+2;Grouped;7;a holder
+2;Grouped;7;the holder
+2;Grouped;8;an outer bearing
+2;Grouped;8;the outer bearing
+2;Grouped;9;two inner bearings
+2;Grouped;9;the rod which inner bearings
+2;Grouped;9;the inner bearings
+2;Grouped;9;one inner bearing
+2;Grouped;10;a drive gear
+2;Grouped;11;support structures
+2;Grouped;11;the mounting and support structures
+2;Grouped;11;the two mounting and support structures
+2;Grouped;11;the mounting and support structure
+2;Grouped;12;support structures
+2;Grouped;12;the mounting and support structures
+2;Grouped;12;the two mounting and support structures
+2;Grouped;15;the features of claim
+2;Grouped;40;a longitudinal direction
+2;Grouped;40;the longitudinal direction
+2;Grouped;41;a first end
+2;Grouped;41;the first end
+2;Grouped;42;a second end
+2;Grouped;42;the second end
+2;Grouped;43;an elongated part
+2;Grouped;43;the elongated part
+2;Grouped;44;an end face
+2;Grouped;51;a bottom contact surface
+2;Grouped;51;the bottom contact surface
+2;Grouped;52;a protrusion
+2;Grouped;52;the protrusion
+2;Grouped;53;a first end
+2;Grouped;54;a second end
+2;Grouped;55;a side contact surface
+2;Grouped;56;a lever reference surface
+2;Grouped;57;between two surfaces
+2;Grouped;57;the surfaces
+2;Grouped;58;between two surfaces
+2;Grouped;58;the surfaces
+2;Grouped;60;axial abutment surfaces
+2;Grouped;61;an axial abutment surface
+2;Grouped;61;the axial abutment surface
+2;Grouped;61;axial abutment surface
+2;Grouped;61;the cut-out which axial abutment surface
+2;Grouped;61;axial abutment surfaces
+2;Grouped;62;a top abutment surface
+2;Grouped;62;the top abutment surface
+2;Grouped;62;the axial abutment surface
+2;Grouped;71;a stationary arm
+2;Grouped;71;the stationary arm
+2;Grouped;72;a swivel arm
+2;Grouped;72;the swivel arm
+2;Grouped;73;a threaded tension rod
+2;Grouped;74;a spring
+2;Grouped;75;a common swivel axis
+2;Grouped;80;a semi-circular form with two side ends
+2;Grouped;80;the two side ends
+2;Grouped;80;its side ends
+2;Grouped;81;a border
+2;Grouped;84;the substantially straight lines
+2;Grouped;91;using positioning pins
+2;Grouped;100;a sensor device
+2;Grouped;100;which sensor device
+2;Grouped;100;the sensor device
+2;Grouped;107;the rod, it is known from ep
+2;Grouped;300;an additional second pressure roller
+2;Grouped;300;the additional second pressure roller
+2;Grouped;621;distinct abutment areas
+2;Grouped;621;the two abutment areas
+2;Grouped;621;the rod and having distinct abutment areas
+2;Grouped;622;distinct abutment areas
+2;Grouped;622;the two abutment areas
+2;Grouped;622;the rod and having distinct abutment areas
+2;Grouped;720;a swivel arm reference surface
+2;Grouped;798;[unknown feature]
+3;all;0;the rod, it is known from ep
+3;all;1;the fabric take-up device
+3;all;1;a fabric take-up device
+3;all;1;the features of claim
+3;all;1;the take-up device
+3;all;2;a take-up roller
+3;all;2;the take-up roller
+3;all;2;the fabric take-up device according to claim
+3;all;3;a pressure roller
+3;all;3;the pressure roller
+3;all;3;the fabric take-up device according to claim
+3;all;4;a rod
+3;all;4;the rod
+3;all;5;a lever
+3;all;5;the lever
+3;all;5;the second end respectively, which levers
+3;all;6;a cut-out
+3;all;6;the cut-out
+3;all;7;a holder
+3;all;7;the holder
+3;all;8;an outer bearing
+3;all;8;the outer bearing
+3;all;9;an inner bearing
+3;all;9;two inner bearings
+3;all;9;the rod which inner bearings
+3;all;9;the inner bearings
+3;all;9;one inner bearing
+3;all;10;a drive gear
+3;all;11;support structures
+3;all;11;the mounting and support structures
+3;all;11;the two mounting and support structures
+3;all;11;the mounting and support structure
+3;all;12;support structures
+3;all;12;the mounting and support structures
+3;all;12;the two mounting and support structures
+3;all;15;the features of claim
+3;all;40;a longitudinal direction
+3;all;40;the longitudinal direction
+3;all;41;a first end
+3;all;41;the first end
+3;all;42;a second end
+3;all;42;the second end
+3;all;43;an elongated part
+3;all;43;the elongated part
+3;all;44;an end face
+3;all;51;a bottom contact surface
+3;all;51;the bottom contact surface
+3;all;52;a protrusion
+3;all;52;the protrusion
+3;all;53;a first end
+3;all;54;a second end
+3;all;55;a side contact surface
+3;all;56;a lever reference surface
+3;all;57;between two surfaces
+3;all;57;the surfaces
+3;all;58;between two surfaces
+3;all;58;the surfaces
+3;all;60;axial abutment surfaces
+3;all;61;an axial abutment surface
+3;all;61;the cut-out which axial abutment surface
+3;all;61;the axial abutment surface
+3;all;61;axial abutment surface
+3;all;61;axial abutment surfaces
+3;all;62;a top abutment surface
+3;all;62;the top abutment surface
+3;all;62;the axial abutment surface
+3;all;71;a stationary arm
+3;all;71;the stationary arm
+3;all;72;a swivel arm
+3;all;72;the swivel arm
+3;all;73;a threaded tension rod
+3;all;74;a spring
+3;all;75;a common swivel axis
+3;all;80;a semi-circular form with two side ends
+3;all;80;the pressure roller at its side ends
+3;all;80;the two side ends
+3;all;80;its side ends
+3;all;81;a border
+3;all;84;the substantially straight lines
+3;all;91;using positioning pins
+3;all;100;a sensor device
+3;all;100;a sensor device is provided, which sensor device
+3;all;100;which sensor device
+3;all;100;the sensor device
+3;all;107;the rod, it is known from ep
+3;all;300;an additional second pressure roller
+3;all;300;the additional second pressure roller
+3;all;621;distinct abutment areas
+3;all;621;the two abutment areas
+3;all;621;the rod and having distinct abutment areas
+3;all;622;distinct abutment areas
+3;all;622;the two abutment areas
+3;all;622;the rod and having distinct abutment areas
+3;all;720;a swivel arm reference surface
+3;all;798;[unknown feature]
+3;match;1;the fabric take-up device
+3;match;1;a fabric take-up device
+3;match;1;the features of claim
+3;match;1;the take-up device
+3;match;2;a take-up roller
+3;match;2;the take-up roller
+3;match;2;the fabric take-up device according to claim
+3;match;3;a pressure roller
+3;match;3;the pressure roller
+3;match;3;the fabric take-up device according to claim
+3;match;4;a rod
+3;match;4;the rod
+3;match;5;a lever
+3;match;5;the lever
+3;match;5;the second end respectively, which levers
+3;match;6;a cut-out
+3;match;6;the cut-out
+3;match;7;a holder
+3;match;7;the holder
+3;match;8;an outer bearing
+3;match;8;the outer bearing
+3;match;9;an inner bearing
+3;match;9;two inner bearings
+3;match;9;the rod which inner bearings
+3;match;9;the inner bearings
+3;match;9;one inner bearing
+3;match;40;a longitudinal direction
+3;match;40;the longitudinal direction
+3;match;41;a first end
+3;match;41;the first end
+3;match;42;a second end
+3;match;42;the second end
+3;match;43;an elongated part
+3;match;43;the elongated part
+3;match;44;an end face
+3;match;51;a bottom contact surface
+3;match;51;the bottom contact surface
+3;match;52;a protrusion
+3;match;52;the protrusion
+3;match;53;a first end
+3;match;54;a second end
+3;match;55;a side contact surface
+3;match;61;an axial abutment surface
+3;match;61;the cut-out which axial abutment surface
+3;match;61;the axial abutment surface
+3;match;61;axial abutment surface
+3;match;61;axial abutment surfaces
+3;match;62;a top abutment surface
+3;match;62;the top abutment surface
+3;match;62;the axial abutment surface
+3;match;71;a stationary arm
+3;match;71;the stationary arm
+3;match;72;a swivel arm
+3;match;72;the swivel arm
+3;match;73;a threaded tension rod
+3;match;74;a spring
+3;match;75;a common swivel axis
+3;match;80;a semi-circular form with two side ends
+3;match;80;the pressure roller at its side ends
+3;match;80;the two side ends
+3;match;80;its side ends
+3;match;81;a border
+3;match;100;a sensor device
+3;match;100;a sensor device is provided, which sensor device
+3;match;100;which sensor device
+3;match;100;the sensor device
+3;orphan;0;the rod, it is known from ep
+3;orphan;10;a drive gear
+3;orphan;11;support structures
+3;orphan;11;the mounting and support structures
+3;orphan;11;the two mounting and support structures
+3;orphan;11;the mounting and support structure
+3;orphan;12;support structures
+3;orphan;12;the mounting and support structures
+3;orphan;12;the two mounting and support structures
+3;orphan;15;the features of claim
+3;orphan;56;a lever reference surface
+3;orphan;57;between two surfaces
+3;orphan;57;the surfaces
+3;orphan;58;between two surfaces
+3;orphan;58;the surfaces
+3;orphan;60;axial abutment surfaces
+3;orphan;84;the substantially straight lines
+3;orphan;91;using positioning pins
+3;orphan;107;the rod, it is known from ep
+3;orphan;300;an additional second pressure roller
+3;orphan;300;the additional second pressure roller
+3;orphan;621;distinct abutment areas
+3;orphan;621;the two abutment areas
+3;orphan;621;the rod and having distinct abutment areas
+3;orphan;622;distinct abutment areas
+3;orphan;622;the two abutment areas
+3;orphan;622;the rod and having distinct abutment areas
+3;orphan;720;a swivel arm reference surface
+3;orphan;798;[unknown feature]

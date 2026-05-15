@@ -1,0 +1,699 @@
+Section;Mode;Ref;Feature
+1;Indep-Indiv;1;a cleaning system
+1;Indep-Indiv;10;a first transport device
+1;Indep-Indiv;10;the first transport device
+1;Indep-Indiv;12;a downstream end
+1;Indep-Indiv;20;a second transport device
+1;Indep-Indiv;20;the second transport device
+1;Indep-Indiv;22;an upstream end
+1;Indep-Indiv;22;the upstream end
+1;Indep-Indiv;30;a drop stage
+1;Indep-Indiv;40;a haulm roller
+1;Indep-Indiv;40;the haulm roller
+1;Indep-Indiv;1;a cleaning system
+1;Indep-Indiv;1;said cleaning system
+1;Indep-Indiv;1;a cleaning system
+1;Indep-Indiv;10;the first transport device
+1;Indep-Indiv;12;a downstream end
+1;Indep-Indiv;20;the second transport device
+1;Indep-Indiv;22;the upstream end
+1;Indep-Indiv;40;the movable haulm roller
+1;Indep-Indiv;40;the haulm roller
+1;Indep-Grouped;1;a cleaning system
+1;Indep-Grouped;1;said cleaning system
+1;Indep-Grouped;10;a first transport device
+1;Indep-Grouped;10;the first transport device
+1;Indep-Grouped;12;a downstream end
+1;Indep-Grouped;20;a second transport device
+1;Indep-Grouped;20;the second transport device
+1;Indep-Grouped;22;an upstream end
+1;Indep-Grouped;22;the upstream end
+1;Indep-Grouped;30;a drop stage
+1;Indep-Grouped;40;a haulm roller
+1;Indep-Grouped;40;the haulm roller
+1;Indep-Grouped;40;the movable haulm roller
+1;All-Indiv;1;a cleaning system
+1;All-Indiv;10;a first transport device
+1;All-Indiv;10;the first transport device
+1;All-Indiv;12;a downstream end
+1;All-Indiv;20;a second transport device
+1;All-Indiv;20;the second transport device
+1;All-Indiv;22;an upstream end
+1;All-Indiv;22;the upstream end
+1;All-Indiv;30;a drop stage
+1;All-Indiv;40;a haulm roller
+1;All-Indiv;40;the haulm roller
+1;All-Indiv;10;the first transport device
+1;All-Indiv;12;the downstream end
+1;All-Indiv;20;the second transport device
+1;All-Indiv;22;the upstream end
+1;All-Indiv;40;the haulm roller
+1;All-Indiv;42;a movement range
+1;All-Indiv;42;the movement range
+1;All-Indiv;44;a distance
+1;All-Indiv;1;the cleaning system
+1;All-Indiv;20;the second transport
+1;All-Indiv;22;the upstream end
+1;All-Indiv;40;the leaf roller
+1;All-Indiv;100;a movement mechanism
+1;All-Indiv;10;the first transport device
+1;All-Indiv;12;the downstream end
+1;All-Indiv;20;the second transport device
+1;All-Indiv;22;the upstream end
+1;All-Indiv;40;the haulm roller
+1;All-Indiv;100;the movement mechanism
+1;All-Indiv;120;a movable second frame
+1;All-Indiv;120;a portion of its movement range
+1;All-Indiv;150;a movable first frame
+1;All-Indiv;150;the first frame
+1;All-Indiv;20;the second transport device
+1;All-Indiv;22;the upstream end
+1;All-Indiv;40;the haulm roller
+1;All-Indiv;100;the movement mechanism
+1;All-Indiv;120;the movable second frame
+1;All-Indiv;120;the second frame
+1;All-Indiv;130;a linkage system
+1;All-Indiv;150;the movable first frame
+1;All-Indiv;150;the first frame
+1;All-Indiv;10;the first transport device
+1;All-Indiv;20;the second transport device
+1;All-Indiv;22;the upstream end
+1;All-Indiv;40;the haulm roller
+1;All-Indiv;1;the cleaning system
+1;All-Indiv;10;the first transport device
+1;All-Indiv;20;the second transport device
+1;All-Indiv;22;the upstream end
+1;All-Indiv;40;the haulm roller
+1;All-Indiv;200;an additional movement mechanism
+1;All-Indiv;20;the second transport device
+1;All-Indiv;40;the haulm roller
+1;All-Indiv;150;the first frame
+1;All-Indiv;200;the additional movement mechanism
+1;All-Indiv;202;a tilting mechanism
+1;All-Indiv;202;the tilting mechanism
+1;All-Indiv;204;the tilting point
+1;All-Indiv;10;the first transport device
+1;All-Indiv;20;the second transport device
+1;All-Indiv;1;a cleaning system
+1;All-Indiv;1;said cleaning system
+1;All-Indiv;1;a cleaning system
+1;All-Indiv;10;the first transport device
+1;All-Indiv;12;a downstream end
+1;All-Indiv;20;the second transport device
+1;All-Indiv;22;the upstream end
+1;All-Indiv;40;the movable haulm roller
+1;All-Indiv;40;the haulm roller
+1;All-Indiv;10;the first transport device
+1;All-Indiv;12;the downstream end
+1;All-Indiv;20;the second transport device
+1;All-Indiv;22;the upstream end
+1;All-Indiv;40;the haulm roller
+1;All-Indiv;42;a movement range
+1;All-Indiv;42;the movement range
+1;All-Indiv;44;a distance
+1;All-Indiv;10;the first transport device
+1;All-Indiv;20;the second transport device
+1;All-Indiv;22;the upstream end
+1;All-Indiv;40;the haulm roller
+1;All-Grouped;1;a cleaning system
+1;All-Grouped;1;the cleaning system
+1;All-Grouped;1;said cleaning system
+1;All-Grouped;10;a first transport device
+1;All-Grouped;10;the first transport device
+1;All-Grouped;12;a downstream end
+1;All-Grouped;12;the downstream end
+1;All-Grouped;20;a second transport device
+1;All-Grouped;20;the second transport device
+1;All-Grouped;20;the second transport
+1;All-Grouped;22;an upstream end
+1;All-Grouped;22;the upstream end
+1;All-Grouped;30;a drop stage
+1;All-Grouped;40;a haulm roller
+1;All-Grouped;40;the haulm roller
+1;All-Grouped;40;the leaf roller
+1;All-Grouped;40;the movable haulm roller
+1;All-Grouped;42;a movement range
+1;All-Grouped;42;the movement range
+1;All-Grouped;44;a distance
+1;All-Grouped;100;a movement mechanism
+1;All-Grouped;100;the movement mechanism
+1;All-Grouped;120;a movable second frame
+1;All-Grouped;120;a portion of its movement range
+1;All-Grouped;120;the movable second frame
+1;All-Grouped;120;the second frame
+1;All-Grouped;130;a linkage system
+1;All-Grouped;150;a movable first frame
+1;All-Grouped;150;the first frame
+1;All-Grouped;150;the movable first frame
+1;All-Grouped;200;an additional movement mechanism
+1;All-Grouped;200;the additional movement mechanism
+1;All-Grouped;202;a tilting mechanism
+1;All-Grouped;202;the tilting mechanism
+1;All-Grouped;204;the tilting point
+2;Indiv;1;a cleaning system
+2;Indiv;1;the cleaning system
+2;Indiv;1;the schematically represented cleaning system
+2;Indiv;1;the cleaning system
+2;Indiv;10;a first transport device
+2;Indiv;10;the first transport device
+2;Indiv;20;a second transport device
+2;Indiv;20;the second transport device
+2;Indiv;10;the first transport device
+2;Indiv;20;the second transport device
+2;Indiv;30;a drop stage
+2;Indiv;10;the first transport device
+2;Indiv;12;a downstream end
+2;Indiv;20;the second transport device
+2;Indiv;22;an upstream end
+2;Indiv;30;a drop stage
+2;Indiv;30;the drop stage
+2;Indiv;10;the first transport device
+2;Indiv;12;the higher downstream end
+2;Indiv;20;the second transport device
+2;Indiv;20;the lower second transport device
+2;Indiv;30;a drop stage
+2;Indiv;1;the cleaning system
+2;Indiv;10;the first transport device
+2;Indiv;12;the downstream end
+2;Indiv;30;the drop stage
+2;Indiv;40;a haulm roller
+2;Indiv;40;this haulm roller
+2;Indiv;40;the haulm roller
+2;Indiv;1;the cleaning system
+2;Indiv;10;the first transport device
+2;Indiv;12;the downstream end
+2;Indiv;13;the extreme point
+2;Indiv;14;the reversing roller
+2;Indiv;16;the central axis
+2;Indiv;30;the drop stage
+2;Indiv;40;the haulm roller
+2;Indiv;42;shown by arrow
+2;Indiv;42;an angular segment as also indicated by arrow
+2;Indiv;10;the first transport device
+2;Indiv;12;the downstream end
+2;Indiv;13;the extreme point
+2;Indiv;40;the haulm roller
+2;Indiv;10;the first transport device
+2;Indiv;12;the downstream end
+2;Indiv;13;the extreme point
+2;Indiv;40;the haulm roller
+2;Indiv;10;the first transport device
+2;Indiv;12;the downstream end
+2;Indiv;40;the movable haulm roller
+2;Indiv;40;the haulm roller
+2;Indiv;42;the movement range
+2;Indiv;10;the first transport device
+2;Indiv;12;the downstream end
+2;Indiv;20;the second transport device
+2;Indiv;22;the upstream end
+2;Indiv;24;the reversing roller
+2;Indiv;26;the central axis
+2;Indiv;28;indicated by arrow
+2;Indiv;28;the exemplary embodiment shown, arrow
+2;Indiv;30;the drop stage
+2;Indiv;40;the haulm roller
+2;Indiv;42;the movement range
+2;Indiv;42;the haulm roller
+2;Indiv;42;the distance
+2;Indiv;44;the distance
+2;Indiv;10;the first transport device
+2;Indiv;12;the upstream end
+2;Indiv;20;the second transport device
+2;Indiv;22;the upstream end
+2;Indiv;22;the movably arranged upstream end
+2;Indiv;40;the haulm roller
+2;Indiv;40;the movable haulm roller
+2;Indiv;44;the distance
+2;Indiv;1;the cleaning system
+2;Indiv;20;the second transport device
+2;Indiv;22;the upstream end
+2;Indiv;40;the haulm roller
+2;Indiv;100;a movement mechanism
+2;Indiv;100;this movement mechanism
+2;Indiv;100;the movement mechanism
+2;Indiv;120;a movable second frame
+2;Indiv;130;a linkage system
+2;Indiv;130;this linkage system
+2;Indiv;150;a movable first frame
+2;Indiv;1;the cleaning system
+2;Indiv;2;the frame
+2;Indiv;20;the second transport device
+2;Indiv;22;the upstream end
+2;Indiv;24;the reversing roller
+2;Indiv;24;this reversing roller
+2;Indiv;40;the haulm roller
+2;Indiv;120;the frame
+2;Indiv;130;the linkage system
+2;Indiv;130;a linkage system
+2;Indiv;130;a similar linkage system
+2;Indiv;132;a first rod
+2;Indiv;132;this first rod
+2;Indiv;132;the first rod
+2;Indiv;133;a rotation axis
+2;Indiv;134;a second rod
+2;Indiv;136;a third rod
+2;Indiv;136;the exemplary embodiment shown, this third rod
+2;Indiv;150;the first frame
+2;Indiv;170;an appropriate actuator
+2;Indiv;170;an actuator
+2;Indiv;170;a similar manner on either side by means of only one actuator
+2;Indiv;170;the actuator
+2;Indiv;172;a coupling system
+2;Indiv;172;the coupling system
+2;Indiv;172;a drive shaft
+2;Indiv;172;a similar coupling system
+2;Indiv;174;a coupling system
+2;Indiv;174;the coupling system
+2;Indiv;174;an eccentric rod
+2;Indiv;174;a similar coupling system
+2;Indiv;176;a coupling system
+2;Indiv;176;the coupling system
+2;Indiv;176;a drive rod
+2;Indiv;176;a similar coupling system
+2;Indiv;1;the cleaning system
+2;Indiv;2;the frame
+2;Indiv;12;the upstream end
+2;Indiv;20;the second transport device
+2;Indiv;20;the sieving web, or any other appropriate transport device
+2;Indiv;20;the transport device
+2;Indiv;22;the upstream end
+2;Indiv;130;the linkage system
+2;Indiv;136;the third rod
+2;Indiv;138;a fourth rod
+2;Indiv;138;the fourth rod
+2;Indiv;138;this fourth rod
+2;Indiv;140;an appropriate spring system
+2;Indiv;140;a mechanical tension spring
+2;Indiv;140;the spring system
+2;Indiv;142;a linkage system
+2;Indiv;142;the tension spring
+2;Indiv;143;a tilting point
+2;Indiv;143;the tilting rod
+2;Indiv;144;a linkage system
+2;Indiv;144;a tilting rod
+2;Indiv;146;a linkage system
+2;Indiv;146;a coupling rod
+2;Indiv;160;a tension roller
+2;Indiv;160;the tension roller
+2;Indiv;12;the upstream end
+2;Indiv;20;the second transport device
+2;Indiv;40;the haulm roller
+2;Indiv;100;a movement mechanism
+2;Indiv;120;the second frame
+2;Indiv;150;the first frame
+2;Indiv;1;the cleaning system
+2;Indiv;20;the second transport device
+2;Indiv;22;the upstream end
+2;Indiv;40;the haulm roller
+2;Indiv;100;appropriate movement mechanism
+2;Indiv;1;the cleaning system
+2;Indiv;2;the frame
+2;Indiv;10;the first transport device
+2;Indiv;12;the downstream end
+2;Indiv;14;the reversing roller
+2;Indiv;20;the second transport device
+2;Indiv;22;the upstream end
+2;Indiv;40;the haulm roller
+2;Indiv;100;the movement mechanism
+2;Indiv;120;the movable second frame
+2;Indiv;120;the second frame
+2;Indiv;136;a rod
+2;Indiv;150;the movable first frame
+2;Indiv;150;a frame
+2;Indiv;150;the first frame
+2;Indiv;1;the cleaning system
+2;Indiv;10;the first transport device
+2;Indiv;10;the first transport
+2;Indiv;20;the second transport device
+2;Indiv;22;the upstream end
+2;Indiv;40;the haulm roller
+2;Indiv;42;the movement range
+2;Indiv;10;the first transport device
+2;Indiv;20;the second transport device
+2;Indiv;40;the haulm roller
+2;Indiv;150;the first frame
+2;Indiv;200;an additional movement mechanism
+2;Indiv;200;the additional movement mechanism
+2;Indiv;202;a tilting mechanism
+2;Indiv;202;the tilting mechanism
+2;Indiv;204;the tilting point
+2;Indiv;206;a spring
+2;Indiv;206;a mechanical tension spring
+2;Indiv;206;the spring
+2;Indiv;10;the first transport device
+2;Indiv;10;the first transport direction
+2;Indiv;20;the second transport device
+2;Indiv;22;the upstream end
+2;Indiv;40;the haulm roller
+2;Indiv;200;an additional movement mechanism
+2;Indiv;1;the cleaning system
+2;Indiv;1;one cleaning system
+2;Indiv;1;the above-mentioned cleaning system
+2;Indiv;10;the first transport device
+2;Indiv;12;a downstream end
+2;Indiv;12;the downstream end
+2;Indiv;20;the second transport device
+2;Indiv;22;the upstream end
+2;Indiv;40;the movable haulm roller
+2;Indiv;40;the haulm roller
+2;Indiv;42;a movement range
+2;Indiv;42;the movement range
+2;Indiv;44;the distance
+2;Indiv;10;the first transport device
+2;Indiv;20;the second transport device
+2;Indiv;22;the upstream end
+2;Indiv;40;the haulm roller
+2;Grouped;1;a cleaning system
+2;Grouped;1;the cleaning system
+2;Grouped;1;the schematically represented cleaning system
+2;Grouped;1;one cleaning system
+2;Grouped;1;the above-mentioned cleaning system
+2;Grouped;2;the frame
+2;Grouped;10;a first transport device
+2;Grouped;10;the first transport device
+2;Grouped;10;the first transport
+2;Grouped;10;the first transport direction
+2;Grouped;12;a downstream end
+2;Grouped;12;the higher downstream end
+2;Grouped;12;the downstream end
+2;Grouped;12;the upstream end
+2;Grouped;13;the extreme point
+2;Grouped;14;the reversing roller
+2;Grouped;16;the central axis
+2;Grouped;20;a second transport device
+2;Grouped;20;the second transport device
+2;Grouped;20;the lower second transport device
+2;Grouped;20;the sieving web, or any other appropriate transport device
+2;Grouped;20;the transport device
+2;Grouped;22;an upstream end
+2;Grouped;22;the upstream end
+2;Grouped;22;the movably arranged upstream end
+2;Grouped;24;the reversing roller
+2;Grouped;24;this reversing roller
+2;Grouped;26;the central axis
+2;Grouped;28;indicated by arrow
+2;Grouped;28;the exemplary embodiment shown, arrow
+2;Grouped;30;a drop stage
+2;Grouped;30;the drop stage
+2;Grouped;40;a haulm roller
+2;Grouped;40;this haulm roller
+2;Grouped;40;the haulm roller
+2;Grouped;40;the movable haulm roller
+2;Grouped;42;shown by arrow
+2;Grouped;42;an angular segment as also indicated by arrow
+2;Grouped;42;the movement range
+2;Grouped;42;the haulm roller
+2;Grouped;42;the distance
+2;Grouped;42;a movement range
+2;Grouped;44;the distance
+2;Grouped;100;a movement mechanism
+2;Grouped;100;this movement mechanism
+2;Grouped;100;the movement mechanism
+2;Grouped;100;appropriate movement mechanism
+2;Grouped;120;a movable second frame
+2;Grouped;120;the frame
+2;Grouped;120;the second frame
+2;Grouped;120;the movable second frame
+2;Grouped;130;a linkage system
+2;Grouped;130;this linkage system
+2;Grouped;130;the linkage system
+2;Grouped;130;a similar linkage system
+2;Grouped;132;a first rod
+2;Grouped;132;this first rod
+2;Grouped;132;the first rod
+2;Grouped;133;a rotation axis
+2;Grouped;134;a second rod
+2;Grouped;136;a third rod
+2;Grouped;136;the exemplary embodiment shown, this third rod
+2;Grouped;136;the third rod
+2;Grouped;136;a rod
+2;Grouped;138;a fourth rod
+2;Grouped;138;the fourth rod
+2;Grouped;138;this fourth rod
+2;Grouped;140;an appropriate spring system
+2;Grouped;140;a mechanical tension spring
+2;Grouped;140;the spring system
+2;Grouped;142;a linkage system
+2;Grouped;142;the tension spring
+2;Grouped;143;a tilting point
+2;Grouped;143;the tilting rod
+2;Grouped;144;a linkage system
+2;Grouped;144;a tilting rod
+2;Grouped;146;a linkage system
+2;Grouped;146;a coupling rod
+2;Grouped;150;a movable first frame
+2;Grouped;150;the first frame
+2;Grouped;150;the movable first frame
+2;Grouped;150;a frame
+2;Grouped;160;a tension roller
+2;Grouped;160;the tension roller
+2;Grouped;170;an appropriate actuator
+2;Grouped;170;an actuator
+2;Grouped;170;a similar manner on either side by means of only one actuator
+2;Grouped;170;the actuator
+2;Grouped;172;a coupling system
+2;Grouped;172;the coupling system
+2;Grouped;172;a drive shaft
+2;Grouped;172;a similar coupling system
+2;Grouped;174;a coupling system
+2;Grouped;174;the coupling system
+2;Grouped;174;an eccentric rod
+2;Grouped;174;a similar coupling system
+2;Grouped;176;a coupling system
+2;Grouped;176;the coupling system
+2;Grouped;176;a drive rod
+2;Grouped;176;a similar coupling system
+2;Grouped;200;an additional movement mechanism
+2;Grouped;200;the additional movement mechanism
+2;Grouped;202;a tilting mechanism
+2;Grouped;202;the tilting mechanism
+2;Grouped;204;the tilting point
+2;Grouped;206;a spring
+2;Grouped;206;a mechanical tension spring
+2;Grouped;206;the spring
+3;all;1;a cleaning system
+3;all;1;the cleaning system
+3;all;1;said cleaning system
+3;all;1;the schematically represented cleaning system
+3;all;1;one cleaning system
+3;all;1;the above-mentioned cleaning system
+3;all;2;the frame
+3;all;10;a first transport device
+3;all;10;the first transport device
+3;all;10;the first transport
+3;all;10;the first transport direction
+3;all;12;a downstream end
+3;all;12;the downstream end
+3;all;12;the higher downstream end
+3;all;12;the upstream end
+3;all;13;the extreme point
+3;all;14;the reversing roller
+3;all;16;the central axis
+3;all;20;a second transport device
+3;all;20;the second transport device
+3;all;20;the second transport
+3;all;20;the lower second transport device
+3;all;20;the sieving web, or any other appropriate transport device
+3;all;20;the transport device
+3;all;22;an upstream end
+3;all;22;the upstream end
+3;all;22;the movably arranged upstream end
+3;all;24;the reversing roller
+3;all;24;this reversing roller
+3;all;26;the central axis
+3;all;28;indicated by arrow
+3;all;28;the exemplary embodiment shown, arrow
+3;all;30;a drop stage
+3;all;30;the drop stage
+3;all;40;a haulm roller
+3;all;40;the haulm roller
+3;all;40;the leaf roller
+3;all;40;the movable haulm roller
+3;all;40;this haulm roller
+3;all;42;a movement range
+3;all;42;the movement range
+3;all;42;shown by arrow
+3;all;42;an angular segment as also indicated by arrow
+3;all;42;the haulm roller
+3;all;42;the distance
+3;all;44;a distance
+3;all;44;the distance
+3;all;100;a movement mechanism
+3;all;100;the movement mechanism
+3;all;100;this movement mechanism
+3;all;100;appropriate movement mechanism
+3;all;120;a movable second frame
+3;all;120;a portion of its movement range
+3;all;120;the movable second frame
+3;all;120;the second frame
+3;all;120;the frame
+3;all;130;a linkage system
+3;all;130;this linkage system
+3;all;130;the linkage system
+3;all;130;a similar linkage system
+3;all;132;a first rod
+3;all;132;this first rod
+3;all;132;the first rod
+3;all;133;a rotation axis
+3;all;134;a second rod
+3;all;136;a third rod
+3;all;136;the exemplary embodiment shown, this third rod
+3;all;136;the third rod
+3;all;136;a rod
+3;all;138;a fourth rod
+3;all;138;the fourth rod
+3;all;138;this fourth rod
+3;all;140;an appropriate spring system
+3;all;140;a mechanical tension spring
+3;all;140;the spring system
+3;all;142;a linkage system
+3;all;142;the tension spring
+3;all;143;a tilting point
+3;all;143;the tilting rod
+3;all;144;a linkage system
+3;all;144;a tilting rod
+3;all;146;a linkage system
+3;all;146;a coupling rod
+3;all;150;a movable first frame
+3;all;150;the first frame
+3;all;150;the movable first frame
+3;all;150;a frame
+3;all;160;a tension roller
+3;all;160;the tension roller
+3;all;170;an appropriate actuator
+3;all;170;an actuator
+3;all;170;a similar manner on either side by means of only one actuator
+3;all;170;the actuator
+3;all;172;a coupling system
+3;all;172;the coupling system
+3;all;172;a drive shaft
+3;all;172;a similar coupling system
+3;all;174;a coupling system
+3;all;174;the coupling system
+3;all;174;an eccentric rod
+3;all;174;a similar coupling system
+3;all;176;a coupling system
+3;all;176;the coupling system
+3;all;176;a drive rod
+3;all;176;a similar coupling system
+3;all;200;an additional movement mechanism
+3;all;200;the additional movement mechanism
+3;all;202;a tilting mechanism
+3;all;202;the tilting mechanism
+3;all;204;the tilting point
+3;all;206;a spring
+3;all;206;a mechanical tension spring
+3;all;206;the spring
+3;match;1;a cleaning system
+3;match;1;the cleaning system
+3;match;1;said cleaning system
+3;match;1;the schematically represented cleaning system
+3;match;1;one cleaning system
+3;match;1;the above-mentioned cleaning system
+3;match;10;a first transport device
+3;match;10;the first transport device
+3;match;10;the first transport
+3;match;10;the first transport direction
+3;match;12;a downstream end
+3;match;12;the downstream end
+3;match;12;the higher downstream end
+3;match;12;the upstream end
+3;match;20;a second transport device
+3;match;20;the second transport device
+3;match;20;the second transport
+3;match;20;the lower second transport device
+3;match;20;the sieving web, or any other appropriate transport device
+3;match;20;the transport device
+3;match;22;an upstream end
+3;match;22;the upstream end
+3;match;22;the movably arranged upstream end
+3;match;30;a drop stage
+3;match;30;the drop stage
+3;match;40;a haulm roller
+3;match;40;the haulm roller
+3;match;40;the leaf roller
+3;match;40;the movable haulm roller
+3;match;40;this haulm roller
+3;match;42;a movement range
+3;match;42;the movement range
+3;match;42;shown by arrow
+3;match;42;an angular segment as also indicated by arrow
+3;match;42;the haulm roller
+3;match;42;the distance
+3;match;44;a distance
+3;match;44;the distance
+3;match;100;a movement mechanism
+3;match;100;the movement mechanism
+3;match;100;this movement mechanism
+3;match;100;appropriate movement mechanism
+3;match;120;a movable second frame
+3;match;120;a portion of its movement range
+3;match;120;the movable second frame
+3;match;120;the second frame
+3;match;120;the frame
+3;match;130;a linkage system
+3;match;130;this linkage system
+3;match;130;the linkage system
+3;match;130;a similar linkage system
+3;match;150;a movable first frame
+3;match;150;the first frame
+3;match;150;the movable first frame
+3;match;150;a frame
+3;match;200;an additional movement mechanism
+3;match;200;the additional movement mechanism
+3;match;202;a tilting mechanism
+3;match;202;the tilting mechanism
+3;match;204;the tilting point
+3;orphan;2;the frame
+3;orphan;13;the extreme point
+3;orphan;14;the reversing roller
+3;orphan;16;the central axis
+3;orphan;24;the reversing roller
+3;orphan;24;this reversing roller
+3;orphan;26;the central axis
+3;orphan;28;indicated by arrow
+3;orphan;28;the exemplary embodiment shown, arrow
+3;orphan;132;a first rod
+3;orphan;132;this first rod
+3;orphan;132;the first rod
+3;orphan;133;a rotation axis
+3;orphan;134;a second rod
+3;orphan;136;a third rod
+3;orphan;136;the exemplary embodiment shown, this third rod
+3;orphan;136;the third rod
+3;orphan;136;a rod
+3;orphan;138;a fourth rod
+3;orphan;138;the fourth rod
+3;orphan;138;this fourth rod
+3;orphan;140;an appropriate spring system
+3;orphan;140;a mechanical tension spring
+3;orphan;140;the spring system
+3;orphan;142;a linkage system
+3;orphan;142;the tension spring
+3;orphan;143;a tilting point
+3;orphan;143;the tilting rod
+3;orphan;144;a linkage system
+3;orphan;144;a tilting rod
+3;orphan;146;a linkage system
+3;orphan;146;a coupling rod
+3;orphan;160;a tension roller
+3;orphan;160;the tension roller
+3;orphan;170;an appropriate actuator
+3;orphan;170;an actuator
+3;orphan;170;a similar manner on either side by means of only one actuator
+3;orphan;170;the actuator
+3;orphan;172;a coupling system
+3;orphan;172;the coupling system
+3;orphan;172;a drive shaft
+3;orphan;172;a similar coupling system
+3;orphan;174;a coupling system
+3;orphan;174;the coupling system
+3;orphan;174;an eccentric rod
+3;orphan;174;a similar coupling system
+3;orphan;176;a coupling system
+3;orphan;176;the coupling system
+3;orphan;176;a drive rod
+3;orphan;176;a similar coupling system
+3;orphan;206;a spring
+3;orphan;206;a mechanical tension spring
+3;orphan;206;the spring
